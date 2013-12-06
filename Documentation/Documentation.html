@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BuildCop</title>
+    <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <!-- INTRODUCTION -->
+    <h1>Introduction</h1>
+    <p>BuildCop is a tool that analyzes MSBuild project files (interactively or during e.g.
+        a daily build) according to a customizable set of rules and generates reports -
+        e.g. is strong naming enabled, are certain project properties set correctly, is
+        XML documentation being generated, are assembly references correct, are naming conventions
+        respected, ...</p>
+    <h1>Getting Started</h1>
+    <p>BuildCop consists of a command-line tool and an XML configuration file. When the
+        application is run, it will read the configuration file to figure out which files
+        to analyze, which rules to run, and which reports to generate.</p>
+    <p>Basic usage looks as follows:</p>
+    <ol>
+        <li><b>Define the configuration file:</b> this XML file determines the actions that
+            BuildCop takes; see below for the details of the configuration file.</li>
+        <li><b>Run the tool:</b> this can be done interactively on the command-line or in an
+            automated way, e.g. during a daily build.</li>
+        <li><b>Open the report(s):</b> the generated reports contain the results of the analysis
+            and allow you to take appropriate actions to correct issues in MSBuild files; various
+            reporting options (to the console, or to a XML, HTML or CSV file) are provided out
+            of the box.</li>
+        <li><b>Create additional rules and/or formatters:</b> BuildCop is created with extensibility
+            in mind, so if you would like to extend BuildCop to run additional rules or provide
+            additional reporting formats, it's quite easy to provide custom rules and formatters.</li>
+    </ol>
+    <p>In the future, an additional GUI application could be foreseen to run the rules interactively
+        in a rich Windows application, and to edit configuration files, but those are currently
+        not implemented yet. Of course, feel free to contact me if you want to contribute
+        to the project!</p>
+    <h1>What's New?</h1>
+    <h2>v1.0 (February 5, 2008)</h2>
+    <ul>
+        <li>Initial release</li>
+    </ul>
+    <h1>License</h1>
+    <p>&copy; 2008, <a href="http://jelle.druyts.net" target="_blank">Jelle Druyts</a></p>
+    <pre style="font-size: xx-small;">Microsoft Public License (Ms-PL)
+
+This license governs use of the accompanying software. If you use the software, you accept this
+license. If you do not accept the license, do not use the software.
+
+1. Definitions
+The terms "reproduce," "reproduction," "derivative works," and "distribution" have the same meaning
+here as under U.S. copyright law.
+A "contribution" is the original software, or any additions or changes to the software.
+A "contributor" is any person that distributes its contribution under this license.
+"Licensed patents" are a contributor's patent claims that read directly on its contribution.
+
+2. Grant of Rights
+(A) Copyright Grant- Subject to the terms of this license, including the license conditions and
+limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free
+copyright license to reproduce its contribution, prepare derivative works of its contribution, and
+distribute its contribution or any derivative works that you create.
+(B) Patent Grant- Subject to the terms of this license, including the license conditions and
+limitations in section 3, each contributor grants you a non-exclusive, worldwide, royalty-free
+license under its licensed patents to make, have made, use, sell, offer for sale, import, and/or
+otherwise dispose of its contribution in the software or derivative works of the contribution in
+the software.
+
+3. Conditions and Limitations
+(A) No Trademark License- This license does not grant you rights to use any contributors' name,
+logo, or trademarks.
+(B) If you bring a patent claim against any contributor over patents that you claim are infringed
+by the software, your patent license from such contributor to the software ends automatically.
+(C) If you distribute any portion of the software, you must retain all copyright, patent,
+trademark, and attribution notices that are present in the software.
+(D) If you distribute any portion of the software in source code form, you may do so only under
+this license by including a complete copy of this license with your distribution. If you distribute
+any portion of the software in compiled or object code form, you may only do so under a license
+that complies with this license.
+(E) The software is licensed "as-is." You bear the risk of using it. The contributors give no
+express warranties, guarantees or conditions. You may have additional consumer rights under your
+local laws which this license cannot change. To the extent permitted under your local laws, the
+contributors exclude the implied warranties of merchantability, fitness for a particular purpose
+and non-infringement.</pre>
+</body>
+</html>
+<!-- @DefaultTopic -->
+<!-- @SortOrder 1 -->

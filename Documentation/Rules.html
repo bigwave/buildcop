@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BuildCop - Built-In Rules</title>
+    <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1><a name="Rules">Built-In Rules</a></h1>
+    <h2><a name="RulesAssemblyReferences">Assembly References</a></h2>
+    <h3>Definition</h3>
+    <p>Verifies that assembly references are correct. This rule can be used to make sure
+        all projects use consistent assembly references (e.g. to correct versions of common
+        components).</p>
+    <pre>&lt;rule name="AssemblyReferenceRule" type="JelleDruyts.BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule"&gt;
+  &lt;assemblyLocations&gt;
+    &lt;assemblyLocation assemblyName="[...]"
+                      assemblyPath="[...]" /&gt;
+  &lt;/assemblyLocations&gt;
+&lt;/rule&gt;</pre>
+    <ul>
+        <li><code>assemblyLocations</code>: contains 0 or more <code>assemblyLocation</code>
+            nodes.</li>
+        <li><code>assemblyLocation</code>: defines an expected assembly location.
+            <ul>
+                <li><code>assemblyName</code>: the fully qualified assembly name to verify (or at least
+                    the start of it).</li>
+                <li><code>assemblyPath</code>: the expected location of the assembly (or at least the
+                    start of it).</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example verifies that any assembly whose fully qualified name starts
+        with "EnvDTE, Version=8.0.0.0" is referenced from a path that starts with "R:\References\VisualStudio\8.0"
+        (in other words, that "EnvDTE.dll" is referenced from somewhere under "R:\References\VisualStudio\8.0"):</p>
+    <pre>&lt;rule name="AssemblyReferenceRule" type="JelleDruyts.BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule"&gt;
+  &lt;assemblyLocations&gt;
+    &lt;assemblyLocation assemblyName="EnvDTE, Version=8.0.0.0" assemblyPath="R:\References\VisualStudio\8.0" /&gt;
+  &lt;/assemblyLocations&gt;
+&lt;/rule&gt;
+</pre>
+    <h2><a name="RulesBuildProperties">Build Properties</a></h2>
+    <h3>Definition</h3>
+    <p>Verifies that build properties in a project file are correct. This rule can be used
+        to generically check all MSBuild properties, including (but not limited to) the
+        build properties that are defined inside the project's properties in Visual Studio.</p>
+    <pre>&lt;rule name="BuildPropertiesRule" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
+  &lt;buildProperties&gt;
+    &lt;buildProperty name="[...]"
+                   <i>value="[...]"</i>
+                   <i>condition="[...]"</i>
+                   <i>compareOption="[EqualTo|NotEqualTo|Exists|DoesNotExist|In|NotIn]"</i>
+                   <i>stringCompareOption="[CurrentCulture|CurrentCultureIgnoreCase|InvariantCulture|InvariantCultureIgnoreCase|Ordinal|OrdinalIgnoreCase]"</i> /&gt;
+  &lt;/buildProperties&gt;
+&lt;/rule&gt;</pre>
+    <ul>
+        <li><code>buildProperties</code>: contains 0 or more <code>buildProperty</code> nodes.</li>
+        <li><code>buildProperty</code>: defines an expected build property.
+            <ul>
+                <li><code>name</code>: the name of the build property.</li>
+                <li><code>value</code> (optional): the expected value of the build property.</li>
+                <li><code>condition</code> (optional): the condition (or a part of it) that should be
+                    present in the build property's condition; typically used to differentiate between
+                    "Debug" and "Release" solution configurations, which are represented as MSBuild
+                    conditions.</li>
+                <li><code>compareOption</code> (optional): the comparison option to use when checking
+                    build property values.
+                    <ul>
+                        <li><code>EqualTo</code>: the build property's value must be exactly equal to the given
+                            value.</li>
+                        <li><code>NotEqualTo</code>: the build property's value may not be exactly equal to
+                            the given value.</li>
+                        <li><code>Exists</code>: the build property must exist (and can have any value).</li>
+                        <li><code>DoesNotExist</code>: the build property may not exist.</li>
+                        <li><code>In</code>: the build property's value must appear anywhere in the given value.</li>
+                        <li><code>NotIn</code>: the build property's value may not appear anywhere in the given
+                            value.</li>
+                    </ul>
+                    The default value is "EqualTo".</li>
+                <li><code>stringCompareOption</code> (optional): the comparison option to use when comparing
+                    strings; typically used to make the comparison case insensitive.<br />
+                    The default value is "Ordinal".</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example verifies that warnings are always treated as errors, that the
+        output path is correctly set for both the Debug as the Release solution configuration
+        (i.e. condition), and that the DocumentationFile property exists:</p>
+    <pre>&lt;rule name="Build Properties" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
+  &lt;buildProperties&gt;
+    &lt;buildProperty name="TreatWarningsAsErrors" value="true" /&gt;
+    &lt;buildProperty name="OutputPath" value="bin\Debug\" condition="Debug" stringCompareOption="OrdinalIgnoreCase" /&gt;
+    &lt;buildProperty name="OutputPath" value="bin\Release\" condition="Release" stringCompareOption="OrdinalIgnoreCase" /&gt;
+    &lt;buildProperty name="DocumentationFile" compareOption="Exists" /&gt;
+  &lt;/buildProperties&gt;
+&lt;/rule&gt;</pre>
+    <h2><a name="RulesDocumentationFile">Documentation File</a></h2>
+    <h3>Definition</h3>
+    <p>Verifies that an XML documentation file is generated as part of the build, with the
+        correct name (i.e. the name of the assembly with the .xml file extension).</p>
+    <p>This rule has no rule-specific configuration.</p>
+    <h3>Example</h3>
+    <p>The following example verifies that an XML documentation file is generated as part
+        of the build.</p>
+    <pre>&lt;rule name="DocumentationFileRule" type="JelleDruyts.BuildCop.Rules.DocumentationFile.DocumentationFileRule" /&gt;</pre>
+    <h2><a name="RulesNamingConventions">Naming Conventions</a></h2>
+    <h3>Definition</h3>
+    <p>Verifies that certain naming conventions are respected.</p>
+    <pre>&lt;rule name="NamingConventionsRule" type="JelleDruyts.BuildCop.Rules.NamingConventions.NamingConventionsRule"&gt;
+  &lt;prefixes <i>namespacePrefix="[...]"</i>
+            <i>assemblyNamePrefix="[...]"</i>
+            <i>assemblyNameShouldMatchRootNamespace="[true|false]"</i> /&gt;
+&lt;/rule&gt;</pre>
+    <ul>
+        <li><code>prefixes</code>: defines naming conventions for certain prefixes.
+            <ul>
+                <li><code>namespacePrefix</code> (optional): the expected root namespace of the project
+                    (or at least the start of it).</li>
+                <li><code>assemblyNamePrefix</code> (optional): the expected assembly name of the project
+                    (or at least the start of it).</li>
+                <li><code>assemblyNameShouldMatchRootNamespace</code> (optional): a value of "true"
+                    or "false" that determines if the assembly name must be the same as the root namespace.</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example verifies that the root namespace and assembly name start with
+        "JelleDruyts" and are exactly the same.</p>
+    <pre>&lt;rule name="Naming Conventions" type="JelleDruyts.BuildCop.Rules.NamingConventions.NamingConventionsRule"&gt;
+  &lt;prefixes namespacePrefix="JelleDruyts"
+            assemblyNamePrefix="JelleDruyts" 
+            assemblyNameShouldMatchRootNamespace="true" /&gt;
+&lt;/rule&gt;</pre>
+    <h2><a name="RulesOrphanedProjects">Orphaned Projects</a></h2>
+    <h3>Definition</h3>
+    <p>Verifies that the MSBuild project files being analyzed are part of at least one Visual
+        Studio solution (.sln) file.</p>
+    <pre>&lt;rule name="OrphanedProjects" type="JelleDruyts.BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule"&gt;
+  &lt;solutions searchPath="[...]" /&gt;
+&lt;/rule&gt;</pre>
+    <ul>
+        <li><code>solutions</code>: defines where to look for Visual Studio solution (.sln)
+            files.
+            <ul>
+                <li><code>searchPath</code>: the root path in which to recursively look for solution
+                    files.</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example verifies that all MSBuild project files are part of solution
+        files somewhere in the "D:\Projects\Source" path.</p>
+    <pre>&lt;rule name="OrphanedProjects" type="JelleDruyts.BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule"&gt;
+  &lt;solutions searchPath="D:\Projects\Source" /&gt;
+&lt;/rule&gt;</pre>
+    <h2><a name="RulesStrongNaming">Strong Naming</a></h2>
+    <h3>Definition</h3>
+    <p>Verifies the strong naming (key signing) settings of a project file.</p>
+    <pre>&lt;rule name="StrongNamingRule" type="JelleDruyts.BuildCop.Rules.StrongNaming.StrongNamingRule"&gt;
+  &lt;strongNaming strongNameRequired="[true|false]"
+                <i>keyPath="[...]"</i>
+                <i>ignoreUnsignedProjects="[true|false]"</i> /&gt;
+&lt;/rule&gt;</pre>
+    <ul>
+        <li><code>strongNaming</code>: defines the expected settings for strong naming assemblies.
+            <ul>
+                <li><code>strongNameRequired</code>: a value of "true" or "false" that determines if
+                    strong naming should be enabled.</li>
+                <li><code>keyPath</code> (optional): if a strong name is required, determines the path
+                    to the key file that should be used to sign the assembly.</li>
+                <li><code>ignoreUnsignedProjects</code> (optional): a value of "true" or "false" that
+                    determines if projects that don't have strong naming enabled should be ignored;
+                    this can be used to check only that the key being used is valid for projects that
+                    do have strong naming enabled.</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example verifies that all project files have strong naming enabled
+        and that they all use the key file "D:\Projects\Source\JelleDruyts.snk".</p>
+    <pre>&lt;rule name="StrongNamingRule" type="JelleDruyts.BuildCop.Rules.StrongNaming.StrongNamingRule"&gt;
+  &lt;strongNaming strongNameRequired="true" keyPath="D:\Projects\Source\JelleDruyts.snk" ignoreUnsignedProjects="false" /&gt;
+&lt;/rule&gt;</pre>
+</body>
+</html>

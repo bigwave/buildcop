@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E1DB3EA2-9ACA-46A0-A23F-A348B8E4F6B0}"
+	ProjectSection(SolutionItems) = preProject
+		JelleDruyts.BuildCop.vsmdi = JelleDruyts.BuildCop.vsmdi
+		localtestrun.testrunconfig = localtestrun.testrunconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JelleDruyts.BuildCop", "JelleDruyts.BuildCop\JelleDruyts.BuildCop.csproj", "{C0E91333-8782-4521-9867-41BFB3EE548B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JelleDruyts.BuildCop.Console", "JelleDruyts.BuildCop.Console\JelleDruyts.BuildCop.Console.csproj", "{C1BC1163-9379-4DD5-A22A-BE4DF1FF6AB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JelleDruyts.BuildCop.Test", "JelleDruyts.BuildCop.Test\JelleDruyts.BuildCop.Test.csproj", "{0E3F6744-114A-474D-B062-9FE1DBE99189}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{516C18A0-3C0D-483C-8139-F73B19961F3D}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\BuildCop.sitemap = Documentation\BuildCop.sitemap
+		Documentation\Configuration.html = Documentation\Configuration.html
+		Documentation\Customization.html = Documentation\Customization.html
+		Documentation\Documentation.html = Documentation\Documentation.html
+		Documentation\Formatters.html = Documentation\Formatters.html
+		Documentation\JelleDruyts.BuildCop.chm = Documentation\JelleDruyts.BuildCop.chm
+		Documentation\JelleDruyts.BuildCop.shfb = Documentation\JelleDruyts.BuildCop.shfb
+		Documentation\Rules.html = Documentation\Rules.html
+		Documentation\StyleSheet.css = Documentation\StyleSheet.css
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = JelleDruyts.BuildCop.vsmdi
+	EndGlobalSection
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 4
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = JelleDruyts.BuildCop.Console\\JelleDruyts.BuildCop.Console.csproj
+		SccLocalPath1 = .
+		SccProjectFilePathRelativizedFromConnection1 = JelleDruyts.BuildCop.Console\\
+		SccProjectUniqueName2 = JelleDruyts.BuildCop.Test\\JelleDruyts.BuildCop.Test.csproj
+		SccLocalPath2 = .
+		SccProjectFilePathRelativizedFromConnection2 = JelleDruyts.BuildCop.Test\\
+		SccProjectUniqueName3 = JelleDruyts.BuildCop\\JelleDruyts.BuildCop.csproj
+		SccLocalPath3 = .
+		SccProjectFilePathRelativizedFromConnection3 = JelleDruyts.BuildCop\\
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Default|Any CPU = Default|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0E91333-8782-4521-9867-41BFB3EE548B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E91333-8782-4521-9867-41BFB3EE548B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0E91333-8782-4521-9867-41BFB3EE548B}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0E91333-8782-4521-9867-41BFB3EE548B}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{C0E91333-8782-4521-9867-41BFB3EE548B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0E91333-8782-4521-9867-41BFB3EE548B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1BC1163-9379-4DD5-A22A-BE4DF1FF6AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1BC1163-9379-4DD5-A22A-BE4DF1FF6AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1BC1163-9379-4DD5-A22A-BE4DF1FF6AB3}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1BC1163-9379-4DD5-A22A-BE4DF1FF6AB3}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{C1BC1163-9379-4DD5-A22A-BE4DF1FF6AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1BC1163-9379-4DD5-A22A-BE4DF1FF6AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3F6744-114A-474D-B062-9FE1DBE99189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3F6744-114A-474D-B062-9FE1DBE99189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3F6744-114A-474D-B062-9FE1DBE99189}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3F6744-114A-474D-B062-9FE1DBE99189}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{0E3F6744-114A-474D-B062-9FE1DBE99189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3F6744-114A-474D-B062-9FE1DBE99189}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode title="BuildCop" url=".\Documentation.html" isDefault="true" />
+  <siteMapNode title="Configuration" url=".\Configuration.html" />
+  <siteMapNode title="Built-In Rules" url=".\Rules.html" />
+  <siteMapNode title="Built-In Formatters" url=".\Formatters.html" />
+  <siteMapNode title="Customization" url=".\Customization.html" />
+</siteMap>

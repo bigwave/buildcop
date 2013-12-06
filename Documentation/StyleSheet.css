@@ -1,0 +1,19 @@
+body { font-family: Calibri, Verdana, Sans-Serif; font-size: smaller; padding: 5px; margin: 0px 0px 0px 20px; }
+h1, h2, h3 { font-family: Cambria, Verdana, Sans-Serif; color: #385B86; margin-left: -20px; }
+h1 { font-size: x-large; width: 100%; border-bottom: solid #385B86 1px; }
+h2 { font-size: medium; font-weight: bold; }
+h3 { font-size: small; font-style: italic; }
+table { border: dashed; }
+th { text-align: left; }
+td { vertical-align: top; }
+pre { border: solid 1px; padding: 10px; background-color: #efefef; }
+.about { margin-bottom: 10px; padding-left: 2px; }
+.about .aboutTitle, .aboutSubtitle { font-family: Verdana, Sans-Serif; font-weight: bold; color: #385B86; }
+.aboutTitle { font-size: x-large; }
+.aboutSubtitle { font-size: small; color: #587BA6; }
+.menu { width: 150px; height: 600px; background-color: #385B86; filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#385B86', endColorStr='#789BC6', gradientType='1'); }
+.menu a { color: white; text-decoration: none; margin: 5px; padding: 10px; border: solid 1px white; display: block; text-align: center; }
+.menu a:hover { background-color: #789BC6; }
+.footer { font-size: small; margin-top: 10px; padding-left: 2px; }
+.content { border: dashed 1px #385B86; padding: 10px; }
+.highlight { color: Red; }

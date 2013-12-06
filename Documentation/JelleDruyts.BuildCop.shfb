@@ -1,0 +1,74 @@
+﻿<project schemaVersion="1.6.0.2">
+    <assemblies>
+        <assembly assemblyPath="..\JelleDruyts.BuildCop\bin\Release\JelleDruyts.BuildCop.dll" xmlCommentsPath="..\JelleDruyts.BuildCop\bin\Release\JelleDruyts.BuildCop.xml" commentsOnly="False" />
+    </assemblies>
+    <namespaceSummaries>
+        <namespaceSummaryItem name="" isDocumented="False" />
+        <namespaceSummaryItem name="JelleDruyts.BuildCop" isDocumented="True">Contains the core BuildCop engine types.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Configuration" isDocumented="True">Contains all configuration types.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Formatters" isDocumented="True">Contains BuildCop report formatters.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Formatters.Configuration" isDocumented="True">Contains the configuration types for the BuildCop report formatters.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Formatters.Console" isDocumented="True">Contains types to support formatting to the console.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Formatters.Csv" isDocumented="True">Contains types to support formatting to a CSV file.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Formatters.Html" isDocumented="True">Contains types to support formatting to an HTML file.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Formatters.Xml" isDocumented="True">Contains types to support formatting to an XML file.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Reporting" isDocumented="True">Contains types used for BuildCop reports.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules" isDocumented="True">Contains types that serve as BuildCop rules.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.AssemblyReferences" isDocumented="True">Contains types to support the rule for checking assembly references.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.AssemblyReferences.Configuration" isDocumented="True">Contains configuration types to support the rule for checking assembly references.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.BuildProperties" isDocumented="True">Contains types to support the rule for checking build properties.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.BuildProperties.Configuration" isDocumented="True">Contains configuration types to support the rule for checking build properties.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.DocumentationFile" isDocumented="True">Contains types to support the rule for checking the XML documentation file.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.NamingConventions" isDocumented="True">Contains types to support the rule for checking naming conventions.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.NamingConventions.Configuration" isDocumented="False">Contains configuration types to support the rule for checking naming conventions.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.OrphanedProjects" isDocumented="True">Contains types to support the rule for finding orphaned projects.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.OrphanedProjects.Configuration" isDocumented="True">Contains configuration types to support the rule for finding orphaned projects.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.StrongNaming" isDocumented="True">Contains types to support the rule for checking strong naming.</namespaceSummaryItem>
+        <namespaceSummaryItem name="JelleDruyts.BuildCop.Rules.StrongNaming.Configuration" isDocumented="True">Contains configuration types to support the rule for checking strong naming.</namespaceSummaryItem>
+    </namespaceSummaries>
+    <additionalContent>
+        <contentItem sourcePath=".\Documentation.html" destPath="" excludeItems="False" />
+        <contentItem sourcePath=".\StyleSheet.css" destPath="" excludeItems="False" />
+        <contentItem sourcePath=".\Configuration.html" destPath="" excludeItems="False" />
+        <contentItem sourcePath=".\Customization.html" destPath="" excludeItems="False" />
+        <contentItem sourcePath=".\Formatters.html" destPath="" excludeItems="False" />
+        <contentItem sourcePath=".\Rules.html" destPath="" excludeItems="False" />
+    </additionalContent>
+    <ProjectSummary>Summarized below are all the namespaces that are relevant to development for BuildCop. Please refer to the individual topics for more information.</ProjectSummary>
+    <MissingTags>Summary, Parameter, Returns, AutoDocumentCtors, Namespace</MissingTags>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
+    <HtmlHelp1xCompilerPath path="C:\Program Files\HTML Help Workshop\" />
+    <HtmlHelp2xCompilerPath path="" />
+    <OutputPath>.\</OutputPath>
+    <SandcastlePath path="C:\Program Files\Sandcastle\" />
+    <WorkingPath path="" />
+    <CleanIntermediates>True</CleanIntermediates>
+    <KeepLogFile>False</KeepLogFile>
+    <HelpFileFormat>HtmlHelp1x</HelpFileFormat>
+    <PurgeDuplicateTopics>True</PurgeDuplicateTopics>
+    <CppCommentsFixup>False</CppCommentsFixup>
+    <FrameworkVersion>2.0.50727</FrameworkVersion>
+    <BinaryTOC>True</BinaryTOC>
+    <IncludeFavorites>False</IncludeFavorites>
+    <Preliminary>False</Preliminary>
+    <RootNamespaceContainer>True</RootNamespaceContainer>
+    <RootNamespaceTitle />
+    <HelpTitle>BuildCop Technical Documentation</HelpTitle>
+    <HtmlHelpName>JelleDruyts.BuildCop</HtmlHelpName>
+    <Language>en-US</Language>
+    <CopyrightHref>http://jelle.druyts.net</CopyrightHref>
+    <CopyrightText>(c) Jelle Druyts</CopyrightText>
+    <FeedbackEMailAddress />
+    <HeaderText />
+    <FooterText />
+    <ProjectLinkType>Local</ProjectLinkType>
+    <SdkLinkType>None</SdkLinkType>
+    <SdkLinkTarget>Blank</SdkLinkTarget>
+    <PresentationStyle>hana</PresentationStyle>
+    <NamingMethod>Guid</NamingMethod>
+    <SyntaxFilters>Standard</SyntaxFilters>
+    <ShowFeedbackControl>False</ShowFeedbackControl>
+    <ContentPlacement>AboveNamespaces</ContentPlacement>
+    <ContentSiteMap path=".\BuildCop.sitemap" />
+    <TopicFileTransform path="" />
+</project>

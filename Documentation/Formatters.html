@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BuildCop - Built-In Formatters</title>
+    <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1><a name="Formatters">Built-In Formatters</a></h1>
+    <h2><a name="FormattersConsole">Console</a></h2>
+    <p>Writes the log entries to the console.</p>
+    <pre>&lt;formatter name="Console" type="JelleDruyts.BuildCop.Formatters.Console.ConsoleFormatter" minimumLogLevel="[...]" /&gt;</pre>
+    <p>This formatter has no formatter-specific configuration.</p>
+    <h2><a name="FormattersCsv">CSV</a></h2>
+    <p>Writes the log entries to a comma-separated values (CSV) file.</p>
+    <pre>&lt;formatter name="Csv" type="JelleDruyts.BuildCop.Formatters.Csv.CsvFormatter" minimumLogLevel="[...]"&gt;
+  &lt;output fileName="[...]" launch="[true|false]" /&gt;
+&lt;/formatter&gt;</pre>
+    <ul>
+        <li><code>output</code>: defines the output settings for this formatter.
+            <ul>
+                <li><code>fileName</code>: the relative path and file name of the file to write.</li>
+                <li><code>launch</code> (optional): a value of "true" or "false" that determines if
+                    the file should be launched when the report has been written.</li>
+            </ul>
+        </li>
+    </ul>
+    <h2><a name="FormattersHtml">HTML</a></h2>
+    <p>Writes the log entries to an HTML file.</p>
+    <pre>&lt;formatter name="Html" type="JelleDruyts.BuildCop.Formatters.Html.HtmlFormatter" minimumLogLevel="[...]"&gt;
+  &lt;output fileName="[...]" launch="[true|false]" <i>stylesheet="[...]"</i> /&gt;
+&lt;/formatter&gt;</pre>
+    <ul>
+        <li><code>output</code>: defines the output settings for this formatter.
+            <ul>
+                <li><code>fileName</code>: the relative path and file name of the file to write.</li>
+                <li><code>launch</code> (optional): a value of "true" or "false" that determines if
+                    the file should be launched when the report has been written.</li>
+                <li><code>stylesheet</code> (optional): the relative path to the XSLT stylesheet to
+                    use. The HTML formatter reuses the XML formatter to produce an XML document and
+                    then transforms this into an HTML document using an XSLT stylesheet.<br />
+                    By default, the "BuildCopReport.xslt" file provided with the application is used,
+                    but you can provide an alternative XSLT file here.</li>
+            </ul>
+        </li>
+    </ul>
+    <h2><a name="FormattersXml">XML</a></h2>
+    <p>Writes the log entries to an XML file.</p>
+    <pre>&lt;formatter name="Xml" type="JelleDruyts.BuildCop.Formatters.Xml.XmlFormatter" minimumLogLevel="[...]"&gt;
+  &lt;output fileName="[...]" launch="[true|false]" <i>stylesheet="[...]"</i> /&gt;
+&lt;/formatter&gt;</pre>
+    <ul>
+        <li><code>output</code>: defines the output settings for this formatter.
+            <ul>
+                <li><code>fileName</code>: the relative path and file name of the file to write.</li>
+                <li><code>launch</code> (optional): a value of "true" or "false" that determines if
+                    the file should be launched when the report has been written.</li>
+                <li><code>stylesheet</code> (optional): the path to the XSLT stylesheet to reference
+                    as a processing instruction inside the XML file. You can use the "BuildCopReport.xslt"
+                    file provided with the application (or an alternative XSLT file), so that a web
+                    browser displays the XML file in a human-readable way.</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

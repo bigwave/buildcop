@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BuildCop - Customization</title>
+    <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1><a name="Customization">Customization</a></h1>
+    <h2><a name="CustomizationOverview">Overview</a></h2>
+    <p>BuildCop is designed with extensibility in mind: its use would be very restricted
+        if it weren't possible to write custom rules or formatters. Luckily, customization
+        is quite straight-forward if you are a .NET developer, so feel free to extend the
+        tool and send me any custom classes you have created!</p>
+    <p>If the documentation would not suffice, you can always look at the source code for
+        the existing rules (they have no special tricks or privileges) to get more insight
+        in the way it works. If you would still get stuck in any way, though, please let
+        me know and I'll clear up whatever isn't obvious right now.</p>
+    <p>As for the technical details: BuildCop is written on .NET 2.0 so all you need is
+        a compiler and a reference to the <code>JelleDruyts.BuildCop.dll</code> assembly,
+        which contains all the required classes needed for customization.</p>
+    <h2><a name="CustomizationCustomRules">Writing Custom Rules</a></h2>
+    <h3><a name="CustomizationCustomRulesOverview">Overview</a></h3>
+    <ul>
+        <li>Create a class that derives from <code>JelleDruyts.BuildCop.Rules.BaseRule</code>.
+            <ul>
+                <li>Re-implement the base class constructor (simply pass through to the base class constructor).</li>
+                <li>Override the <code>Check</code> method to analyze an MSBuild project file and return
+                    log entries.</li>
+                <li>If your rule has configuration information, retrieve the strongly typed configuration
+                    instance using the generic <code>GetTypedConfiguration</code> method.</li>
+                <li>When creating log entries, you should pass the <code>Name</code> property of your
+                    rule as the <code>rule</code> argument for the log entry's constructor.</li>
+            </ul>
+        </li>
+        <li>If your rule requires configuration:
+            <ul>
+                <li>Create a root configuration element that inherits from <code>JelleDruyts.BuildCop.Configuration.RuleConfigurationElement</code>.</li>
+                <li>Re-implement the two base class constructors (simply pass through to the base class
+                    constructors).</li>
+                <li>Inside the class, use the standard .NET 2.0 Configuration infrastructure (i.e. <code>
+                    ConfigurationElement</code> and <code>ConfigurationElementCollection</code> classes)
+                    to define the actual configuration information.</li>
+                <li>Decorate your custom rule class with <code>[BuildCopRule(ConfigurationType = typeof(<i>your
+                    configuration root type</i>))]</code> to associate the rule with the configuration
+                    type.</li>
+            </ul>
+        </li>
+        <li>Copy the assembly containing your rule to the BuildCop directory.</li>
+        <li>Register your rule in the configuration file using its fully qualified name, and
+            provide the necessary configuration information.</li>
+    </ul>
+    <h3><a name="CustomizationCustomRulesExample">Example</a></h3>
+    <p>Below is a sample implementation of a custom rule that raises errors if the project's
+        assembly name contains forbidden words:</p>
+    <pre>[BuildCopRule(ConfigurationType = typeof(ForbiddenWordsRuleElement))]
+public class ForbiddenWordsRule : BaseRule
+{
+    public ForbiddenWordsRule(RuleConfigurationElement configuration) : base(configuration)
+    {
+    }
+
+    public override IList&lt;LogEntry&gt; Check(BuildFile project)
+    {
+        ForbiddenWordsRuleElement config = this.GetTypedConfiguration&lt;ForbiddenWordsRuleElement&gt;();
+        List&lt;LogEntry&gt; entries = new List&lt;LogEntry&gt;();
+
+        foreach (string forbiddenWord in config.Words.ForbiddenWords.Split(';'))
+        {
+            if (project.AssemblyName.IndexOf(forbiddenWord, StringComparison.OrdinalIgnoreCase) &gt;= 0)
+            {
+                string message = "The assembly name contains a forbidden word.";
+                string detail = string.Format("The assembly name \"{0}\" contains the forbidden word \"{1}\".",
+                    project.AssemblyName, forbiddenWord);
+                entries.Add(new LogEntry(this.Name, "ForbiddenWord", LogLevel.Error, message, detail));
+            }
+        }
+
+        return entries;
+    }
+}</pre>
+    <p>The configuration classes for this rule would be defined as follows:</p>
+    <pre>public class ForbiddenWordsRuleElement : RuleConfigurationElement
+{
+    public ForbiddenWordsRuleElement()
+    {
+    }
+
+    public ForbiddenWordsRuleElement(XmlReader reader) : base(reader)
+    {
+    }
+
+    [ConfigurationProperty("words", IsRequired = true)]
+    public WordsElement Words
+    {
+        get { return (WordsElement)base["words"]; }
+    }
+}
+
+public class WordsElement : ConfigurationElement
+{
+    [ConfigurationProperty("forbidden", IsRequired = true)]
+    public string ForbiddenWords
+    {
+        get { return (string)base["forbidden"]; }
+        set { base["forbidden"] = value; }
+    }
+}</pre>
+    <p>The configuration file would then contain a rule definition such as the following:</p>
+    <pre>&lt;rule name="ForbiddenWordsRule" type="CustomRules.ForbiddenWordsRule, CustomRules"&gt;
+  &lt;words forbidden="hack;crack;dummy" /&gt;
+&lt;/rule&gt;</pre>
+    <h2><a name="CustomizationCustomFormatters">Writing Custom Formatters</a></h2>
+    <h3><a name="CustomizationCustomFormattersOverview">Overview</a></h3>
+    <ul>
+        <li>Create a class that derives from <code>JelleDruyts.BuildCop.Formatters.BaseFormatter</code>.
+            <ul>
+                <li>Re-implement the base class constructor (simply pass through to the base class constructor).</li>
+                <li>Override the <code>WriteReport</code> method to write the given report in whatever
+                    way you want.</li>
+                <li>If your formatter has configuration information, retrieve the strongly typed configuration
+                    instance using the generic <code>GetTypedConfiguration</code> method.</li>
+                <li>To retrieve the log entries to write (taking the minimum log level into account),
+                    call the <code>FindLogEntries</code> method of the given <code>BuildCopReport</code>
+                    instance.</li>
+            </ul>
+        </li>
+        <li>If your formatter requires configuration:
+            <ul>
+                <li>Create a root configuration element that inherits from <code>JelleDruyts.BuildCop.Configuration.FormatterConfigurationElement</code>.</li>
+                <li>Re-implement the two base class constructors (simply pass through to the base class
+                    constructors).</li>
+                <li>Inside the class, use the standard .NET 2.0 Configuration infrastructure (i.e. <code>
+                    ConfigurationElement</code> and <code>ConfigurationElementCollection</code> classes)
+                    to define the actual configuration information.</li>
+                <li>Decorate your custom formatter class with <code>[BuildCopFormatter(ConfigurationType
+                    = typeof(<i>your configuration root type</i>))]</code> to associate the rule with
+                    the configuration type.</li>
+            </ul>
+        </li>
+        <li>Copy the assembly containing your formatter to the BuildCop directory.</li>
+        <li>Register your formatter in the configuration file using its fully qualified name,
+            and provide the necessary configuration information.</li>
+    </ul>
+    <p>Note that you can build formatter and configuration classes from scratch as shown
+        above, but in the very common case that you want to write to a file, it is also
+        possible to use the existing <code>FilebasedFormatter</code> base class with its
+        associated <code>FilebasedFormatterElement</code> configuration base class, which
+        already provide you with a file name and the code that launches the file after the
+        report has been written (if so desired by the user). In that case, you only have
+        to worry about writing the actual file as in the example below. Likewise, if you
+        require file-based output that involves an XSLT, you can use the <code>XsltFilebasedFormatter</code>
+        and <code>XsltFilebasedFormatterElement</code> base classes, which adds a <code>stylesheet</code>
+        attribute to the configuration. In both cases, you must now override the <code>WriteReportCore</code>
+        method instead of <code>WriteReport</code> (to allow the base class to launch the
+        file after it is written).</p>
+    <h3><a name="CustomizationCustomFormattersExample">Example</a></h3>
+    <p>Below is a sample implementation of a custom formatter that writes to a text file.</p>
+    <pre>[BuildCopFormatter(ConfigurationType = typeof(FilebasedFormatterElement))]
+public class TextFileFormatter : FilebasedFormatter
+{
+    public TextFileFormatter(FormatterConfigurationElement configuration)
+        : base(configuration)
+    {
+    }
+
+    protected override void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel)
+    {
+        FilebasedFormatterElement configuration = this.GetTypedConfiguration&lt;FilebasedFormatterElement&gt;();
+        string fileName = configuration.Output.FileName;
+
+        using (FileStream outputStream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.Read))
+        using (StreamWriter writer = new StreamWriter(outputStream))
+        {
+            foreach (BuildGroupReport groupReport in report.BuildGroupReports)
+            {
+                foreach (BuildFileReport fileReport in groupReport.BuildFileReports)
+                {
+                    foreach (LogEntry entry in fileReport.FindLogEntries(minimumLogLevel))
+                    {
+                        writer.WriteLine("{0} - {1} - {2} - {3} - {4} - {5} - {6}",
+                            groupReport.BuildGroupName, fileReport.FileName,
+                            entry.Level.ToString(), entry.Rule, entry.Code,
+                            entry.Message, entry.Detail);
+                    }
+                }
+            }
+        }
+    }
+}</pre>
+    <p>The configuration file would then contain a formatter definition such as the following:</p>
+    <pre>&lt;formatter name="Text" type="CustomFormatters.TextFormatter, CustomFormatters"&gt;
+  &lt;output fileName="out.txt" launch="true" /&gt;
+&lt;/formatter&gt;</pre>
+</body>
+</html>

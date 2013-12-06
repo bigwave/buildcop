@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BuildCop - Configuration</title>
+    <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1><a name="Configuration">Configuration</a></h1>
+    <h2><a name="ConfigurationOverview">Overview</a></h2>
+    <p>The BuildCop configuration file must always be named <code>JelleDruyts.BuildCop.Console.exe.config</code>
+        and be located in the same directory as the executable.</p>
+    <p>To assist you in defining the configuration file, an XML Schema Definition (XSD)
+        file is provided that documents the available XML nodes and attributes for most
+        of the file's contents. When using Visual Studio to edit the configuration file,
+        this XSD file is used to provide IntelliSense, so defining the configuration becomes
+        quite easy.</p>
+    <p>In the definitions below, XML nodes and attributes that are formatted in <i>italic</i>
+        are optional and can be omitted. Everything else is required.</p>
+    <p>The configuration file has the following structure:</p>
+    <pre>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name="buildCopConfiguration" type="JelleDruyts.BuildCop.Configuration.BuildCopConfiguration, JelleDruyts.BuildCop"/&gt;
+  &lt;/configSections&gt;
+  &lt;buildCopConfiguration xmlns="http://schemas.jelle.druyts.net/BuildCop"&gt;
+    &lt;buildGroups&gt;[...]&lt;/buildGroups&gt;
+    <i>&lt;sharedRules&gt;[...]&lt;/sharedRules&gt;</i>
+    &lt;formatters&gt;[...]&lt;/formatters&gt;
+    <i>&lt;outputTypeMappings&gt;[...]&lt;/outputTypeMappings&gt;</i>
+  &lt;/buildCopConfiguration&gt;
+&lt;/configuration&gt;</pre>
+    <p>As you can see, the XML configuration file starts with the declaration of the BuildCop
+        configuration section and then proceeds with the actual configuration inside the
+        <code>&lt;buildCopConfiguration xmlns="http://schemas.jelle.druyts.net/BuildCop"&gt;</code>
+        node.</p>
+    <p>Within this <code>buildCopConfiguration</code> root tag, there are four main configuration
+        nodes:</p>
+    <ul>
+        <li><code>buildGroups</code>: defines the groups of MSBuild project files that are analyzed
+            according to the same rules; this allows you to create multiple groups with different
+            settings.</li>
+        <li><code>sharedRules</code> (optional): defines BuildCop rules that can be shared between
+            build groups; this allows you to reuse certain rule definitions across build groups
+            that have overlapping rules.</li>
+        <li><code>formatters</code>: defines the formatters that will be used to generate the
+            reports; this allows you to define multiple outputs for various purposes (e.g. an
+            HTML output file to publish to a website and an XML output file to access through
+            another tool).</li>
+        <li><code>outputTypeMappings</code> (advanced, optional): defines additional mappings
+            of Visual Studio project type GUIDs to friendly names; this allows you to exclude
+            project types from BuildCop rules using "friendly" project type names.</li>
+    </ul>
+    <h2><a name="ConfigurationBuildGroups">Build Groups</a></h2>
+    <h3>Definition</h3>
+    <p>The <code>buildGroups</code> configuration node has the following structure:</p>
+    <p></p>
+    <pre>&lt;buildGroups&gt;
+  &lt;buildGroup name="Default" <i>enabled="[true|false]"</i>&gt;
+    &lt;buildFiles <i>excludedFiles="[...]"</i>&gt;
+      &lt;paths&gt;
+        &lt;path rootPath="[...]" <i>searchPattern="[...]" excludedFiles="[...]"</i> /&gt;
+      &lt;/paths&gt;
+    &lt;/buildFiles&gt;
+    &lt;rules&gt;
+      &lt;rule name="[...]" type="[...]" <i>enabled="[true|false]" excludedFiles="[...]" excludedOutputTypes="[Win|WinExe|Library|Web|...]"</i>&gt;
+        [...]
+      &lt;/rule&gt;
+      &lt;rule name="[...] /&gt;
+    &lt;/rules&gt;
+  &lt;/buildGroup&gt;
+  &lt;buildGroup name="Exceptions"&gt;
+    &lt;buildFiles&gt;[...]&lt;/buildFiles&gt;
+    &lt;rules&gt;[...]&lt;/rules&gt;
+  &lt;/buildGroup&gt;
+&lt;/buildGroups&gt;</pre>
+    <ul>
+        <li><code>buildGroups</code>: contains 1 or more <code>buildGroup</code> nodes.</li>
+        <li><code>buildGroup</code>: defines a build group.
+            <ul>
+                <li><code>name</code>: the name of the build group; must be unique.</li>
+                <li><code>enabled</code> (optional): a value of "true" or "false" that determines if
+                    the build group is enabled; this allows you to disable build groups without deleting
+                    the configuration from the file.</li>
+            </ul>
+        </li>
+        <li><code>buildFiles</code>: defines the MSBuild project files in the build group.
+            <ul>
+                <li><code>excludedFiles</code> (optional): a semicolon-separated list of strings to
+                    find in the names of files to exclude in any of the paths defined below; this allows
+                    you to exclude certain files based on (part of) their full path and file name.<br />
+                    For example: <code>excludedFiles="TestResults;.Test.csproj"</code> would exclude
+                    all files with "TestResults" or ".Test.csproj" as part of their path.</li>
+            </ul>
+        </li>
+        <li><code>paths</code>: contains 1 or more <code>path</code> nodes that together form
+            the collection of MSBuild project files to analyze.</li>
+        <li><code>path</code>: defines a path in which to look for MSBuild project files.
+            <ul>
+                <li><code>rootPath</code>: the root path in which to recursively look for build files.</li>
+                <li><code>searchPattern</code> (optional): the search string to match against the names
+                    of files to include in the given root path.<br />
+                    For example: <code>searchPattern="*.csproj"</code> would only look for files with
+                    the "csproj" extension, meaning that only C# project files are analyzed.<br />
+                    By default, the search pattern is "*.*proj" to find all files that end in "proj",
+                    with the following file extensions excluded because they are not MSBuild project
+                    files: .proj, .vddproj, .vdproj, .csdproj.</li>
+                <li><code>excludedFiles</code> (optional): see above; when defined here, only applies
+                    to this <code>path</code>.</li>
+            </ul>
+        </li>
+        <li><code>rules</code>: defines 1 or more rules to run on the MSBuild project files
+            in this build group.</li>
+        <li><code>rule</code>: defines a rule to run on the MSBuild project files in this build
+            group.
+            <ul>
+                <li><code>name</code>: the name of the rule; must be unique.</li>
+                <li><code>type</code>: the fully qualified type name of the rule class to use. The rules
+                    that are available out of the box and their configuration details are described
+                    below.<br />
+                    For example: <code>type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule,
+                        JelleDruyts.BuildCop"</code> would load the built-in "Build Properties" rule.<br />
+                    If the type is omitted, no other configuration may be defined here but instead the
+                    shared rule with the given name is used from the <code>sharedRules</code> configuration
+                    node.</li>
+                <li><code>enabled</code> (optional): a value of "true" or "false" that determines if
+                    the rule is enabled; this allows you to disable rules without deleting the configuration
+                    from the file.</li>
+                <li><code>excludedFiles</code> (optional): see above; when defined here, only applies
+                    to this <code>rule</code>.</li>
+                <li><code>excludedOutputTypes</code> (optional): a semicolon-separated list of output
+                    types for MSBuild project files to exclude from this rule; this allows you to exclude
+                    certain files based on their output type.<br />
+                    The available output types are "Win" (for Console applications), "WinExe" (for Windows
+                    applications), "Library" (for dll's) and "Web" (for Web applications).<br />
+                    For example: <code>excludedOutputTypes="Exe;WinExe;Web"</code> would exclude the
+                    rule for Console applications, Windows applications and Web applications - basically
+                    only running the rule for Library projects (dll's).<br />
+                    Additional output type mappings based on project type GUIDs can be defined in the
+                    <code>outputTypeMappings</code> configuration node.</li>
+            </ul>
+        </li>
+        <li>Rule-specific configuration: inside the <code>rule</code>-node, a rule-specific
+            XML node is often needed to define the configuration required for that particular
+            rule. The rules that are available out of the box and their configuration details
+            are described below. Unfortunately, since these configuration nodes depend on the
+            specific rule type, no XSD or IntelliSense information is available for them.</li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example analyzes all MSBuild project files and verifies that certain
+        build properties are always set (e.g. for debugging and error levels), that the
+        output path is properly set for non-Web projects (note the <code>excludedOutputTypes</code>),
+        and that all Library-type projects (dll's) have enabled an XML documentation file
+        to be generated:</p>
+    <pre>&lt;buildGroup name="Default"&gt;
+  &lt;buildFiles&gt;
+    &lt;paths&gt;
+      &lt;path rootPath="D:\Projects\Source" /&gt;
+    &lt;/paths&gt;
+  &lt;/buildFiles&gt;
+  &lt;rules&gt;
+    &lt;rule name="Build Properties" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
+      &lt;buildProperties&gt;
+        &lt;buildProperty name="DebugSymbols" value="true" condition="Debug" /&gt;
+        &lt;buildProperty name="DebugType" value="full" condition="Debug" /&gt;
+        &lt;buildProperty name="Optimize" value="false" condition="Debug" /&gt;
+        &lt;buildProperty name="DefineConstants" value="DEBUG;TRACE" condition="Debug" /&gt;
+        &lt;buildProperty name="DebugType" value="pdbonly" condition="Release" /&gt;
+        &lt;buildProperty name="Optimize" value="true" condition="Release" /&gt;
+        &lt;buildProperty name="DefineConstants" value="TRACE" condition="Release" /&gt;
+        &lt;buildProperty name="ErrorReport" value="prompt" /&gt;
+        &lt;buildProperty name="TreatWarningsAsErrors" value="true" /&gt;
+        &lt;buildProperty name="WarningLevel" value="4" /&gt;
+      &lt;/buildProperties&gt;
+    &lt;/rule&gt;
+    &lt;rule name="Build Properties (Non-Web)" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"
+          excludedOutputTypes="Web"&gt;
+      &lt;buildProperties&gt;
+        &lt;buildProperty name="OutputPath" value="bin\Debug\" condition="Debug" /&gt;
+        &lt;buildProperty name="OutputPath" value="bin\Release\" condition="Release" /&gt;
+      &lt;/buildProperties&gt;
+    &lt;/rule&gt;
+    &lt;rule name="Documentation File" type="JelleDruyts.BuildCop.Rules.DocumentationFile.DocumentationFileRule"
+          excludedOutputTypes="Exe;WinExe;Web" /&gt;
+  &lt;/rules&gt;
+&lt;/buildGroup&gt;</pre>
+    <h2><a name="ConfigurationSharedRules">Shared Rules</a></h2>
+    <h3>Definition</h3>
+    <p>The <code>sharedRules</code> configuration node contains 0 or more rules as defined
+        above inside the <code>rules</code> node of a <code>buildGroup</code> definition.
+        The rules defined here must be fully configured, i.e. have at least their <code>type</code>
+        attribute and any required rule-specific configuration element set. Rules defined
+        inside build groups can then just refer to these shared rules by defining only their
+        name.</p>
+    <h3>Example</h3>
+    <p>The following example defines a shared "Documentation File" rule that is used from
+        inside a build group:</p>
+    <pre>&lt;buildCopConfiguration xmlns="http://schemas.jelle.druyts.net/BuildCop"&gt;
+  &lt;buildGroup name="Default"&gt;
+    &lt;buildFiles&gt;
+      &lt;paths&gt;
+        &lt;path rootPath="D:\Projects\Source" /&gt;
+      &lt;/paths&gt;
+    &lt;/buildFiles&gt;
+    &lt;rules&gt;
+      &lt;rule name="Documentation File"/&gt;
+    &lt;/rules&gt;
+  &lt;/buildGroup&gt;
+  &lt;sharedRules&gt;
+    &lt;rule name="Documentation File" type="JelleDruyts.BuildCop.Rules.DocumentationFile.DocumentationFileRule"
+          excludedOutputTypes="Exe;WinExe;Web" /&gt;
+  &lt;/sharedRules&gt;
+&lt;/buildCopConfiguration&gt;</pre>
+    <h2><a name="ConfigurationFormatters">Formatters</a></h2>
+    <h3>Definition</h3>
+    <p>The <code>formatters</code> configuration node has the following structure:</p>
+    <pre>&lt;formatters&gt;
+  &lt;formatter name="[...]" type="[...]" <i>minimumLogLevel="[Information|Warning|Error|Exception]"</i>&gt;
+    [...]
+  &lt;/formatter&gt;
+  &lt;formatter ...&gt;[...]&lt;/formatter&gt;
+&lt;/formatters&gt;</pre>
+    <ul>
+        <li><code>formatters</code>: contains 0 or more <code>formatter</code> nodes.</li>
+        <li><code>formatter</code>: defines a formatter.
+            <ul>
+                <li><code>name</code>: the name of the formatter; must be unique.</li>
+                <li><code>type</code>: the fully qualified type name of the formatter class to use.
+                    The formatters that are available out of the box and their configuration details
+                    are described below.<br />
+                    For example: <code>type="JelleDruyts.BuildCop.Formatters.Html.HtmlFormatter, JelleDruyts.BuildCop"</code>
+                    would load the built-in HTML formatter.</li>
+                <li><code>minimumLogLevel</code> (optional): the minimum log level the formatter should
+                    display or output.<br />
+                    By default, all entries are output.</li>
+            </ul>
+        </li>
+        <li>Formatter-specific configuration: inside the <code>formatter</code>-node, a formatter-specific
+            XML node is often needed to define the configuration required for that particular
+            formatter. The formatters that are available out of the box and their configuration
+            details are described below. Unfortunately, since these configuration nodes depend
+            on the specific formatter type, no XSD or IntelliSense information is available
+            for them.</li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example defines that entries of log level Warning or above should be
+        written to the console output, and that all log entries should be written to a "BuildCopReport.html"
+        HTML file, that should also be launched in the default web browser after the tool
+        has completed.</p>
+    <pre>&lt;formatters&gt;
+  &lt;formatter name="Console" type="JelleDruyts.BuildCop.Formatters.Console.ConsoleFormatter" minimumLogLevel="Warning" /&gt;
+  &lt;formatter name="Html" type="JelleDruyts.BuildCop.Formatters.Html.HtmlFormatter" minimumLogLevel="Information"&gt;
+    &lt;output fileName="BuildCopReport.html" launch="true" /&gt;
+  &lt;/formatter&gt;
+&lt;/formatters&gt;</pre>
+    <h2><a name="ConfigurationOutputTypeMappings">Output Type Mappings</a></h2>
+    <h3>Definition</h3>
+    <p>As mentioned before, you can use the <code>excludedOutputTypes</code> attribute of
+        a <code>rule</code> element to define output types for which the rule is not applicable.
+        By default, BuildCop supports "Win" (for Console applications), "WinExe" (for Windows
+        applications), "Library" (for dll's) and "Web" (for Web applications) as output
+        types.</p>
+    <p>If you have other project types that have no built-in equivalent, you can provide
+        an output type mapping that maps a "friendly" alias to the project type GUID used
+        by Visual Studio.</p>
+    <p>The <code>outputTypeMappings</code> configuration node has the following structure:</p>
+    <pre>&lt;outputTypeMappings&gt;
+  &lt;outputType alias="[...]" projectTypeGuid="[...]" /&gt;
+&lt;/outputTypeMappings&gt;</pre>
+    <ul>
+        <li><code>outputTypeMappings</code>: contains 0 or more <code>outputType</code> nodes.</li>
+        <li><code>outputType</code>: defines an output type mapping.
+            <ul>
+                <li><code>alias</code>: the "friendly" name of the output type as used in the rule's
+                    <code>excludedOutputTypes</code>.</li>
+                <li><code>projectTypeGuid</code>: the project type GUID used by Visual Studio to identify
+                    the project type.</li>
+            </ul>
+        </li>
+    </ul>
+    <h3>Example</h3>
+    <p>The following example would be the equivalent of the built-in "Web" project type
+        (but note that it is already predefined so there is no need to redefine it inside
+        the configuration file):</p>
+    <pre>&lt;outputTypeMappings&gt;
+  &lt;outputType alias="Web" projectTypeGuid="{349c5851-65df-11da-9384-00065b846f21}" /&gt;
+&lt;/outputTypeMappings&gt;</pre>
+</body>
+</html>
