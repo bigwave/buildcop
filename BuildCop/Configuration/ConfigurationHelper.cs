@@ -44,8 +44,11 @@ namespace BuildCop.Configuration
             try
             {
                 memStream = new MemoryStream();
-                using (StreamWriter writer = new StreamWriter(memStream))
+                StreamWriter writer = null;
+                try
                 {
+                    writer = new StreamWriter(memStream);
+
                     writer.Write(outerXml);
                     writer.Flush();
                     memStream.Position = 0;
@@ -53,6 +56,7 @@ namespace BuildCop.Configuration
                     using (XmlReader outerReader = XmlReader.Create(memStream))
                     {
                         memStream = null;
+                        writer = null;
                         // Create the configuration type, passing in the new XmlReader.
                         ConstructorInfo ctor = specificConfigurationType.GetConstructor(new Type[] { typeof(XmlReader) });
                         if (ctor == null)
@@ -61,6 +65,14 @@ namespace BuildCop.Configuration
                         }
                         TConfigurationType configuration = (TConfigurationType)ctor.Invoke(new object[] { outerReader });
                         return configuration;
+                    }
+                }
+                finally
+                {
+                    if (writer != null)
+                    {
+                        writer.Dispose();
+                        memStream = null;
                     }
                 }
             }

@@ -13,5 +13,8 @@ namespace BuildCop.MsBuildTask
         {
             throw new NotImplementedException();
         }
+
+        [Required]
+        public IList<string> buildGroups { get; set; }
     }
 }
