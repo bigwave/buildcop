@@ -17,9 +17,9 @@
     <Compile Include="DefaultNugetPackage.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BuildCop.Console\BuildCop.Console.csproj">
-      <Name>BuildCop.Console</Name>
-      <Project>{c1bc1163-9379-4dd5-a22a-be4df1ff6ab3}</Project>
+    <ProjectReference Include="..\BuildCop.MsBuildTask\BuildCop.MsBuildTask.csproj">
+      <Name>BuildCop.MsBuildTask</Name>
+      <Project>{a4455e50-d7e9-499d-93e0-863f943ef8b0}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\BuildCop\BuildCop.csproj">
