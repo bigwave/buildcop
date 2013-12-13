@@ -11,7 +11,7 @@
     <p>Verifies that assembly references are correct. This rule can be used to make sure
         all projects use consistent assembly references (e.g. to correct versions of common
         components).</p>
-    <pre>&lt;rule name="AssemblyReferenceRule" type="JelleDruyts.BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule"&gt;
+    <pre>&lt;rule name="AssemblyReferenceRule" type="BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule"&gt;
   &lt;assemblyLocations&gt;
     &lt;assemblyLocation assemblyName="[...]"
                       assemblyPath="[...]" /&gt;
@@ -33,7 +33,7 @@
     <p>The following example verifies that any assembly whose fully qualified name starts
         with "EnvDTE, Version=8.0.0.0" is referenced from a path that starts with "R:\References\VisualStudio\8.0"
         (in other words, that "EnvDTE.dll" is referenced from somewhere under "R:\References\VisualStudio\8.0"):</p>
-    <pre>&lt;rule name="AssemblyReferenceRule" type="JelleDruyts.BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule"&gt;
+    <pre>&lt;rule name="AssemblyReferenceRule" type="BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule"&gt;
   &lt;assemblyLocations&gt;
     &lt;assemblyLocation assemblyName="EnvDTE, Version=8.0.0.0" assemblyPath="R:\References\VisualStudio\8.0" /&gt;
   &lt;/assemblyLocations&gt;
@@ -44,7 +44,7 @@
     <p>Verifies that build properties in a project file are correct. This rule can be used
         to generically check all MSBuild properties, including (but not limited to) the
         build properties that are defined inside the project's properties in Visual Studio.</p>
-    <pre>&lt;rule name="BuildPropertiesRule" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
+    <pre>&lt;rule name="BuildPropertiesRule" type="BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
   &lt;buildProperties&gt;
     &lt;buildProperty name="[...]"
                    <i>value="[...]"</i>
@@ -87,7 +87,7 @@
     <p>The following example verifies that warnings are always treated as errors, that the
         output path is correctly set for both the Debug as the Release solution configuration
         (i.e. condition), and that the DocumentationFile property exists:</p>
-    <pre>&lt;rule name="Build Properties" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
+    <pre>&lt;rule name="Build Properties" type="BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
   &lt;buildProperties&gt;
     &lt;buildProperty name="TreatWarningsAsErrors" value="true" /&gt;
     &lt;buildProperty name="OutputPath" value="bin\Debug\" condition="Debug" stringCompareOption="OrdinalIgnoreCase" /&gt;
@@ -103,11 +103,11 @@
     <h3>Example</h3>
     <p>The following example verifies that an XML documentation file is generated as part
         of the build.</p>
-    <pre>&lt;rule name="DocumentationFileRule" type="JelleDruyts.BuildCop.Rules.DocumentationFile.DocumentationFileRule" /&gt;</pre>
+    <pre>&lt;rule name="DocumentationFileRule" type="BuildCop.Rules.DocumentationFile.DocumentationFileRule" /&gt;</pre>
     <h2><a name="RulesNamingConventions">Naming Conventions</a></h2>
     <h3>Definition</h3>
     <p>Verifies that certain naming conventions are respected.</p>
-    <pre>&lt;rule name="NamingConventionsRule" type="JelleDruyts.BuildCop.Rules.NamingConventions.NamingConventionsRule"&gt;
+    <pre>&lt;rule name="NamingConventionsRule" type="BuildCop.Rules.NamingConventions.NamingConventionsRule"&gt;
   &lt;prefixes <i>namespacePrefix="[...]"</i>
             <i>assemblyNamePrefix="[...]"</i>
             <i>assemblyNameShouldMatchRootNamespace="[true|false]"</i> /&gt;
@@ -127,7 +127,7 @@
     <h3>Example</h3>
     <p>The following example verifies that the root namespace and assembly name start with
         "JelleDruyts" and are exactly the same.</p>
-    <pre>&lt;rule name="Naming Conventions" type="JelleDruyts.BuildCop.Rules.NamingConventions.NamingConventionsRule"&gt;
+    <pre>&lt;rule name="Naming Conventions" type="BuildCop.Rules.NamingConventions.NamingConventionsRule"&gt;
   &lt;prefixes namespacePrefix="JelleDruyts"
             assemblyNamePrefix="JelleDruyts" 
             assemblyNameShouldMatchRootNamespace="true" /&gt;
@@ -136,7 +136,7 @@
     <h3>Definition</h3>
     <p>Verifies that the MSBuild project files being analyzed are part of at least one Visual
         Studio solution (.sln) file.</p>
-    <pre>&lt;rule name="OrphanedProjects" type="JelleDruyts.BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule"&gt;
+    <pre>&lt;rule name="OrphanedProjects" type="BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule"&gt;
   &lt;solutions searchPath="[...]" /&gt;
 &lt;/rule&gt;</pre>
     <ul>
@@ -151,13 +151,13 @@
     <h3>Example</h3>
     <p>The following example verifies that all MSBuild project files are part of solution
         files somewhere in the "D:\Projects\Source" path.</p>
-    <pre>&lt;rule name="OrphanedProjects" type="JelleDruyts.BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule"&gt;
+    <pre>&lt;rule name="OrphanedProjects" type="BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule"&gt;
   &lt;solutions searchPath="D:\Projects\Source" /&gt;
 &lt;/rule&gt;</pre>
     <h2><a name="RulesStrongNaming">Strong Naming</a></h2>
     <h3>Definition</h3>
     <p>Verifies the strong naming (key signing) settings of a project file.</p>
-    <pre>&lt;rule name="StrongNamingRule" type="JelleDruyts.BuildCop.Rules.StrongNaming.StrongNamingRule"&gt;
+    <pre>&lt;rule name="StrongNamingRule" type="BuildCop.Rules.StrongNaming.StrongNamingRule"&gt;
   &lt;strongNaming strongNameRequired="[true|false]"
                 <i>keyPath="[...]"</i>
                 <i>ignoreUnsignedProjects="[true|false]"</i> /&gt;
@@ -178,9 +178,9 @@
     </ul>
     <h3>Example</h3>
     <p>The following example verifies that all project files have strong naming enabled
-        and that they all use the key file "D:\Projects\Source\JelleDruyts.snk".</p>
-    <pre>&lt;rule name="StrongNamingRule" type="JelleDruyts.BuildCop.Rules.StrongNaming.StrongNamingRule"&gt;
-  &lt;strongNaming strongNameRequired="true" keyPath="D:\Projects\Source\JelleDruyts.snk" ignoreUnsignedProjects="false" /&gt;
+        and that they all use the key file "D:\Projects\Source\snk".</p>
+    <pre>&lt;rule name="StrongNamingRule" type="BuildCop.Rules.StrongNaming.StrongNamingRule"&gt;
+  &lt;strongNaming strongNameRequired="true" keyPath="D:\Projects\Source\snk" ignoreUnsignedProjects="false" /&gt;
 &lt;/rule&gt;</pre>
 </body>
 </html>

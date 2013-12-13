@@ -16,12 +16,12 @@
         in the way it works. If you would still get stuck in any way, though, please let
         me know and I'll clear up whatever isn't obvious right now.</p>
     <p>As for the technical details: BuildCop is written on .NET 2.0 so all you need is
-        a compiler and a reference to the <code>JelleDruyts.BuildCop.dll</code> assembly,
+        a compiler and a reference to the <code>BuildCop.dll</code> assembly,
         which contains all the required classes needed for customization.</p>
     <h2><a name="CustomizationCustomRules">Writing Custom Rules</a></h2>
     <h3><a name="CustomizationCustomRulesOverview">Overview</a></h3>
     <ul>
-        <li>Create a class that derives from <code>JelleDruyts.BuildCop.Rules.BaseRule</code>.
+        <li>Create a class that derives from <code>BuildCop.Rules.BaseRule</code>.
             <ul>
                 <li>Re-implement the base class constructor (simply pass through to the base class constructor).</li>
                 <li>Override the <code>Check</code> method to analyze an MSBuild project file and return
@@ -34,7 +34,7 @@
         </li>
         <li>If your rule requires configuration:
             <ul>
-                <li>Create a root configuration element that inherits from <code>JelleDruyts.BuildCop.Configuration.RuleConfigurationElement</code>.</li>
+                <li>Create a root configuration element that inherits from <code>BuildCop.Configuration.RuleConfigurationElement</code>.</li>
                 <li>Re-implement the two base class constructors (simply pass through to the base class
                     constructors).</li>
                 <li>Inside the class, use the standard .NET 2.0 Configuration infrastructure (i.e. <code>
@@ -112,7 +112,7 @@ public class WordsElement : ConfigurationElement
     <h2><a name="CustomizationCustomFormatters">Writing Custom Formatters</a></h2>
     <h3><a name="CustomizationCustomFormattersOverview">Overview</a></h3>
     <ul>
-        <li>Create a class that derives from <code>JelleDruyts.BuildCop.Formatters.BaseFormatter</code>.
+        <li>Create a class that derives from <code>BuildCop.Formatters.BaseFormatter</code>.
             <ul>
                 <li>Re-implement the base class constructor (simply pass through to the base class constructor).</li>
                 <li>Override the <code>WriteReport</code> method to write the given report in whatever
@@ -126,7 +126,7 @@ public class WordsElement : ConfigurationElement
         </li>
         <li>If your formatter requires configuration:
             <ul>
-                <li>Create a root configuration element that inherits from <code>JelleDruyts.BuildCop.Configuration.FormatterConfigurationElement</code>.</li>
+                <li>Create a root configuration element that inherits from <code>BuildCop.Configuration.FormatterConfigurationElement</code>.</li>
                 <li>Re-implement the two base class constructors (simply pass through to the base class
                     constructors).</li>
                 <li>Inside the class, use the standard .NET 2.0 Configuration infrastructure (i.e. <code>

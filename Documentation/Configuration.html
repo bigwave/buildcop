@@ -7,7 +7,7 @@
 <body>
     <h1><a name="Configuration">Configuration</a></h1>
     <h2><a name="ConfigurationOverview">Overview</a></h2>
-    <p>The BuildCop configuration file must always be named <code>JelleDruyts.BuildCop.Console.exe.config</code>
+    <p>The BuildCop configuration file must always be named <code>BuildCop.Console.exe.config</code>
         and be located in the same directory as the executable.</p>
     <p>To assist you in defining the configuration file, an XML Schema Definition (XSD)
         file is provided that documents the available XML nodes and attributes for most
@@ -20,7 +20,7 @@
     <pre>&lt;?xml version="1.0" encoding="utf-8" ?&gt;
 &lt;configuration&gt;
   &lt;configSections&gt;
-    &lt;section name="buildCopConfiguration" type="JelleDruyts.BuildCop.Configuration.BuildCopConfiguration, JelleDruyts.BuildCop"/&gt;
+    &lt;section name="buildCopConfiguration" type="BuildCop.Configuration.BuildCopConfiguration, BuildCop"/&gt;
   &lt;/configSections&gt;
   &lt;buildCopConfiguration xmlns="http://schemas.jelle.druyts.net/BuildCop"&gt;
     &lt;buildGroups&gt;[...]&lt;/buildGroups&gt;
@@ -117,8 +117,8 @@
                 <li><code>type</code>: the fully qualified type name of the rule class to use. The rules
                     that are available out of the box and their configuration details are described
                     below.<br />
-                    For example: <code>type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule,
-                        JelleDruyts.BuildCop"</code> would load the built-in "Build Properties" rule.<br />
+                    For example: <code>type="BuildCop.Rules.BuildProperties.BuildPropertiesRule,
+                        BuildCop"</code> would load the built-in "Build Properties" rule.<br />
                     If the type is omitted, no other configuration may be defined here but instead the
                     shared rule with the given name is used from the <code>sharedRules</code> configuration
                     node.</li>
@@ -158,7 +158,7 @@
     &lt;/paths&gt;
   &lt;/buildFiles&gt;
   &lt;rules&gt;
-    &lt;rule name="Build Properties" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
+    &lt;rule name="Build Properties" type="BuildCop.Rules.BuildProperties.BuildPropertiesRule"&gt;
       &lt;buildProperties&gt;
         &lt;buildProperty name="DebugSymbols" value="true" condition="Debug" /&gt;
         &lt;buildProperty name="DebugType" value="full" condition="Debug" /&gt;
@@ -172,14 +172,14 @@
         &lt;buildProperty name="WarningLevel" value="4" /&gt;
       &lt;/buildProperties&gt;
     &lt;/rule&gt;
-    &lt;rule name="Build Properties (Non-Web)" type="JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule"
+    &lt;rule name="Build Properties (Non-Web)" type="BuildCop.Rules.BuildProperties.BuildPropertiesRule"
           excludedOutputTypes="Web"&gt;
       &lt;buildProperties&gt;
         &lt;buildProperty name="OutputPath" value="bin\Debug\" condition="Debug" /&gt;
         &lt;buildProperty name="OutputPath" value="bin\Release\" condition="Release" /&gt;
       &lt;/buildProperties&gt;
     &lt;/rule&gt;
-    &lt;rule name="Documentation File" type="JelleDruyts.BuildCop.Rules.DocumentationFile.DocumentationFileRule"
+    &lt;rule name="Documentation File" type="BuildCop.Rules.DocumentationFile.DocumentationFileRule"
           excludedOutputTypes="Exe;WinExe;Web" /&gt;
   &lt;/rules&gt;
 &lt;/buildGroup&gt;</pre>
@@ -206,7 +206,7 @@
     &lt;/rules&gt;
   &lt;/buildGroup&gt;
   &lt;sharedRules&gt;
-    &lt;rule name="Documentation File" type="JelleDruyts.BuildCop.Rules.DocumentationFile.DocumentationFileRule"
+    &lt;rule name="Documentation File" type="BuildCop.Rules.DocumentationFile.DocumentationFileRule"
           excludedOutputTypes="Exe;WinExe;Web" /&gt;
   &lt;/sharedRules&gt;
 &lt;/buildCopConfiguration&gt;</pre>
@@ -227,7 +227,7 @@
                 <li><code>type</code>: the fully qualified type name of the formatter class to use.
                     The formatters that are available out of the box and their configuration details
                     are described below.<br />
-                    For example: <code>type="JelleDruyts.BuildCop.Formatters.Html.HtmlFormatter, JelleDruyts.BuildCop"</code>
+                    For example: <code>type="BuildCop.Formatters.Html.HtmlFormatter, BuildCop"</code>
                     would load the built-in HTML formatter.</li>
                 <li><code>minimumLogLevel</code> (optional): the minimum log level the formatter should
                     display or output.<br />
@@ -247,8 +247,8 @@
         HTML file, that should also be launched in the default web browser after the tool
         has completed.</p>
     <pre>&lt;formatters&gt;
-  &lt;formatter name="Console" type="JelleDruyts.BuildCop.Formatters.Console.ConsoleFormatter" minimumLogLevel="Warning" /&gt;
-  &lt;formatter name="Html" type="JelleDruyts.BuildCop.Formatters.Html.HtmlFormatter" minimumLogLevel="Information"&gt;
+  &lt;formatter name="Console" type="BuildCop.Formatters.Console.ConsoleFormatter" minimumLogLevel="Warning" /&gt;
+  &lt;formatter name="Html" type="BuildCop.Formatters.Html.HtmlFormatter" minimumLogLevel="Information"&gt;
     &lt;output fileName="BuildCopReport.html" launch="true" /&gt;
   &lt;/formatter&gt;
 &lt;/formatters&gt;</pre>

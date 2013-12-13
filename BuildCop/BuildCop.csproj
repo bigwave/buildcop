@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C0E91333-8782-4521-9867-41BFB3EE548B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BuildCop</RootNamespace>
+    <AssemblyName>BuildCop</AssemblyName>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\..\..\snk</AssemblyOriginatorKeyFile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Debug\BuildCop.xml</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\BuildCop.xml</DocumentationFile>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyReference.cs" />
+    <Compile Include="BuildProperty.cs" />
+    <Compile Include="Configuration\BuildCop.csd.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuildCop.csd</DependentUpon>
+    </Compile>
+    <Compile Include="Configuration\ConfigurationHelper.cs" />
+    <Compile Include="Configuration\FormatterConfigurationElement.cs" />
+    <Compile Include="Formatters\BuildCopFormatterAttribute.cs" />
+    <Compile Include="Formatters\Configuration\XsltOutputElement.cs" />
+    <Compile Include="Formatters\Configuration\XsltFilebasedFormatterElement.cs" />
+    <Compile Include="Formatters\XsltFilebasedFormatter.cs" />
+    <Compile Include="Formatters\Csv\CsvFormatter.cs" />
+    <Compile Include="Formatters\Configuration\FilebasedFormatterElement.cs" />
+    <Compile Include="Formatters\Configuration\OutputElement.cs" />
+    <Compile Include="Formatters\FilebasedFormatter.cs" />
+    <Compile Include="Reporting\BuildCopReport.cs" />
+    <Compile Include="Reporting\BuildGroupReport.cs" />
+    <Compile Include="Configuration\FormatterElement.cs" />
+    <Compile Include="Formatters\BaseFormatter.cs" />
+    <Compile Include="Formatters\Xml\XmlFormatter.cs" />
+    <Compile Include="Formatters\Html\HtmlFormatter.cs" />
+    <Compile Include="Rules\AssemblyReferences\Configuration\AssemblyLocationCollection.cs" />
+    <Compile Include="Rules\AssemblyReferences\Configuration\AssemblyLocationElement.cs" />
+    <Compile Include="Rules\AssemblyReferences\Configuration\AssemblyReferenceRuleElement.cs" />
+    <Compile Include="Rules\BuildCopRuleAttribute.cs" />
+    <Compile Include="Rules\BuildProperties\BuildPropertiesRule.cs" />
+    <Compile Include="Rules\BuildProperties\CompareOption.cs" />
+    <Compile Include="Rules\BuildProperties\Configuration\BuildPropertiesRuleElement.cs" />
+    <Compile Include="Rules\BuildProperties\Configuration\BuildPropertyCollection.cs" />
+    <Compile Include="Rules\BuildProperties\Configuration\BuildPropertyElement.cs" />
+    <Compile Include="Rules\DocumentationFile\DocumentationFileRule.cs" />
+    <Compile Include="Rules\NamingConventions\Configuration\PrefixesElement.cs" />
+    <Compile Include="Rules\NamingConventions\Configuration\NamingConventionsRuleElement.cs" />
+    <Compile Include="Rules\NamingConventions\NamingConventionsRule.cs" />
+    <Compile Include="Rules\OrphanedProjects\Configuration\SolutionsElement.cs" />
+    <Compile Include="Rules\OrphanedProjects\Configuration\OrphanedProjectsRuleElement.cs" />
+    <Compile Include="Rules\OrphanedProjects\OrphanedProjectsRule.cs" />
+    <Compile Include="Rules\StrongNaming\Configuration\StrongNamingElement.cs" />
+    <Compile Include="Rules\StrongNaming\Configuration\StrongNamingRuleElement.cs" />
+    <Compile Include="Configuration\RuleElement.cs" />
+    <Compile Include="Configuration\RuleConfigurationElement.cs" />
+    <Compile Include="Formatters\Console\ConsoleFormatter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="BuildCopEngine.cs" />
+    <Compile Include="Rules\AssemblyReferences\AssemblyReferenceRule.cs" />
+    <Compile Include="Rules\BaseRule.cs" />
+    <Compile Include="BuildFile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporting\LogEntry.cs" />
+    <Compile Include="Reporting\BuildFileReport.cs" />
+    <Compile Include="Rules\StrongNaming\StrongNamingRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BuildCopReport.xslt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configuration\BuildCop.csd">
+      <Generator>CsdFileGenerator</Generator>
+      <LastGenOutput>BuildCop.csd.cs</LastGenOutput>
+    </None>
+    <None Include="Configuration\BuildCop.csd.config">
+      <DependentUpon>BuildCop.csd</DependentUpon>
+    </None>
+    <None Include="Configuration\BuildCop.csd.diagram">
+      <DependentUpon>BuildCop.csd</DependentUpon>
+    </None>
+    <None Include="Configuration\BuildCop.csd.xsd">
+      <DependentUpon>BuildCop.csd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

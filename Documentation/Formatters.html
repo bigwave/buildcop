@@ -8,11 +8,11 @@
     <h1><a name="Formatters">Built-In Formatters</a></h1>
     <h2><a name="FormattersConsole">Console</a></h2>
     <p>Writes the log entries to the console.</p>
-    <pre>&lt;formatter name="Console" type="JelleDruyts.BuildCop.Formatters.Console.ConsoleFormatter" minimumLogLevel="[...]" /&gt;</pre>
+    <pre>&lt;formatter name="Console" type="BuildCop.Formatters.Console.ConsoleFormatter" minimumLogLevel="[...]" /&gt;</pre>
     <p>This formatter has no formatter-specific configuration.</p>
     <h2><a name="FormattersCsv">CSV</a></h2>
     <p>Writes the log entries to a comma-separated values (CSV) file.</p>
-    <pre>&lt;formatter name="Csv" type="JelleDruyts.BuildCop.Formatters.Csv.CsvFormatter" minimumLogLevel="[...]"&gt;
+    <pre>&lt;formatter name="Csv" type="BuildCop.Formatters.Csv.CsvFormatter" minimumLogLevel="[...]"&gt;
   &lt;output fileName="[...]" launch="[true|false]" /&gt;
 &lt;/formatter&gt;</pre>
     <ul>
@@ -26,7 +26,7 @@
     </ul>
     <h2><a name="FormattersHtml">HTML</a></h2>
     <p>Writes the log entries to an HTML file.</p>
-    <pre>&lt;formatter name="Html" type="JelleDruyts.BuildCop.Formatters.Html.HtmlFormatter" minimumLogLevel="[...]"&gt;
+    <pre>&lt;formatter name="Html" type="BuildCop.Formatters.Html.HtmlFormatter" minimumLogLevel="[...]"&gt;
   &lt;output fileName="[...]" launch="[true|false]" <i>stylesheet="[...]"</i> /&gt;
 &lt;/formatter&gt;</pre>
     <ul>
@@ -45,7 +45,7 @@
     </ul>
     <h2><a name="FormattersXml">XML</a></h2>
     <p>Writes the log entries to an XML file.</p>
-    <pre>&lt;formatter name="Xml" type="JelleDruyts.BuildCop.Formatters.Xml.XmlFormatter" minimumLogLevel="[...]"&gt;
+    <pre>&lt;formatter name="Xml" type="BuildCop.Formatters.Xml.XmlFormatter" minimumLogLevel="[...]"&gt;
   &lt;output fileName="[...]" launch="[true|false]" <i>stylesheet="[...]"</i> /&gt;
 &lt;/formatter&gt;</pre>
     <ul>

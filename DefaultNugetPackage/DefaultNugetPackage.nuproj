@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>39c0943a-8562-4bdc-958f-c04a6c8fd165</ProjectGuid>
+    <OutputPath>Bin\</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <NuBuildVersionSource>Auto</NuBuildVersionSource>
+    <NuBuildVersionFileName>True</NuBuildVersionFileName>
+    <NuBuildAddBinariesToSubfolder>False</NuBuildAddBinariesToSubfolder>
+    <NuBuildIncludePdbs>False</NuBuildIncludePdbs>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="DefaultNugetPackage.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BuildCop.Console\BuildCop.Console.csproj">
+      <Name>BuildCop.Console</Name>
+      <Project>{c1bc1163-9379-4dd5-a22a-be4df1ff6ab3}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\BuildCop\BuildCop.csproj">
+      <Name>BuildCop</Name>
+      <Project>{c0e91333-8782-4521-9867-41bfb3ee548b}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\NuBuild\v1\NuBuild.targets" />
+</Project>
