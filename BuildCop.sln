@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{516C18A0-3C0D-483C-8139-F73B19961F3D}"
 	ProjectSection(SolutionItems) = preProject
+		Documentation\BuildCop.chm = Documentation\BuildCop.chm
+		Documentation\BuildCop.shfb = Documentation\BuildCop.shfb
 		Documentation\BuildCop.sitemap = Documentation\BuildCop.sitemap
 		Documentation\Configuration.html = Documentation\Configuration.html
 		Documentation\Customization.html = Documentation\Customization.html
 		Documentation\Documentation.html = Documentation\Documentation.html
 		Documentation\Formatters.html = Documentation\Formatters.html
-		Documentation\BuildCop.chm = Documentation\BuildCop.chm
-		Documentation\BuildCop.shfb = Documentation\BuildCop.shfb
 		Documentation\Rules.html = Documentation\Rules.html
 		Documentation\StyleSheet.css = Documentation\StyleSheet.css
 	EndProjectSection
@@ -27,6 +27,8 @@ EndProject
 Project("{E09DD79A-4488-4AB9-8D3F-A7EEE78BF432}") = "DefaultNugetPackage", "DefaultNugetPackage\DefaultNugetPackage.nuproj", "{39C0943A-8562-4BDC-958F-C04A6C8FD165}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildCop.MsBuildTask", "BuildCop.MsBuildTask\BuildCop.MsBuildTask.csproj", "{A4455E50-D7E9-499D-93E0-863F943EF8B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildCop.MsBuildTask.Test", "BuildCop.MsBuildTask.Test\BuildCop.MsBuildTask.Test.csproj", "{E1BDB8E7-8256-4E4A-A01B-2B26867C79A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,12 @@ Global
 		{A4455E50-D7E9-499D-93E0-863F943EF8B0}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{A4455E50-D7E9-499D-93E0-863F943EF8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4455E50-D7E9-499D-93E0-863F943EF8B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1BDB8E7-8256-4E4A-A01B-2B26867C79A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1BDB8E7-8256-4E4A-A01B-2B26867C79A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1BDB8E7-8256-4E4A-A01B-2B26867C79A7}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1BDB8E7-8256-4E4A-A01B-2B26867C79A7}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{E1BDB8E7-8256-4E4A-A01B-2B26867C79A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1BDB8E7-8256-4E4A-A01B-2B26867C79A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
