@@ -65,12 +65,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuildCop.MsBuildTask\BuildCop.MsBuildTask.csproj">
       <Project>{a4455e50-d7e9-499d-93e0-863f943ef8b0}</Project>
       <Name>BuildCop.MsBuildTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BuildCop\BuildCop.csproj">
+      <Project>{c0e91333-8782-4521-9867-41bfb3ee548b}</Project>
+      <Name>BuildCop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

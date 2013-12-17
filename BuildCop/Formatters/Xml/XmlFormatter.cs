@@ -28,7 +28,7 @@ namespace BuildCop.Formatters.Xml
         {
             get
             {
-                string applicationDirectory = Path.GetDirectoryName(typeof(BuildCopEngine).Assembly.Location);
+                string applicationDirectory = Path.GetDirectoryName(typeof(BuildCopEngine).Assembly.CodeBase);
                 string stylesheet = Path.Combine(applicationDirectory, "BuildCopReport.xslt");
                 return stylesheet;
             }

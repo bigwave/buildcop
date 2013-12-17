@@ -17,7 +17,7 @@ namespace BuildCop.MsBuildTask.Test
             FakeBuildEngine anEngine = new FakeBuildEngine();
             var buildCop = new BuildCop.MsBuildTask.BuildCopMsBuildTask();
             ((ITask)buildCop).BuildEngine = anEngine;
-            buildCop.Execute();
+            Assert.IsTrue(buildCop.Execute());
         }
     }
 }
