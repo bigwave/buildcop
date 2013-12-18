@@ -30,6 +30,7 @@ namespace BuildCop.MsBuildTask.Test
             ((ITask)buildCop).BuildEngine = anEngine;
             buildCop.buildGroups = new TaskItem[1] { new TaskItem("TestOneError") };
             Assert.IsFalse(buildCop.Execute());
+            Assert.That(buildCop.Errors.Length == 1);
         }
     }
 }
