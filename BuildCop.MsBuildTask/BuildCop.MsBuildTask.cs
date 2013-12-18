@@ -27,9 +27,15 @@ namespace BuildCop.MsBuildTask
 
             if (errorCount > 0)
             {
-                foreach (LogEntry item in theReport.BuildGroupReports.Select(m => m.BuildFileReports.Select(n => n.FindLogEntries(LogLevel.Error))))
+                foreach (BuildGroupReport aBuildGroupReport in theReport.BuildGroupReports)
                 {
-                    Log.LogMessage(MessageImportance.High, item.Code + " " + item.Detail + " " + item.Code + " " + item.Level + " " + item.Message + " " + item.Rule);
+                    foreach (BuildFileReport aBuildFileReport in aBuildGroupReport.BuildFileReports)
+                    {
+                        foreach (LogEntry aLogEntry in aBuildFileReport.FindLogEntries(LogLevel.Information))
+                        {
+                            Log.LogMessage(MessageImportance.High, aLogEntry.Level + " " + aLogEntry.Detail);
+                        }
+                    }
                 }
 
                 return false;
@@ -39,5 +45,17 @@ namespace BuildCop.MsBuildTask
         }
 
         public TaskItem[] buildGroups { get; set; }
+
+        [Output]
+        public ITaskItem[] Exceptions { get; private set; }
+
+        [Output]
+        public ITaskItem[] Errors { get; private set; }
+
+        [Output]
+        public ITaskItem[] Warnings { get; private set; }
+
+        [Output]
+        public ITaskItem[] Information { get; private set; }
     }
 }
