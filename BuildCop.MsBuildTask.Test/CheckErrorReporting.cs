@@ -30,7 +30,8 @@ namespace BuildCop.MsBuildTask.Test
             ((ITask)buildCop).BuildEngine = anEngine;
             buildCop.buildGroups = new TaskItem[1] { new TaskItem("TestOneError") };
             Assert.IsFalse(buildCop.Execute());
-            Assert.That(buildCop.Errors.Length == 1);
+            Assert.That(buildCop.Errors.Length, Is.EqualTo(1));
+            Assert.That(buildCop.Errors[0].ItemSpec, Is.EqualTo("Error .\\TestOneError.proj The build property \"TreatWarningsAsErrors\" does not exist in the build file."));
         }
     }
 }
