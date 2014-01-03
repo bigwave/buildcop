@@ -29,5 +29,13 @@
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\BuildCopNugetPackage.targets">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\NuBuild\v1\NuBuild.targets" />
 </Project>
