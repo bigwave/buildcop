@@ -13,25 +13,26 @@ namespace BuildCop.MsBuildTask.Test
     public class CheckErrorReporting
     {
         [Test]
-        public void TestEmptyDefault()
+        public void Execute_WithMinimalConfig_ReturnsTrue()
         {
             FakeBuildEngine anEngine = new FakeBuildEngine();
             var buildCop = new BuildCop.MsBuildTask.BuildCopMsBuildTask();
             ((ITask)buildCop).BuildEngine = anEngine;
-            buildCop.buildGroups = new TaskItem[1] { new TaskItem("Default") };
+            buildCop.buildGroups = new TaskItem[1] { new TaskItem("MinimalConfig") };
             Assert.IsTrue(buildCop.Execute());
+            Assert.That(buildCop.Errors.Length, Is.EqualTo(0));
         }
 
         [Test]
-        public void TestOneError()
+        public void Execute_WithDefaultNewVisualStudioProjectAndSampleBuildCopConfig_FailsOnTreatErrorsAsWarnings()
         {
             FakeBuildEngine anEngine = new FakeBuildEngine();
             var buildCop = new BuildCop.MsBuildTask.BuildCopMsBuildTask();
             ((ITask)buildCop).BuildEngine = anEngine;
-            buildCop.buildGroups = new TaskItem[1] { new TaskItem("TestOneError") };
+            buildCop.buildGroups = new TaskItem[1] { new TaskItem("DefaultNewVisualStudioProjectAndSampleBuildCopConfig") };
             Assert.IsFalse(buildCop.Execute());
             Assert.That(buildCop.Errors.Length, Is.EqualTo(1));
-            Assert.That(buildCop.Errors[0].ItemSpec, Is.EqualTo("Error .\\TestOneError.proj The build property \"TreatWarningsAsErrors\" does not exist in the build file."));
+            Assert.That(buildCop.Errors[0].ItemSpec, Is.EqualTo("Error .\\VisualStudioNewProject.proj The build property \"TreatWarningsAsErrors\" does not exist in the build file."));
         }
     }
 }

@@ -26,14 +26,14 @@ namespace BuildCop.MsBuildTask
 
             int errorCount = theReport.BuildGroupReports.Sum(m => m.BuildFileReports.Sum(n => n.FindLogEntries(LogLevel.Error).Count));
 
+            List<TaskItem> exceptionList = new List<TaskItem>();
+            List<TaskItem> errorList = new List<TaskItem>();
+            List<TaskItem> warningList = new List<TaskItem>();
+            List<TaskItem> informationList = new List<TaskItem>();
+
             if (errorCount > 0)
             {
                 /// TODO - How do you do this in Linq?
-
-                List<TaskItem> exceptionList = new List<TaskItem>();
-                List<TaskItem> errorList = new List<TaskItem>();
-                List<TaskItem> warningList = new List<TaskItem>();
-                List<TaskItem> informationList = new List<TaskItem>();
                 foreach (BuildGroupReport aBuildGroupReport in theReport.BuildGroupReports)
                 {
                     foreach (BuildFileReport aBuildFileReport in aBuildGroupReport.BuildFileReports)
@@ -43,7 +43,7 @@ namespace BuildCop.MsBuildTask
                             string message = aLogEntry.Level + " " + aBuildFileReport.FileName + " " + aLogEntry.Detail;
                             Log.LogMessage(MessageImportance.High, message);
 
-                            switch(aLogEntry.Level)
+                            switch (aLogEntry.Level)
                             {
                                 case LogLevel.Exception:
                                     exceptionList.Add(new TaskItem(message));
@@ -63,11 +63,15 @@ namespace BuildCop.MsBuildTask
                     }
                 }
 
-                Exceptions = exceptionList.ToArray();
-                Errors = errorList.ToArray();
-                Warnings = warningList.ToArray();
-                Information = informationList.ToArray();
+            }
 
+            Exceptions = exceptionList.ToArray();
+            Errors = errorList.ToArray();
+            Warnings = warningList.ToArray();
+            Information = informationList.ToArray();
+
+            if (errorCount > 0)
+            {
                 return false;
             }
 
