@@ -8,13 +8,14 @@
     <NuBuildVersionFileName>True</NuBuildVersionFileName>
     <NuBuildAddBinariesToSubfolder>False</NuBuildAddBinariesToSubfolder>
     <NuBuildIncludePdbs>False</NuBuildIncludePdbs>
+    <Name>BuildCopNugetPackage</Name>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DefaultNugetPackage.nuspec" />
+    <Compile Include="BuildCopNugetPackage.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BuildCop.MsBuildTask\BuildCop.MsBuildTask.csproj">
