@@ -1,18 +1,12 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <!-- Specify where tasks are implemented.
-  <UsingTask AssemblyFile="BuildCop.dll" TaskName="BuildCopTask"/>
- -->
-  <PropertyGroup>
-    <BuildDependsOn>$(BuildDependsOn);BuildCop</BuildDependsOn>
-    <RebuildDependsOn>$(RebuildDependsOn);BuildCop</RebuildDependsOn>
-  </PropertyGroup>
+  <UsingTask AssemblyFile="..\lib\BuildCop.MsBuildTask.dll" TaskName="BuildCopMsBuildTask"/>
   <!-- Define target: BuildCop -->
-  <Target Name="BuildCop">
+  <Target Name="BuildCop" AfterTargets="BeforeBuild">
 
     <Message Text="Running BuildCop" Importance="High" />
 
-    <!-- Run the BuidCop MSBuild task.
+    <!-- Run the BuidCop MSBuild task.-->
     <BuildCopTask/>    
- -->
+ 
   </Target>
 </Project>
