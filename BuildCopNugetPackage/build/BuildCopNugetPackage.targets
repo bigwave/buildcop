@@ -6,7 +6,7 @@
     <Message Text="Running BuildCop" Importance="High" />
 
     <!-- Run the BuidCop MSBuild task.-->
-    <BuildCopTask/>    
+    <BuildCopMsBuildTask/>    
  
   </Target>
 </Project>
