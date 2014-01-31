@@ -10,7 +10,7 @@ using System.Globalization;
 
 namespace BuildCop.Configuration
 {
-    /// <summary>
+    /// <summary> 
     /// A helper class for configuration.
     /// </summary>
     internal static class ConfigurationHelper

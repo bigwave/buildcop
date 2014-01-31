@@ -12,7 +12,7 @@ using BuildCop.Reporting;
 namespace BuildCop.Configuration
 {
     /// <summary>
-    /// Defines a formatter for a BuildCop report.
+    /// Defines a formatter for a BuildCop report. 
     /// </summary>
     public partial class FormatterElement : ConfigurationElement
     {

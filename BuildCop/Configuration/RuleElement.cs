@@ -11,7 +11,7 @@ using BuildCop.Rules;
 namespace BuildCop.Configuration
 {
     /// <summary>
-    /// Defines a rule.
+    /// Defines a rule. 
     /// </summary>
     public partial class RuleElement : ConfigurationElement
     {

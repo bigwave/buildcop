@@ -7,7 +7,7 @@ using System.Xml;
 namespace BuildCop.Configuration
 {
     /// <summary>
-    /// A base class for rule-specific configuration elements.
+    /// A base class for rule-specific configuration elements. 
     /// </summary>
     public abstract class RuleConfigurationElement : ConfigurationElement
     {
