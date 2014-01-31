@@ -1,4 +1,5 @@
-﻿using BuildCop.Reporting;
+﻿using BuildCop.Configuration;
+using BuildCop.Reporting;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using System;

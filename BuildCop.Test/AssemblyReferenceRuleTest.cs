@@ -8,6 +8,7 @@ using BuildCop.Reporting;
 using BuildCop.Rules;
 using BuildCop.Rules.AssemblyReferences;
 using BuildCop.Rules.AssemblyReferences.Configuration;
+using BuildCop.Configuration;
 
 namespace BuildCop.Test
 {

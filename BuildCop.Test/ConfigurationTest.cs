@@ -27,10 +27,12 @@ namespace BuildCop.Test
         [TestMethod]
         public void ConfigurationFileShouldBeReadCorrectly()
         {
-            BuildCopConfiguration config = BuildCopConfiguration.Instance;
+            BuildCopConfiguration config;
+            Exception theException;
+            BuildCopConfiguration.LoadFromFile(@"C:\Users\ian.BIGWAVE\Documents\GitHub\buildcop\BuildCop.Console\App.config", out config, out theException);
+
             Assert.IsNotNull(config);
             Assert.IsNotNull(config.BuildGroups);
-            Assert.AreEqual<string>("http://schemas.jelle.druyts.net/BuildCop", config.Xmlns);
             Assert.AreEqual<int>(1, config.BuildGroups.Count);
 
             BuildGroupElement group = config.BuildGroups[0];
@@ -212,7 +214,7 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("out.csv", csvFormatterConfig.Output.FileName);
             Assert.AreEqual<bool>(false, csvFormatterConfig.Output.Launch);
 
-            OutputTypeCollection outputTypeMappings = config.OutputTypeMappings;
+            List<OutputTypeElement> outputTypeMappings = config.OutputTypeMappings;
             Assert.IsNotNull(outputTypeMappings);
             Assert.AreEqual<int>(1, outputTypeMappings.Count);
             OutputTypeElement outputType = outputTypeMappings[0];

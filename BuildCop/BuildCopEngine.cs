@@ -35,7 +35,10 @@ namespace BuildCop
         /// <returns>The report containing the outcome of a verification for a list of build groups.</returns>
         public static BuildCopReport Execute()
         {
-            return Execute(BuildCopConfiguration.Instance, null);
+            BuildCopConfiguration theConfig;
+            Exception theException;
+            BuildCopConfiguration.LoadFromFile(@"C:\Users\ian.BIGWAVE\Documents\GitHub\buildcop\BuildCop.Console\App.config", out theConfig, out theException);
+            return Execute(theConfig, null);
         }
 
         /// <summary>
@@ -45,7 +48,10 @@ namespace BuildCop
         /// <returns>The report containing the outcome of a verification for a list of build groups.</returns>
         public static BuildCopReport Execute(IList<string> buildGroups)
         {
-            return Execute(BuildCopConfiguration.Instance, buildGroups);
+            BuildCopConfiguration theConfig;
+            Exception theException;
+            BuildCopConfiguration.LoadFromFile(@"C:\Users\ian.BIGWAVE\Documents\GitHub\buildcop\BuildCop.Console\App.config", out theConfig, out theException);
+            return Execute(theConfig, buildGroups);
         }
 
         /// <summary>
@@ -215,7 +221,7 @@ namespace BuildCop
         /// <param name="ruleDefinition">The rule definition.</param>
         /// <param name="sharedRules">The rules that are shared between build groups.</param>
         /// <returns>The rule for the given definition.</returns>
-        private static BaseRule CreateRule(RuleElement ruleDefinition, RuleCollection sharedRules)
+        private static BaseRule CreateRule(RuleElement ruleDefinition, List<RuleElement> sharedRules)
         {
             string ruleTypeName = ruleDefinition.Type;
             RuleConfigurationElement ruleConfig = ruleDefinition.RuleConfiguration;

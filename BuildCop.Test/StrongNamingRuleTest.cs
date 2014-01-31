@@ -8,6 +8,7 @@ using BuildCop.Reporting;
 using BuildCop.Rules;
 using BuildCop.Rules.StrongNaming;
 using BuildCop.Rules.StrongNaming.Configuration;
+using BuildCop.Configuration;
 
 namespace BuildCop.Test
 {

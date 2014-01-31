@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BuildCop.Reporting;
 using BuildCop.Rules.NamingConventions;
 using BuildCop.Rules.NamingConventions.Configuration;
+using BuildCop.Configuration;
 
 namespace BuildCop.Test
 {

@@ -10,7 +10,7 @@ namespace BuildCop.Test.Mocks
 {
     internal class DerivedRuleElement : RuleElement
     {
-        public static RuleElement Deserialize(string xml)
+        public new static RuleElement Deserialize(string xml)
         {
             using (Stream memStream = new MemoryStream())
             using (StreamWriter writer = new StreamWriter(memStream))

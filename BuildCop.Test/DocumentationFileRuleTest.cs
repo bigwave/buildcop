@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using BuildCop.Reporting;
 using BuildCop.Rules.DocumentationFile;
+using BuildCop.Configuration;
 
 namespace BuildCop.Test
 {

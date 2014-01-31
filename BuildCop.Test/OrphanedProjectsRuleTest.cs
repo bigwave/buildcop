@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BuildCop.Reporting;
 using BuildCop.Rules.OrphanedProjects;
 using BuildCop.Rules.OrphanedProjects.Configuration;
+using BuildCop.Configuration;
 
 namespace BuildCop.Test
 {

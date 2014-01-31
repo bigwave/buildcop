@@ -4,6 +4,7 @@ using System.Text;
 
 using BuildCop.Formatters;
 using BuildCop.Reporting;
+using BuildCop.Configuration;
 
 namespace BuildCop.Test.Mocks
 {
