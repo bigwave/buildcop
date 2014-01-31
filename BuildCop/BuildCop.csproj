@@ -50,6 +50,8 @@
     <DocumentationFile>bin\Debug\BuildCop.xml</DocumentationFile>
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,14 +75,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyReference.cs" />
+    <Compile Include="Configuration\BuildCop.designer.cs" />
     <Compile Include="BuildProperty.cs" />
-    <Compile Include="Configuration\BuildCop.csd.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BuildCop.csd</DependentUpon>
-    </Compile>
     <Compile Include="Configuration\ConfigurationHelper.cs" />
     <Compile Include="Configuration\FormatterConfigurationElement.cs" />
+    <Compile Include="Configuration\FormatterElement.cs" />
+    <Compile Include="Configuration\RuleConfigurationElement.cs" />
+    <Compile Include="Configuration\RuleElement.cs" />
     <Compile Include="Formatters\BuildCopFormatterAttribute.cs" />
     <Compile Include="Formatters\Configuration\XsltOutputElement.cs" />
     <Compile Include="Formatters\Configuration\XsltFilebasedFormatterElement.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="Formatters\FilebasedFormatter.cs" />
     <Compile Include="Reporting\BuildCopReport.cs" />
     <Compile Include="Reporting\BuildGroupReport.cs" />
-    <Compile Include="Configuration\FormatterElement.cs" />
     <Compile Include="Formatters\BaseFormatter.cs" />
     <Compile Include="Formatters\Xml\XmlFormatter.cs" />
     <Compile Include="Formatters\Html\HtmlFormatter.cs" />
@@ -113,8 +113,6 @@
     <Compile Include="Rules\OrphanedProjects\OrphanedProjectsRule.cs" />
     <Compile Include="Rules\StrongNaming\Configuration\StrongNamingElement.cs" />
     <Compile Include="Rules\StrongNaming\Configuration\StrongNamingRuleElement.cs" />
-    <Compile Include="Configuration\RuleElement.cs" />
-    <Compile Include="Configuration\RuleConfigurationElement.cs" />
     <Compile Include="Formatters\Console\ConsoleFormatter.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="BuildCopEngine.cs" />
@@ -132,22 +130,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Configuration\BuildCop.csd">
-      <Generator>CsdFileGenerator</Generator>
-      <LastGenOutput>BuildCop.csd.cs</LastGenOutput>
-    </None>
-    <None Include="Configuration\BuildCop.csd.config">
-      <DependentUpon>BuildCop.csd</DependentUpon>
-    </None>
-    <None Include="Configuration\BuildCop.csd.diagram">
-      <DependentUpon>BuildCop.csd</DependentUpon>
-    </None>
-    <None Include="Configuration\BuildCop.csd.xsd">
-      <DependentUpon>BuildCop.csd</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
@@ -162,6 +144,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configuration\BuildCop.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
