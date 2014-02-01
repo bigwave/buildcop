@@ -95,15 +95,15 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="ruleCollection">
-    <xs:sequence>
+    <xs:complexType name="ruleCollection">
+      <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="rule" type="tns:ruleElement">
         <xs:annotation>
           <xs:documentation>Defines a rule.</xs:documentation>
         </xs:annotation>
       </xs:element>
-    </xs:sequence>
-  </xs:complexType>
+      </xs:sequence>
+    </xs:complexType>
   <xs:complexType name="outputTypeCollection">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="outputType" type="tns:outputTypeElement">
@@ -125,10 +125,71 @@
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="ruleElement">
-    <xs:sequence>
-      <xs:any minOccurs="0" processContents="lax" />
-    </xs:sequence>
+  <xs:complexType name="ruleElement" mixed="true">
+      <xs:sequence>
+        <xs:element name="assemblyLocations" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="assemblyLocation" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="assemblyName"/>
+                      <xs:attribute type="xs:string" name="assemblyPath"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="strongNaming" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:boolean" name="strongNameRequired"/>
+                <xs:attribute type="xs:string" name="keyPath"/>
+                <xs:attribute type="xs:boolean" name="ignoreUnsignedProjects"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="prefixes" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="namespacePrefix"/>
+                <xs:attribute type="xs:string" name="assemblyNamePrefix"/>
+                <xs:attribute type="xs:boolean" name="assemblyNameShouldMatchRootNamespace"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="buildProperties" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="buildProperty" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                      <xs:attribute type="xs:string" name="name" use="optional"/>
+                      <xs:attribute type="xs:string" name="value" use="optional"/>
+                      <xs:attribute type="xs:string" name="condition" use="optional"/>
+                      <xs:attribute type="xs:string" name="compareOption" use="optional"/>
+                      <xs:attribute type="xs:string" name="stringCompareOption" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="solutions" minOccurs="0">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="searchPath"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
     <xs:attribute name="name" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The name of this rule.</xs:documentation>
@@ -139,22 +200,35 @@
         <xs:documentation>The type of this rule.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="excludedFiles" use="optional" type="xs:string">
+    <xs:attribute name="excludedFiles" use="optional" type="xs:string" default="">
       <xs:annotation>
         <xs:documentation>The string to find in the names of files to exclude for this rule.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="excludedOutputTypes" use="optional" type="xs:string">
+    <xs:attribute name="excludedOutputTypes" use="optional" type="xs:string" default="">
       <xs:annotation>
         <xs:documentation>The string to find in the output type of files to exclude for this rule.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="enabled" use="optional" type="xs:boolean">
+    <xs:attribute name="enabled" use="optional" type="xs:boolean" default="true">
       <xs:annotation>
         <xs:documentation>A value that determines if this rule is enabled.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
+  <!--<xs:complexType name="AssemblyReferenceRule">
+    <xs:complexContent>
+      <xs:extension base="tns:ruleElement">
+        <xs:sequence>
+          <xs:element name="assemblyLocations">
+            <xs:element name="assemblyLocations">
+
+            </xs:element>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>-->
   <xs:complexType name="buildFilesElement">
     <xs:sequence>
       <xs:element minOccurs="1" name="paths" type="tns:buildFilePathCollection">

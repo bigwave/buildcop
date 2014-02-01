@@ -9,7 +9,7 @@ namespace BuildCop.Configuration
     /// <summary>
     /// A base class for formatter-specific configuration elements. 
     /// </summary>
-    public abstract class FormatterConfigurationElement : ConfigurationElement
+    public abstract class FormatterConfigurationElement : BuildCopBaseElement
     {
         #region Constructor
 

@@ -95,11 +95,11 @@ namespace BuildCop
                     IList<BuildFile> buildFiles = GetBuildFiles(buildGroup.buildFiles);
 
                     // Determine rules.
-                    IList<BaseRule> rules = new List<BaseRule>();
+                    IList<ruleElement> rules = new List<ruleElement>();
                     foreach (ruleElement ruleDefinition in buildGroup.rules)
                     {
-                        BaseRule rule = CreateRule(ruleDefinition, configuration.sharedRules);
-                        rules.Add(rule);
+                        ////BaseRule rule = CreateRule(ruleDefinition, configuration.sharedRules);
+                        rules.Add(ruleDefinition);
                     }
 
                     // Run rules on all build files.
@@ -109,11 +109,11 @@ namespace BuildCop
                         try
                         {
                             buildFile.Parse();
-                            foreach (BaseRule rule in rules)
+                            foreach (ruleElement rule in rules)
                             {
-                                if (!ShouldExcludeFile(buildFile.FileName, rule.ExcludedFiles))
+                                if (!ShouldExcludeFile(buildFile.FileName, rule.excludedFiles))
                                 {
-                                    if (!ShouldExcludeOutputType(buildFile.OutputType, buildFile.ProjectTypeGuids, outputTypeMappings, rule.ExcludedOutputTypes))
+                                    if (!ShouldExcludeOutputType(buildFile.OutputType, buildFile.ProjectTypeGuids, outputTypeMappings, rule.excludedOutputTypes))
                                     {
                                         IList<LogEntry> ruleEntries = rule.Check(buildFile);
                                         allEntries.AddRange(ruleEntries);
@@ -221,10 +221,10 @@ namespace BuildCop
         /// <param name="ruleDefinition">The rule definition.</param>
         /// <param name="sharedRules">The rules that are shared between build groups.</param>
         /// <returns>The rule for the given definition.</returns>
-        private static BaseRule CreateRule(ruleElement ruleDefinition, List<ruleElement> sharedRules)
+        private static ruleElement CreateRule(ruleElement ruleDefinition, List<ruleElement> sharedRules)
         {
             string ruleTypeName = ruleDefinition.type;
-            RuleConfigurationElement ruleConfig = ruleDefinition.RuleConfiguration;
+            ////RuleConfigurationElement ruleConfig = ruleDefinition.RuleConfiguration;
             string ruleName = ruleDefinition.name;
             string excludedFiles = ruleDefinition.excludedFiles;
             string excludedOutputTypes = ruleDefinition.excludedOutputTypes;
@@ -235,13 +235,14 @@ namespace BuildCop
                 if (string.Equals(ruleDefinition.name, sharedRuleDefinition.name, StringComparison.OrdinalIgnoreCase))
                 {
                     // A shared rule with the same name was found, use that rule's definition.
-                    if (!string.IsNullOrEmpty(ruleDefinition.type) || ruleDefinition.RuleConfiguration != null)
-                    {
+                    ////if (!string.IsNullOrEmpty(ruleDefinition.type) || ruleDefinition.RuleConfiguration != null)
+                    if (!string.IsNullOrEmpty(ruleDefinition.type) )
+                        {
                         throw new ConfigurationErrorsException(string.Format(CultureInfo.CurrentCulture, "The rule \"{0}\" has a Type and/or configuration element defined but is also defined as a shared rule. A reference to a shared rule can only include the rule's Name and optionally ExcludedFiles and ExcludedOutputTypes.", ruleDefinition.name));
                     }
 
                     ruleTypeName = sharedRuleDefinition.type;
-                    ruleConfig = sharedRuleDefinition.RuleConfiguration;
+                    ////ruleConfig = sharedRuleDefinition.RuleConfiguration;
                     ruleName = sharedRuleDefinition.name;
 
                     // Merge the excluded files and output types.
@@ -270,10 +271,11 @@ namespace BuildCop
             {
                 throw new ConfigurationErrorsException("The rule type must have a constructor that takes a RuleConfigurationElement. Type name: " + ruleType.FullName);
             }
-            BaseRule rule = (BaseRule)ctor.Invoke(new object[] { ruleConfig });
-            rule.Name = ruleName;
-            rule.ExcludedFiles = excludedFiles;
-            rule.ExcludedOutputTypes = excludedOutputTypes;
+            ////BaseRule rule = (BaseRule)ctor.Invoke(new object[] { ruleConfig });
+            ruleElement rule = new ruleElement();
+            rule.name = ruleName;
+            rule.excludedFiles = excludedFiles;
+            rule.excludedOutputTypes = excludedOutputTypes;
             return rule;
         }
 

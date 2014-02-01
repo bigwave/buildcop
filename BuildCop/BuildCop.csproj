@@ -77,6 +77,8 @@
     <Compile Include="AssemblyReference.cs" />
     <Compile Include="Configuration\BuildCop.designer.cs" />
     <Compile Include="BuildProperty.cs" />
+    <Compile Include="Configuration\BuildCopBaseElement_2.cs" />
+    <Compile Include="Configuration\CompareOption.cs" />
     <Compile Include="Configuration\ConfigurationHelper.cs" />
     <Compile Include="Configuration\FormatterConfigurationElement.cs" />
     <Compile Include="Configuration\FormatterElement.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="Rules\AssemblyReferences\Configuration\AssemblyLocationElement.cs" />
     <Compile Include="Rules\AssemblyReferences\Configuration\AssemblyReferenceRuleElement.cs" />
     <Compile Include="Rules\BuildCopRuleAttribute.cs" />
-    <Compile Include="Rules\BuildProperties\BuildPropertiesRule.cs" />
+    <Compile Include="Configuration\ruleElementBuildProperty.cs" />
     <Compile Include="Rules\BuildProperties\CompareOption.cs" />
     <Compile Include="Rules\BuildProperties\Configuration\BuildPropertiesRuleElement.cs" />
     <Compile Include="Rules\BuildProperties\Configuration\BuildPropertyCollection.cs" />

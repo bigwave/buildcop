@@ -24,7 +24,7 @@ namespace BuildCop.Configuration
         /// <param name="reader">The reader from which to read.</param>
         /// <param name="specificConfigurationType">The specific type of configuration element to read (actual type).</param>
         /// <returns>The specific configuration element that was read.</returns>
-        public static TConfigurationType ReadSpecificConfigurationElement<TConfigurationType>(XmlReader reader, Type specificConfigurationType) where TConfigurationType : ConfigurationElement
+        public static TConfigurationType ReadSpecificConfigurationElement<TConfigurationType>(XmlReader reader, Type specificConfigurationType) where TConfigurationType : BuildCopBaseElement
         {
             if (!typeof(TConfigurationType).IsAssignableFrom(specificConfigurationType))
             {

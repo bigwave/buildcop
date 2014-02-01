@@ -12,11 +12,9 @@ using BuildCop.Formatters;
 using BuildCop.Formatters.Configuration;
 using BuildCop.Reporting;
 using BuildCop.Rules.AssemblyReferences.Configuration;
-using BuildCop.Rules.BuildProperties.Configuration;
 using BuildCop.Rules.NamingConventions.Configuration;
 using BuildCop.Rules.StrongNaming.Configuration;
 using BuildCop.Test.Mocks;
-using BuildCop.Rules.BuildProperties;
 using BuildCop.Rules.OrphanedProjects.Configuration;
 
 namespace BuildCop.Test
@@ -29,7 +27,7 @@ namespace BuildCop.Test
         {
             BuildCopConfiguration config;
             Exception theException;
-            BuildCopConfiguration.LoadFromFile(@"C:\Users\ian.BIGWAVE\Documents\GitHub\buildcop\BuildCop.Console\App.config", out config, out theException);
+            BuildCopConfiguration.LoadFromFile(@"BuildCop.config", out config, out theException);
 
             Assert.IsNotNull(config);
             Assert.IsNotNull(config.buildGroups);
@@ -57,15 +55,15 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("dat;bin", asmRefRule.excludedFiles);
             Assert.AreEqual<string>("WinExe;Exe", asmRefRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, asmRefRule.enabled);
-            Assert.IsNotNull(asmRefRule.RuleConfiguration);
-            Assert.IsInstanceOfType(asmRefRule.RuleConfiguration, typeof(AssemblyReferenceRuleElement));
-            AssemblyReferenceRuleElement asmRefRuleConfig = (AssemblyReferenceRuleElement)asmRefRule.RuleConfiguration;
-            Assert.IsNotNull(asmRefRuleConfig.AssemblyLocations);
-            Assert.AreEqual<int>(1, asmRefRuleConfig.AssemblyLocations.Count);
-            AssemblyLocationElement asmLocation = asmRefRuleConfig.AssemblyLocations[0];
+            ////Assert.IsNotNull(asmRefRule.RuleConfiguration);
+            ////Assert.IsInstanceOfType(asmRefRule.assemblyLocations, typeof(AssemblyReferenceRuleElement));
+            ////AssemblyReferenceRuleElement asmRefRuleConfig = (AssemblyReferenceRuleElement)asmRefRule.RuleConfiguration;
+            Assert.IsNotNull(asmRefRule.assemblyLocations);
+            Assert.AreEqual<int>(1, asmRefRule.assemblyLocations.Count);
+            ruleElementAssemblyLocation asmLocation = asmRefRule.assemblyLocations[0];
             Assert.IsNotNull(asmLocation);
-            Assert.AreEqual<string>("TestAssemblyName", asmLocation.AssemblyName);
-            Assert.AreEqual<string>("TestAssemblyPath", asmLocation.AssemblyPath);
+            Assert.AreEqual<string>("TestAssemblyName", asmLocation.assemblyName);
+            Assert.AreEqual<string>("TestAssemblyPath", asmLocation.assemblyPath);
 
             ruleElement strongNamingRule = group.rules[1];
             Assert.IsNotNull(strongNamingRule);
@@ -74,13 +72,10 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, strongNamingRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, strongNamingRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, strongNamingRule.enabled);
-            Assert.IsNotNull(strongNamingRule.RuleConfiguration);
-            Assert.IsInstanceOfType(strongNamingRule.RuleConfiguration, typeof(StrongNamingRuleElement));
-            StrongNamingRuleElement strongNamingRuleConfig = (StrongNamingRuleElement)strongNamingRule.RuleConfiguration;
-            Assert.IsNotNull(strongNamingRuleConfig.StrongNaming);
-            Assert.AreEqual<bool>(true, strongNamingRuleConfig.StrongNaming.StrongNameRequired);
-            Assert.AreEqual<string>("TestKeyPath", strongNamingRuleConfig.StrongNaming.KeyPath);
-            Assert.AreEqual<bool>(false, strongNamingRuleConfig.StrongNaming.IgnoreUnsignedProjects);
+            Assert.IsInstanceOfType(strongNamingRule, typeof(StrongNamingRuleElement));
+            Assert.AreEqual<bool>(true, strongNamingRule.strongNaming.strongNameRequired);
+            Assert.AreEqual<string>("TestKeyPath", strongNamingRule.strongNaming.keyPath);
+            Assert.AreEqual<bool>(false, strongNamingRule.strongNaming.ignoreUnsignedProjects);
 
             ruleElement namingConventionsRule = group.rules[2];
             Assert.IsNotNull(namingConventionsRule);
@@ -89,13 +84,11 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, namingConventionsRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, namingConventionsRule.excludedOutputTypes);
             Assert.AreEqual<bool>(false, namingConventionsRule.enabled);
-            Assert.IsNotNull(namingConventionsRule.RuleConfiguration);
-            Assert.IsInstanceOfType(namingConventionsRule.RuleConfiguration, typeof(NamingConventionsRuleElement));
-            NamingConventionsRuleElement namingConventionsRuleConfig = (NamingConventionsRuleElement)namingConventionsRule.RuleConfiguration;
-            Assert.IsNotNull(namingConventionsRuleConfig.Prefixes);
-            Assert.AreEqual<string>("TestAssemblyNamePrefix", namingConventionsRuleConfig.Prefixes.AssemblyNamePrefix);
-            Assert.AreEqual<string>("TestNamespacePrefix", namingConventionsRuleConfig.Prefixes.NamespacePrefix);
-            Assert.AreEqual<bool>(true, namingConventionsRuleConfig.Prefixes.AssemblyNameShouldMatchRootNamespace);
+            Assert.IsInstanceOfType(namingConventionsRule, typeof(NamingConventionsRuleElement));
+            Assert.IsNotNull(namingConventionsRule.prefixes);
+            Assert.AreEqual<string>("TestAssemblyNamePrefix", namingConventionsRule.prefixes.assemblyNamePrefix);
+            Assert.AreEqual<string>("TestNamespacePrefix", namingConventionsRule.prefixes.namespacePrefix);
+            Assert.AreEqual<bool>(true, namingConventionsRule.prefixes.assemblyNameShouldMatchRootNamespace);
 
             ruleElement buildPropertiesRule = group.rules[3];
             Assert.IsNotNull(buildPropertiesRule);
@@ -104,26 +97,23 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, buildPropertiesRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, buildPropertiesRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, buildPropertiesRule.enabled);
-            Assert.IsNotNull(buildPropertiesRule.RuleConfiguration);
-            Assert.IsInstanceOfType(buildPropertiesRule.RuleConfiguration, typeof(BuildPropertiesRuleElement));
-            BuildPropertiesRuleElement buildPropertiesRuleConfig = (BuildPropertiesRuleElement)buildPropertiesRule.RuleConfiguration;
-            Assert.IsNotNull(buildPropertiesRuleConfig.BuildProperties);
-            Assert.AreEqual<int>(3, buildPropertiesRuleConfig.BuildProperties.Count);
-            Assert.AreEqual<string>("ProductVersion", buildPropertiesRuleConfig.BuildProperties[0].Name);
-            Assert.AreEqual<string>("8.0.50727", buildPropertiesRuleConfig.BuildProperties[0].Value);
-            Assert.AreEqual<string>(string.Empty, buildPropertiesRuleConfig.BuildProperties[0].Condition);
-            Assert.AreEqual<CompareOption>(CompareOption.EqualTo, buildPropertiesRuleConfig.BuildProperties[0].CompareOption);
-            Assert.AreEqual<StringComparison>(StringComparison.Ordinal, buildPropertiesRuleConfig.BuildProperties[0].StringCompareOption);
-            Assert.AreEqual<string>("SchemaVersion", buildPropertiesRuleConfig.BuildProperties[1].Name);
-            Assert.AreEqual<string>("2.0", buildPropertiesRuleConfig.BuildProperties[1].Value);
-            Assert.AreEqual<string>(string.Empty, buildPropertiesRuleConfig.BuildProperties[1].Condition);
-            Assert.AreEqual<CompareOption>(CompareOption.EqualTo, buildPropertiesRuleConfig.BuildProperties[1].CompareOption);
-            Assert.AreEqual<StringComparison>(StringComparison.Ordinal, buildPropertiesRuleConfig.BuildProperties[1].StringCompareOption);
-            Assert.AreEqual<string>("DebugType", buildPropertiesRuleConfig.BuildProperties[2].Name);
-            Assert.AreEqual<string>("full", buildPropertiesRuleConfig.BuildProperties[2].Value);
-            Assert.AreEqual<string>("Debug", buildPropertiesRuleConfig.BuildProperties[2].Condition);
-            Assert.AreEqual<CompareOption>(CompareOption.DoesNotExist, buildPropertiesRuleConfig.BuildProperties[2].CompareOption);
-            Assert.AreEqual<StringComparison>(StringComparison.OrdinalIgnoreCase, buildPropertiesRuleConfig.BuildProperties[2].StringCompareOption);
+            Assert.IsNotNull(buildPropertiesRule.buildProperties);
+            Assert.AreEqual<int>(3, buildPropertiesRule.buildProperties.Count);
+            Assert.AreEqual<string>("ProductVersion", buildPropertiesRule.buildProperties[0].name);
+            Assert.AreEqual<string>("8.0.50727", buildPropertiesRule.buildProperties[0].value);
+            Assert.AreEqual<string>(string.Empty, buildPropertiesRule.buildProperties[0].condition);
+            Utility.CheckCompareOption(CompareOption.EqualTo, buildPropertiesRule.buildProperties[0].compareOption);
+            Utility.CheckStringComparison(StringComparison.Ordinal, buildPropertiesRule.buildProperties[0].stringCompareOption);
+            Assert.AreEqual<string>("SchemaVersion", buildPropertiesRule.buildProperties[1].name);
+            Assert.AreEqual<string>("2.0", buildPropertiesRule.buildProperties[1].value);
+            Assert.AreEqual<string>(string.Empty, buildPropertiesRule.buildProperties[1].condition);
+            Utility.CheckCompareOption(CompareOption.EqualTo, buildPropertiesRule.buildProperties[1].compareOption);
+            Utility.CheckStringComparison(StringComparison.Ordinal, buildPropertiesRule.buildProperties[1].stringCompareOption);
+            Assert.AreEqual<string>("DebugType", buildPropertiesRule.buildProperties[2].name);
+            Assert.AreEqual<string>("full", buildPropertiesRule.buildProperties[2].value);
+            Assert.AreEqual<string>("Debug", buildPropertiesRule.buildProperties[2].condition);
+            Utility.CheckCompareOption(CompareOption.DoesNotExist, buildPropertiesRule.buildProperties[2].compareOption);
+            Utility.CheckStringComparison(StringComparison.OrdinalIgnoreCase, buildPropertiesRule.buildProperties[2].stringCompareOption);
 
             ruleElement documentationFileRule = group.rules[4];
             Assert.IsNotNull(documentationFileRule);
@@ -132,7 +122,6 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, documentationFileRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, documentationFileRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, documentationFileRule.enabled);
-            Assert.IsNull(documentationFileRule.RuleConfiguration);
 
             ruleElement orphanedProjectsRule = group.rules[5];
             Assert.IsNotNull(orphanedProjectsRule);
@@ -141,8 +130,7 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, orphanedProjectsRule.enabled);
-            Assert.IsNotNull(orphanedProjectsRule.RuleConfiguration);
-            Assert.IsInstanceOfType(orphanedProjectsRule.RuleConfiguration, typeof(OrphanedProjectsRuleElement));
+            Assert.IsInstanceOfType(orphanedProjectsRule, typeof(OrphanedProjectsRuleElement));
             OrphanedProjectsRuleElement orphanedProjectsRuleConfig = (OrphanedProjectsRuleElement)orphanedProjectsRule.RuleConfiguration;
             Assert.IsNotNull(orphanedProjectsRuleConfig.Solutions);
             Assert.AreEqual<string>("TestSearchPath", orphanedProjectsRuleConfig.Solutions.SearchPath);

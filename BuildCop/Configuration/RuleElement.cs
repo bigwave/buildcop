@@ -7,61 +7,141 @@ using System.Text;
 using System.Xml;
 
 using BuildCop.Rules;
+using BuildCop.Reporting;
+using System.Globalization;
 
 namespace BuildCop.Configuration
 {
     /// <summary>
     /// Defines a rule. 
     /// </summary>
-    public partial class ruleElement : ConfigurationElement
+    public partial class ruleElement : BuildCopBaseElement
     {
-        #region Rule-Specific Configuration Handling
+
+        #region Check
 
         /// <summary>
-        /// Gets a value indicating whether an unknown element is encountered during deserialization.
+        /// Checks the current rule on the given build file.
         /// </summary>
-        /// <param name="elementName">The name of the unknown subelement.</param>
-        /// <param name="reader">The <see cref="T:System.Xml.XmlReader"></see> object being used for deserialization.</param>
-        /// <returns>true when an unknown element is encountered while deserializing.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "elementName")]
-        private bool HandleUnrecognizedElement(string elementName, XmlReader reader)
+        /// <param name="project">The build file to verify.</param>
+        /// <returns>The log entries for the specified build file.</returns>
+        public IList<LogEntry> Check(BuildFile project)
         {
-            // Determine the rule type.
-            System.Type ruleType = System.Type.GetType(this.type, true, true);
-            if (!typeof(BaseRule).IsAssignableFrom(ruleType))
+            List<LogEntry> entries = new List<LogEntry>();
+
+            foreach (ruleElementBuildProperty buildProperty in this.buildProperties)
             {
-                throw new ConfigurationErrorsException("The rule type must derive from the BaseRule class. Type name: " + this.type);
+                CheckBuildProperties(project, entries, buildProperty);
             }
 
-            // Find the BuildCopRule attribute to determine the rule's configuration type.
-            object[] attributes = ruleType.GetCustomAttributes(typeof(BuildCopRuleAttribute), true);
-            if (attributes.Length != 1)
-            {
-                throw new ConfigurationErrorsException("The rule type must have the BuildCopRuleAttribute applied. Type name: " + this.type);
-            }
-            BuildCopRuleAttribute ruleAttribute = (BuildCopRuleAttribute)attributes[0];
-            System.Type configType = ruleAttribute.ConfigurationType;
-            if (configType != null)
-            {
-                this.ruleConfiguration = ConfigurationHelper.ReadSpecificConfigurationElement<RuleConfigurationElement>(reader, configType);
-            }
-
-            return true;
+            return entries;
         }
 
-        private RuleConfigurationElement ruleConfiguration;
-
-        /// <summary>
-        /// Gets the rule-specific configuration element for this element.
-        /// </summary>
-        public RuleConfigurationElement RuleConfiguration
+        private void CheckBuildProperties(BuildFile project, List<LogEntry> entries, ruleElementBuildProperty expectedProperty)
         {
-            get
+            StringComparison comparisonType = (StringComparison)Enum.Parse(typeof(System.StringComparison), expectedProperty.stringCompareOption, true);
+            CompareOption theCompareOption = (CompareOption)Enum.Parse(typeof(CompareOption), expectedProperty.compareOption, true);
+            IList<BuildProperty> properties = project.FindProperties(expectedProperty.name, expectedProperty.condition);
+
+            if (theCompareOption == CompareOption.Exists)
             {
-                return this.ruleConfiguration;
+                if (properties.Count == 0)
+                {
+                    string condition = GetConditionSubstring(expectedProperty);
+                    string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" should exist.", expectedProperty.name);
+                    string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} was not found but should exist in the build file.", expectedProperty.name, condition);
+                    entries.Add(new LogEntry(this.name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                }
+            }
+            else if (theCompareOption == CompareOption.DoesNotExist)
+            {
+                if (properties.Count != 0)
+                {
+                    string condition = GetConditionSubstring(expectedProperty);
+                    string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" should not exist.", expectedProperty.name);
+                    string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} was found but should not exist in the build file.", expectedProperty.name, condition);
+                    entries.Add(new LogEntry(this.name, "PropertyShouldNotExist", LogLevel.Error, message, detail));
+                }
+            }
+            else if (theCompareOption == CompareOption.EqualTo)
+            {
+                if (properties.Count == 0)
+                {
+                    string condition = GetConditionSubstring(expectedProperty);
+                    string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" was not found.", expectedProperty.name);
+                    string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} does not exist in the build file.", expectedProperty.name, condition);
+                    entries.Add(new LogEntry(this.name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                }
+                else
+                {
+                    foreach (BuildProperty property in properties)
+                    {
+                        if (!string.Equals(property.Value, expectedProperty.value, comparisonType))
+                        {
+                            string condition = GetConditionSubstring(expectedProperty);
+                            string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should have the expected value \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
+                            string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but it should be \"{3}\".", expectedProperty.name, condition, property.Value, expectedProperty.value);
+                            entries.Add(new LogEntry(this.name, "IncorrectValue", LogLevel.Error, message, detail));
+                        }
+                    }
+                }
+            }
+            else if (theCompareOption == CompareOption.NotEqualTo)
+            {
+                foreach (BuildProperty property in properties)
+                {
+                    if (string.Equals(property.Value, expectedProperty.value, comparisonType))
+                    {
+                        string condition = GetConditionSubstring(expectedProperty);
+                        string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should not have the value \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
+                        string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but this value is not allowed.", expectedProperty.name, condition, property.Value);
+                        entries.Add(new LogEntry(this.name, "IncorrectValue", LogLevel.Error, message, detail));
+                    }
+                }
+            }
+            else if (theCompareOption == CompareOption.In)
+            {
+                if (properties.Count == 0)
+                {
+                    string condition = GetConditionSubstring(expectedProperty);
+                    string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" was not found.", expectedProperty.name);
+                    string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} does not exist in the build file.", expectedProperty.name, condition);
+                    entries.Add(new LogEntry(this.name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                }
+                foreach (BuildProperty property in properties)
+                {
+                    if (expectedProperty.value.IndexOf(property.Value, comparisonType) < 0)
+                    {
+                        string condition = GetConditionSubstring(expectedProperty);
+                        string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should be in the list \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
+                        string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but it should be in the list \"{3}\".", expectedProperty.name, condition, property.Value, expectedProperty.value);
+                        entries.Add(new LogEntry(this.name, "IncorrectValue", LogLevel.Error, message, detail));
+                    }
+                }
+            }
+            else if (theCompareOption == CompareOption.NotIn)
+            {
+                foreach (BuildProperty property in properties)
+                {
+                    if (expectedProperty.value.IndexOf(property.Value, comparisonType) >= 0)
+                    {
+                        string condition = GetConditionSubstring(expectedProperty);
+                        string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should not be in the list \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
+                        string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but it should not be in the list \"{3}\".", expectedProperty.name, condition, property.Value, expectedProperty.value);
+                        entries.Add(new LogEntry(this.name, "IncorrectValue", LogLevel.Error, message, detail));
+                    }
+                }
             }
         }
+
+        private static string GetConditionSubstring(ruleElementBuildProperty expectedProperty)
+        {
+            return (string.IsNullOrEmpty(expectedProperty.condition) ? "" : string.Format(CultureInfo.CurrentCulture, " with condition \"{0}\"", expectedProperty.condition));
+        }
+
 
         #endregion
+ 
+
     }
 }

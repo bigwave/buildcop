@@ -14,7 +14,7 @@ namespace BuildCop.Configuration
     /// <summary>
     /// Defines a formatter for a BuildCop report. 
     /// </summary>
-    public partial class formatterElement : ConfigurationElement
+    public partial class formatterElement : BuildCopBaseElement
     {
         #region Formatter-Specific Configuration Handling
 
