@@ -23,18 +23,18 @@ namespace BuildCop.Test
         public void BuildCopShouldExecuteRules()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "DefaultConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "DefaultConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -55,21 +55,21 @@ namespace BuildCop.Test
         public void BuildCopShouldExecuteSharedRules()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "DefaultConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            buildGroup.Rules.Add(mockRule);
-            RuleElement sharedMockRule = new RuleElement();
-            sharedMockRule.Name = "Mock";
-            sharedMockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            config.SharedRules.Add(sharedMockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "DefaultConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            buildGroup.rules.Add(mockRule);
+            ruleElement sharedMockRule = new ruleElement();
+            sharedMockRule.name = "Mock";
+            sharedMockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            config.sharedRules.Add(sharedMockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -90,22 +90,22 @@ namespace BuildCop.Test
         public void BuildCopShouldExecuteFormatters()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "DefaultConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
-            FormatterElement formatter = new FormatterElement();
-            formatter.Type = typeof(MockFormatter).AssemblyQualifiedName;
-            formatter.MinimumLogLevel = LogLevel.Information;
-            config.Formatters.Add(formatter);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "DefaultConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
+            formatterElement formatter = new formatterElement();
+            formatter.type = typeof(MockFormatter).AssemblyQualifiedName;
+            formatter.minimumLogLevel = LogLevel.Information;
+            config.formatters.Add(formatter);
 
             MockFormatter.LastReport = null;
             BuildCopEngine.Execute(config);
@@ -130,17 +130,17 @@ namespace BuildCop.Test
         public void VerifyMultipleFiles()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -162,18 +162,18 @@ namespace BuildCop.Test
         public void VerifyMultipleFilesWithSearchPattern()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "default*.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "default*.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -194,18 +194,18 @@ namespace BuildCop.Test
         public void VerifyMultipleFilesWithExclude()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.ExcludedFiles = "default";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.excludedFiles = "default";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
 
@@ -226,19 +226,19 @@ namespace BuildCop.Test
         public void VerifyMultipleFilesWithGlobalExclude()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            buildGroup.BuildFiles.ExcludedFiles = "signed";
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.ExcludedFiles = "default";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildGroup.buildFiles.excludedFiles = "signed";
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.excludedFiles = "default";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
 
@@ -257,18 +257,18 @@ namespace BuildCop.Test
         public void BuildCopShouldExcludeBuildGroupsFromExplicitConfig()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Enabled = true;
-            buildGroup.Name = "TestBuildGroup";
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.ExcludedFiles = "default";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.enabled = true;
+            buildGroup.name = "TestBuildGroup";
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.excludedFiles = "default";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config, new string[] { });
 
@@ -294,14 +294,14 @@ namespace BuildCop.Test
         public void BuildCopShouldExcludeBuildGroupsWithoutRules()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.ExcludedFiles = "default";
-            buildGroup.BuildFiles.Paths.Add(path);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.excludedFiles = "default";
+            buildGroup.buildFiles.paths.Add(path);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
 
@@ -316,18 +316,18 @@ namespace BuildCop.Test
         public void BuildCopShouldReportRuleExceptions()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "DefaultConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(ExceptionMockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "DefaultConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(ExceptionMockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -357,19 +357,19 @@ namespace BuildCop.Test
         public void BuildCopShouldExcludeRulesOnFileName()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "DefaultConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            mockRule.ExcludedFiles = "DefaultConsoleApplication.csproj";
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "DefaultConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.excludedFiles = "DefaultConsoleApplication.csproj";
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -390,19 +390,19 @@ namespace BuildCop.Test
         public void BuildCopShouldExcludeRulesOnOutputType()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "DefaultConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            mockRule.ExcludedOutputTypes = "Dummy;Web;Exe";
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "DefaultConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.excludedOutputTypes = "Dummy;Web;Exe";
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -423,19 +423,19 @@ namespace BuildCop.Test
         public void BuildCopShouldExcludeRulesOnOutputTypeWithProjectTypeGuids()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "SignedConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            mockRule.ExcludedOutputTypes = "Dummy;Web";
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "SignedConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.excludedOutputTypes = "Dummy;Web";
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
 
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
@@ -460,12 +460,12 @@ namespace BuildCop.Test
         public void RuleTypeShouldBeValidType()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            RuleElement invalidRule = new RuleElement();
-            buildGroup.Rules.Add(invalidRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            ruleElement invalidRule = new ruleElement();
+            buildGroup.rules.Add(invalidRule);
+            config.buildGroups.Add(buildGroup);
             BuildCopEngine.Execute(config);
         }
 
@@ -474,13 +474,13 @@ namespace BuildCop.Test
         public void RuleTypeShouldBeBaseRuleType()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            RuleElement invalidRule = new RuleElement();
-            invalidRule.Type = typeof(string).AssemblyQualifiedName;
-            buildGroup.Rules.Add(invalidRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            ruleElement invalidRule = new ruleElement();
+            invalidRule.type = typeof(string).AssemblyQualifiedName;
+            buildGroup.rules.Add(invalidRule);
+            config.buildGroups.Add(buildGroup);
             BuildCopEngine.Execute(config);
         }
 
@@ -489,13 +489,13 @@ namespace BuildCop.Test
         public void RuleTypeShouldHaveExpectedConstructor()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            buildGroup.Enabled = true;
-            RuleElement invalidRule = new RuleElement();
-            invalidRule.Type = typeof(MockRuleInvalid).AssemblyQualifiedName;
-            buildGroup.Rules.Add(invalidRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildGroup.enabled = true;
+            ruleElement invalidRule = new ruleElement();
+            invalidRule.type = typeof(MockRuleInvalid).AssemblyQualifiedName;
+            buildGroup.rules.Add(invalidRule);
+            config.buildGroups.Add(buildGroup);
             BuildCopEngine.Execute(config);
         }
 
@@ -504,8 +504,8 @@ namespace BuildCop.Test
         public void FormatterTypeShouldBeValidType()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            FormatterElement invalidFormatter = new FormatterElement();
-            config.Formatters.Add(invalidFormatter);
+            formatterElement invalidFormatter = new formatterElement();
+            config.formatters.Add(invalidFormatter);
             BuildCopEngine.Execute(config);
         }
 
@@ -514,9 +514,9 @@ namespace BuildCop.Test
         public void FormatterTypeShouldBeBaseRuleType()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            FormatterElement invalidFormatter = new FormatterElement();
-            invalidFormatter.Type = typeof(string).AssemblyQualifiedName;
-            config.Formatters.Add(invalidFormatter);
+            formatterElement invalidFormatter = new formatterElement();
+            invalidFormatter.type = typeof(string).AssemblyQualifiedName;
+            config.formatters.Add(invalidFormatter);
             BuildCopEngine.Execute(config);
         }
 
@@ -525,9 +525,9 @@ namespace BuildCop.Test
         public void FormatterTypeShouldHaveExpectedConstructor()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            FormatterElement invalidFormatter = new FormatterElement();
-            invalidFormatter.Type = typeof(MockFormatterInvalid).AssemblyQualifiedName;
-            config.Formatters.Add(invalidFormatter);
+            formatterElement invalidFormatter = new formatterElement();
+            invalidFormatter.type = typeof(MockFormatterInvalid).AssemblyQualifiedName;
+            config.formatters.Add(invalidFormatter);
             BuildCopEngine.Execute(config);
         }
 

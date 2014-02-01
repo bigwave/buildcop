@@ -14,7 +14,7 @@ namespace BuildCop.Configuration
     /// <summary>
     /// Defines a formatter for a BuildCop report. 
     /// </summary>
-    public partial class FormatterElement : ConfigurationElement
+    public partial class formatterElement : ConfigurationElement
     {
         #region Formatter-Specific Configuration Handling
 
@@ -28,17 +28,17 @@ namespace BuildCop.Configuration
         private bool HandleUnrecognizedElement(string elementName, XmlReader reader)
         {
             // Determine the formatter type.
-            System.Type formatterType = System.Type.GetType(this.Type, true, true);
+            System.Type formatterType = System.Type.GetType(this.type, true, true);
             if (!typeof(BaseFormatter).IsAssignableFrom(formatterType))
             {
-                throw new ConfigurationErrorsException("The formatter type must derive from the BaseFormatter class. Type name: " + this.Type);
+                throw new ConfigurationErrorsException("The formatter type must derive from the BaseFormatter class. Type name: " + this.type);
             }
 
             // Find the BuildCopFormatter attribute to determine the formatter's configuration type.
             object[] attributes = formatterType.GetCustomAttributes(typeof(BuildCopFormatterAttribute), true);
             if (attributes.Length != 1)
             {
-                throw new ConfigurationErrorsException("The formatter type must have the BuildCopFormatterAttribute applied. Type name: " + this.Type);
+                throw new ConfigurationErrorsException("The formatter type must have the BuildCopFormatterAttribute applied. Type name: " + this.type);
             }
             BuildCopFormatterAttribute formatterAttribute = (BuildCopFormatterAttribute)attributes[0];
             System.Type configType = formatterAttribute.ConfigurationType;

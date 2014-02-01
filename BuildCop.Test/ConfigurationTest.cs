@@ -32,31 +32,31 @@ namespace BuildCop.Test
             BuildCopConfiguration.LoadFromFile(@"C:\Users\ian.BIGWAVE\Documents\GitHub\buildcop\BuildCop.Console\App.config", out config, out theException);
 
             Assert.IsNotNull(config);
-            Assert.IsNotNull(config.BuildGroups);
-            Assert.AreEqual<int>(1, config.BuildGroups.Count);
+            Assert.IsNotNull(config.buildGroups);
+            Assert.AreEqual<int>(1, config.buildGroups.Count);
 
-            BuildGroupElement group = config.BuildGroups[0];
+            buildGroupElement group = config.buildGroups[0];
             Assert.IsNotNull(group);
-            Assert.AreEqual<string>("TestBuildGroup", group.Name);
-            Assert.IsTrue(group.Enabled);
-            Assert.IsNotNull(group.BuildFiles);
-            Assert.AreEqual<string>("jpg;gif", group.BuildFiles.ExcludedFiles);
-            Assert.IsNotNull(group.BuildFiles.Paths);
-            Assert.AreEqual<int>(1, group.BuildFiles.Paths.Count);
-            BuildFilePathElement buildFilePath = group.BuildFiles.Paths[0];
-            Assert.AreEqual<string>("TestRootPath", buildFilePath.RootPath);
-            Assert.AreEqual<string>("*.csproj", buildFilePath.SearchPattern);
-            Assert.AreEqual<string>("exclude;bak", buildFilePath.ExcludedFiles);
-            Assert.IsNotNull(group.Rules);
-            Assert.AreEqual<int>(7, group.Rules.Count);
+            Assert.AreEqual<string>("TestBuildGroup", group.name);
+            Assert.IsTrue(group.enabled);
+            Assert.IsNotNull(group.buildFiles);
+            Assert.AreEqual<string>("jpg;gif", group.buildFiles.excludedFiles);
+            Assert.IsNotNull(group.buildFiles.paths);
+            Assert.AreEqual<int>(1, group.buildFiles.paths.Count);
+            buildFilePathElement buildFilePath = group.buildFiles.paths[0];
+            Assert.AreEqual<string>("TestRootPath", buildFilePath.rootPath);
+            Assert.AreEqual<string>("*.csproj", buildFilePath.searchPattern);
+            Assert.AreEqual<string>("exclude;bak", buildFilePath.excludedFiles);
+            Assert.IsNotNull(group.rules);
+            Assert.AreEqual<int>(7, group.rules.Count);
 
-            RuleElement asmRefRule = group.Rules[0];
+            ruleElement asmRefRule = group.rules[0];
             Assert.IsNotNull(asmRefRule);
-            Assert.AreEqual<string>("AssemblyReferenceRule", asmRefRule.Name);
-            Assert.AreEqual<string>("BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule", asmRefRule.Type);
-            Assert.AreEqual<string>("dat;bin", asmRefRule.ExcludedFiles);
-            Assert.AreEqual<string>("WinExe;Exe", asmRefRule.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(true, asmRefRule.Enabled);
+            Assert.AreEqual<string>("AssemblyReferenceRule", asmRefRule.name);
+            Assert.AreEqual<string>("BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule", asmRefRule.type);
+            Assert.AreEqual<string>("dat;bin", asmRefRule.excludedFiles);
+            Assert.AreEqual<string>("WinExe;Exe", asmRefRule.excludedOutputTypes);
+            Assert.AreEqual<bool>(true, asmRefRule.enabled);
             Assert.IsNotNull(asmRefRule.RuleConfiguration);
             Assert.IsInstanceOfType(asmRefRule.RuleConfiguration, typeof(AssemblyReferenceRuleElement));
             AssemblyReferenceRuleElement asmRefRuleConfig = (AssemblyReferenceRuleElement)asmRefRule.RuleConfiguration;
@@ -67,13 +67,13 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("TestAssemblyName", asmLocation.AssemblyName);
             Assert.AreEqual<string>("TestAssemblyPath", asmLocation.AssemblyPath);
 
-            RuleElement strongNamingRule = group.Rules[1];
+            ruleElement strongNamingRule = group.rules[1];
             Assert.IsNotNull(strongNamingRule);
-            Assert.AreEqual<string>("StrongNamingRule", strongNamingRule.Name);
-            Assert.AreEqual<string>("BuildCop.Rules.StrongNaming.StrongNamingRule", strongNamingRule.Type);
-            Assert.AreEqual<string>(string.Empty, strongNamingRule.ExcludedFiles);
-            Assert.AreEqual<string>(string.Empty, strongNamingRule.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(true, strongNamingRule.Enabled);
+            Assert.AreEqual<string>("StrongNamingRule", strongNamingRule.name);
+            Assert.AreEqual<string>("BuildCop.Rules.StrongNaming.StrongNamingRule", strongNamingRule.type);
+            Assert.AreEqual<string>(string.Empty, strongNamingRule.excludedFiles);
+            Assert.AreEqual<string>(string.Empty, strongNamingRule.excludedOutputTypes);
+            Assert.AreEqual<bool>(true, strongNamingRule.enabled);
             Assert.IsNotNull(strongNamingRule.RuleConfiguration);
             Assert.IsInstanceOfType(strongNamingRule.RuleConfiguration, typeof(StrongNamingRuleElement));
             StrongNamingRuleElement strongNamingRuleConfig = (StrongNamingRuleElement)strongNamingRule.RuleConfiguration;
@@ -82,13 +82,13 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("TestKeyPath", strongNamingRuleConfig.StrongNaming.KeyPath);
             Assert.AreEqual<bool>(false, strongNamingRuleConfig.StrongNaming.IgnoreUnsignedProjects);
 
-            RuleElement namingConventionsRule = group.Rules[2];
+            ruleElement namingConventionsRule = group.rules[2];
             Assert.IsNotNull(namingConventionsRule);
-            Assert.AreEqual<string>("NamingConventionsRule", namingConventionsRule.Name);
-            Assert.AreEqual<string>("BuildCop.Rules.NamingConventions.NamingConventionsRule", namingConventionsRule.Type);
-            Assert.AreEqual<string>(string.Empty, namingConventionsRule.ExcludedFiles);
-            Assert.AreEqual<string>(string.Empty, namingConventionsRule.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(false, namingConventionsRule.Enabled);
+            Assert.AreEqual<string>("NamingConventionsRule", namingConventionsRule.name);
+            Assert.AreEqual<string>("BuildCop.Rules.NamingConventions.NamingConventionsRule", namingConventionsRule.type);
+            Assert.AreEqual<string>(string.Empty, namingConventionsRule.excludedFiles);
+            Assert.AreEqual<string>(string.Empty, namingConventionsRule.excludedOutputTypes);
+            Assert.AreEqual<bool>(false, namingConventionsRule.enabled);
             Assert.IsNotNull(namingConventionsRule.RuleConfiguration);
             Assert.IsInstanceOfType(namingConventionsRule.RuleConfiguration, typeof(NamingConventionsRuleElement));
             NamingConventionsRuleElement namingConventionsRuleConfig = (NamingConventionsRuleElement)namingConventionsRule.RuleConfiguration;
@@ -97,13 +97,13 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("TestNamespacePrefix", namingConventionsRuleConfig.Prefixes.NamespacePrefix);
             Assert.AreEqual<bool>(true, namingConventionsRuleConfig.Prefixes.AssemblyNameShouldMatchRootNamespace);
 
-            RuleElement buildPropertiesRule = group.Rules[3];
+            ruleElement buildPropertiesRule = group.rules[3];
             Assert.IsNotNull(buildPropertiesRule);
-            Assert.AreEqual<string>("BuildPropertiesRule", buildPropertiesRule.Name);
-            Assert.AreEqual<string>("BuildCop.Rules.BuildProperties.BuildPropertiesRule", buildPropertiesRule.Type);
-            Assert.AreEqual<string>(string.Empty, buildPropertiesRule.ExcludedFiles);
-            Assert.AreEqual<string>(string.Empty, buildPropertiesRule.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(true, buildPropertiesRule.Enabled);
+            Assert.AreEqual<string>("BuildPropertiesRule", buildPropertiesRule.name);
+            Assert.AreEqual<string>("BuildCop.Rules.BuildProperties.BuildPropertiesRule", buildPropertiesRule.type);
+            Assert.AreEqual<string>(string.Empty, buildPropertiesRule.excludedFiles);
+            Assert.AreEqual<string>(string.Empty, buildPropertiesRule.excludedOutputTypes);
+            Assert.AreEqual<bool>(true, buildPropertiesRule.enabled);
             Assert.IsNotNull(buildPropertiesRule.RuleConfiguration);
             Assert.IsInstanceOfType(buildPropertiesRule.RuleConfiguration, typeof(BuildPropertiesRuleElement));
             BuildPropertiesRuleElement buildPropertiesRuleConfig = (BuildPropertiesRuleElement)buildPropertiesRule.RuleConfiguration;
@@ -125,62 +125,62 @@ namespace BuildCop.Test
             Assert.AreEqual<CompareOption>(CompareOption.DoesNotExist, buildPropertiesRuleConfig.BuildProperties[2].CompareOption);
             Assert.AreEqual<StringComparison>(StringComparison.OrdinalIgnoreCase, buildPropertiesRuleConfig.BuildProperties[2].StringCompareOption);
 
-            RuleElement documentationFileRule = group.Rules[4];
+            ruleElement documentationFileRule = group.rules[4];
             Assert.IsNotNull(documentationFileRule);
-            Assert.AreEqual<string>("DocumentationFileRule", documentationFileRule.Name);
-            Assert.AreEqual<string>("BuildCop.Rules.DocumentationFile.DocumentationFileRule", documentationFileRule.Type);
-            Assert.AreEqual<string>(string.Empty, documentationFileRule.ExcludedFiles);
-            Assert.AreEqual<string>(string.Empty, documentationFileRule.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(true, documentationFileRule.Enabled);
+            Assert.AreEqual<string>("DocumentationFileRule", documentationFileRule.name);
+            Assert.AreEqual<string>("BuildCop.Rules.DocumentationFile.DocumentationFileRule", documentationFileRule.type);
+            Assert.AreEqual<string>(string.Empty, documentationFileRule.excludedFiles);
+            Assert.AreEqual<string>(string.Empty, documentationFileRule.excludedOutputTypes);
+            Assert.AreEqual<bool>(true, documentationFileRule.enabled);
             Assert.IsNull(documentationFileRule.RuleConfiguration);
 
-            RuleElement orphanedProjectsRule = group.Rules[5];
+            ruleElement orphanedProjectsRule = group.rules[5];
             Assert.IsNotNull(orphanedProjectsRule);
-            Assert.AreEqual<string>("OrphanedProjects", orphanedProjectsRule.Name);
-            Assert.AreEqual<string>("BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule", orphanedProjectsRule.Type);
-            Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.ExcludedFiles);
-            Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(true, orphanedProjectsRule.Enabled);
+            Assert.AreEqual<string>("OrphanedProjects", orphanedProjectsRule.name);
+            Assert.AreEqual<string>("BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule", orphanedProjectsRule.type);
+            Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.excludedFiles);
+            Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.excludedOutputTypes);
+            Assert.AreEqual<bool>(true, orphanedProjectsRule.enabled);
             Assert.IsNotNull(orphanedProjectsRule.RuleConfiguration);
             Assert.IsInstanceOfType(orphanedProjectsRule.RuleConfiguration, typeof(OrphanedProjectsRuleElement));
             OrphanedProjectsRuleElement orphanedProjectsRuleConfig = (OrphanedProjectsRuleElement)orphanedProjectsRule.RuleConfiguration;
             Assert.IsNotNull(orphanedProjectsRuleConfig.Solutions);
             Assert.AreEqual<string>("TestSearchPath", orphanedProjectsRuleConfig.Solutions.SearchPath);
 
-            RuleElement sharedDocumentationFileRuleRef = group.Rules[6];
+            ruleElement sharedDocumentationFileRuleRef = group.rules[6];
             Assert.IsNotNull(sharedDocumentationFileRuleRef);
-            Assert.AreEqual<string>("SharedDocumentationFileRule", sharedDocumentationFileRuleRef.Name);
-            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRuleRef.Type);
-            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRuleRef.ExcludedFiles);
-            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRuleRef.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(true, sharedDocumentationFileRuleRef.Enabled);
+            Assert.AreEqual<string>("SharedDocumentationFileRule", sharedDocumentationFileRuleRef.name);
+            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRuleRef.type);
+            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRuleRef.excludedFiles);
+            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRuleRef.excludedOutputTypes);
+            Assert.AreEqual<bool>(true, sharedDocumentationFileRuleRef.enabled);
 
-            Assert.IsNotNull(config.SharedRules);
-            Assert.AreEqual<int>(1, config.SharedRules.Count);
-            RuleElement sharedDocumentationFileRule = config.SharedRules[0];
+            Assert.IsNotNull(config.sharedRules);
+            Assert.AreEqual<int>(1, config.sharedRules.Count);
+            ruleElement sharedDocumentationFileRule = config.sharedRules[0];
             Assert.IsNotNull(sharedDocumentationFileRule);
-            Assert.AreEqual<string>("SharedDocumentationFileRule", sharedDocumentationFileRule.Name);
-            Assert.AreEqual<string>("BuildCop.Rules.DocumentationFile.DocumentationFileRule", sharedDocumentationFileRule.Type);
-            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRule.ExcludedFiles);
-            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRule.ExcludedOutputTypes);
-            Assert.AreEqual<bool>(true, sharedDocumentationFileRule.Enabled);
+            Assert.AreEqual<string>("SharedDocumentationFileRule", sharedDocumentationFileRule.name);
+            Assert.AreEqual<string>("BuildCop.Rules.DocumentationFile.DocumentationFileRule", sharedDocumentationFileRule.type);
+            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRule.excludedFiles);
+            Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRule.excludedOutputTypes);
+            Assert.AreEqual<bool>(true, sharedDocumentationFileRule.enabled);
             Assert.IsNull(sharedDocumentationFileRule.RuleConfiguration);
 
-            Assert.IsNotNull(config.Formatters);
-            Assert.AreEqual<int>(4, config.Formatters.Count);
+            Assert.IsNotNull(config.formatters);
+            Assert.AreEqual<int>(4, config.formatters.Count);
 
-            FormatterElement consoleFormatter = config.Formatters[0];
+            formatterElement consoleFormatter = config.formatters[0];
             Assert.IsNotNull(consoleFormatter);
-            Assert.AreEqual<string>("Console", consoleFormatter.Name);
-            Assert.AreEqual<string>("BuildCop.Formatters.Console.ConsoleFormatter", consoleFormatter.Type);
-            Assert.AreEqual<LogLevel>(LogLevel.Warning, consoleFormatter.MinimumLogLevel);
+            Assert.AreEqual<string>("Console", consoleFormatter.name);
+            Assert.AreEqual<string>("BuildCop.Formatters.Console.ConsoleFormatter", consoleFormatter.type);
+            Assert.AreEqual<LogLevel>(LogLevel.Warning, consoleFormatter.minimumLogLevel);
             Assert.IsNull(consoleFormatter.FormatterConfiguration);
 
-            FormatterElement htmlFormatter = config.Formatters[1];
+            formatterElement htmlFormatter = config.formatters[1];
             Assert.IsNotNull(htmlFormatter);
-            Assert.AreEqual<string>("Html", htmlFormatter.Name);
-            Assert.AreEqual<string>("BuildCop.Formatters.Html.HtmlFormatter", htmlFormatter.Type);
-            Assert.AreEqual<LogLevel>(LogLevel.Information, htmlFormatter.MinimumLogLevel);
+            Assert.AreEqual<string>("Html", htmlFormatter.name);
+            Assert.AreEqual<string>("BuildCop.Formatters.Html.HtmlFormatter", htmlFormatter.type);
+            Assert.AreEqual<LogLevel>(LogLevel.Information, htmlFormatter.minimumLogLevel);
             Assert.IsNotNull(htmlFormatter.FormatterConfiguration);
             Assert.IsInstanceOfType(htmlFormatter.FormatterConfiguration, typeof(XsltFilebasedFormatterElement));
             XsltFilebasedFormatterElement htmlFormatterConfig = (XsltFilebasedFormatterElement)htmlFormatter.FormatterConfiguration;
@@ -189,11 +189,11 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, htmlFormatterConfig.Output.Stylesheet);
             Assert.AreEqual<bool>(false, htmlFormatterConfig.Output.Launch);
 
-            FormatterElement xmlFormatter = config.Formatters[2];
+            formatterElement xmlFormatter = config.formatters[2];
             Assert.IsNotNull(xmlFormatter);
-            Assert.AreEqual<string>("Xml", xmlFormatter.Name);
-            Assert.AreEqual<string>("BuildCop.Formatters.Xml.XmlFormatter", xmlFormatter.Type);
-            Assert.AreEqual<LogLevel>(LogLevel.Error, xmlFormatter.MinimumLogLevel);
+            Assert.AreEqual<string>("Xml", xmlFormatter.name);
+            Assert.AreEqual<string>("BuildCop.Formatters.Xml.XmlFormatter", xmlFormatter.type);
+            Assert.AreEqual<LogLevel>(LogLevel.Error, xmlFormatter.minimumLogLevel);
             Assert.IsNotNull(xmlFormatter.FormatterConfiguration);
             Assert.IsInstanceOfType(xmlFormatter.FormatterConfiguration, typeof(XsltFilebasedFormatterElement));
             XsltFilebasedFormatterElement xmlFormatterConfig = (XsltFilebasedFormatterElement)xmlFormatter.FormatterConfiguration;
@@ -202,11 +202,11 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("TestStylesheet.xslt", xmlFormatterConfig.Output.Stylesheet);
             Assert.AreEqual<bool>(false, xmlFormatterConfig.Output.Launch);
 
-            FormatterElement csvFormatter = config.Formatters[3];
+            formatterElement csvFormatter = config.formatters[3];
             Assert.IsNotNull(csvFormatter);
-            Assert.AreEqual<string>("Csv", csvFormatter.Name);
-            Assert.AreEqual<string>("BuildCop.Formatters.Csv.CsvFormatter", csvFormatter.Type);
-            Assert.AreEqual<LogLevel>(LogLevel.Exception, csvFormatter.MinimumLogLevel);
+            Assert.AreEqual<string>("Csv", csvFormatter.name);
+            Assert.AreEqual<string>("BuildCop.Formatters.Csv.CsvFormatter", csvFormatter.type);
+            Assert.AreEqual<LogLevel>(LogLevel.Exception, csvFormatter.minimumLogLevel);
             Assert.IsNotNull(csvFormatter.FormatterConfiguration);
             Assert.IsInstanceOfType(csvFormatter.FormatterConfiguration, typeof(FilebasedFormatterElement));
             FilebasedFormatterElement csvFormatterConfig = (FilebasedFormatterElement)csvFormatter.FormatterConfiguration;
@@ -214,37 +214,37 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("out.csv", csvFormatterConfig.Output.FileName);
             Assert.AreEqual<bool>(false, csvFormatterConfig.Output.Launch);
 
-            List<OutputTypeElement> outputTypeMappings = config.OutputTypeMappings;
+            List<outputTypeElement> outputTypeMappings = config.outputTypeMappings;
             Assert.IsNotNull(outputTypeMappings);
             Assert.AreEqual<int>(1, outputTypeMappings.Count);
-            OutputTypeElement outputType = outputTypeMappings[0];
+            outputTypeElement outputType = outputTypeMappings[0];
             Assert.IsNotNull(outputType);
-            Assert.AreEqual<string>("Web", outputType.Alias);
-            Assert.AreEqual<string>("{349c5851-65df-11da-9384-00065b846f21}", outputType.ProjectTypeGuid);
+            Assert.AreEqual<string>("Web", outputType.alias);
+            Assert.AreEqual<string>("{349c5851-65df-11da-9384-00065b846f21}", outputType.projectTypeGuid);
         }
 
         [TestMethod]
         public void TestMiscProperties()
         {
-            RuleElement rule = new RuleElement();
-            rule.Name = "MyName";
-            rule.Type = "MyType";
-            rule.ExcludedFiles = "MyExcludedFiles";
-            Assert.AreEqual<string>("MyName", rule.Name);
-            Assert.AreEqual<string>("MyType", rule.Type);
-            Assert.AreEqual<string>("MyExcludedFiles", rule.ExcludedFiles);
+            ruleElement rule = new ruleElement();
+            rule.name = "MyName";
+            rule.type = "MyType";
+            rule.excludedFiles = "MyExcludedFiles";
+            Assert.AreEqual<string>("MyName", rule.name);
+            Assert.AreEqual<string>("MyType", rule.type);
+            Assert.AreEqual<string>("MyExcludedFiles", rule.excludedFiles);
 
-            FormatterElement formatter = new FormatterElement();
-            formatter.Name = "MyName";
-            formatter.Type = "MyType";
-            Assert.AreEqual<string>("MyName", formatter.Name);
-            Assert.AreEqual<string>("MyType", formatter.Type);
+            formatterElement formatter = new formatterElement();
+            formatter.name = "MyName";
+            formatter.type = "MyType";
+            Assert.AreEqual<string>("MyName", formatter.name);
+            Assert.AreEqual<string>("MyType", formatter.type);
 
-            OutputTypeElement outputType = new OutputTypeElement();
-            outputType.Alias = "MyAlias";
-            outputType.ProjectTypeGuid = "MyProjectTypeGuid";
-            Assert.AreEqual<string>("MyAlias", outputType.Alias);
-            Assert.AreEqual<string>("MyProjectTypeGuid", outputType.ProjectTypeGuid);
+            outputTypeElement outputType = new outputTypeElement();
+            outputType.alias = "MyAlias";
+            outputType.projectTypeGuid = "MyProjectTypeGuid";
+            Assert.AreEqual<string>("MyAlias", outputType.alias);
+            Assert.AreEqual<string>("MyProjectTypeGuid", outputType.projectTypeGuid);
         }
 
         [TestMethod]

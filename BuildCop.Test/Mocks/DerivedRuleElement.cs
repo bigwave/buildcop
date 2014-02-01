@@ -8,9 +8,9 @@ using BuildCop.Configuration;
 
 namespace BuildCop.Test.Mocks
 {
-    internal class DerivedRuleElement : RuleElement
+    internal class DerivedRuleElement : ruleElement
     {
-        public new static RuleElement Deserialize(string xml)
+        public new static ruleElement Deserialize(string xml)
         {
             using (Stream memStream = new MemoryStream())
             using (StreamWriter writer = new StreamWriter(memStream))

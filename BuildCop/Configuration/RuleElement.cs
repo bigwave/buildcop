@@ -13,7 +13,7 @@ namespace BuildCop.Configuration
     /// <summary>
     /// Defines a rule. 
     /// </summary>
-    public partial class RuleElement : ConfigurationElement
+    public partial class ruleElement : ConfigurationElement
     {
         #region Rule-Specific Configuration Handling
 
@@ -27,17 +27,17 @@ namespace BuildCop.Configuration
         private bool HandleUnrecognizedElement(string elementName, XmlReader reader)
         {
             // Determine the rule type.
-            System.Type ruleType = System.Type.GetType(this.Type, true, true);
+            System.Type ruleType = System.Type.GetType(this.type, true, true);
             if (!typeof(BaseRule).IsAssignableFrom(ruleType))
             {
-                throw new ConfigurationErrorsException("The rule type must derive from the BaseRule class. Type name: " + this.Type);
+                throw new ConfigurationErrorsException("The rule type must derive from the BaseRule class. Type name: " + this.type);
             }
 
             // Find the BuildCopRule attribute to determine the rule's configuration type.
             object[] attributes = ruleType.GetCustomAttributes(typeof(BuildCopRuleAttribute), true);
             if (attributes.Length != 1)
             {
-                throw new ConfigurationErrorsException("The rule type must have the BuildCopRuleAttribute applied. Type name: " + this.Type);
+                throw new ConfigurationErrorsException("The rule type must have the BuildCopRuleAttribute applied. Type name: " + this.type);
             }
             BuildCopRuleAttribute ruleAttribute = (BuildCopRuleAttribute)attributes[0];
             System.Type configType = ruleAttribute.ConfigurationType;

@@ -76,14 +76,14 @@ namespace BuildCop
 
             IDictionary<string, string> outputTypeMappings = GetOutputTypeMappings(configuration);
 
-            foreach (BuildGroupElement buildGroup in configuration.BuildGroups)
+            foreach (buildGroupElement buildGroup in configuration.buildGroups)
             {
-                bool shouldVerifyBuildGroup = buildGroup.Enabled;
-                if (buildGroup.Rules.Count == 0)
+                bool shouldVerifyBuildGroup = buildGroup.enabled;
+                if (buildGroup.rules.Count == 0)
                 {
                     shouldVerifyBuildGroup = false;
                 }
-                else if(buildGroups != null && !buildGroups.Contains(buildGroup.Name))
+                else if(buildGroups != null && !buildGroups.Contains(buildGroup.name))
                 {
                     shouldVerifyBuildGroup = false;
                 }
@@ -92,13 +92,13 @@ namespace BuildCop
                     IList<BuildFileReport> fileReports = new List<BuildFileReport>();
 
                     // Determine build files.
-                    IList<BuildFile> buildFiles = GetBuildFiles(buildGroup.BuildFiles);
+                    IList<BuildFile> buildFiles = GetBuildFiles(buildGroup.buildFiles);
 
                     // Determine rules.
                     IList<BaseRule> rules = new List<BaseRule>();
-                    foreach (RuleElement ruleDefinition in buildGroup.Rules)
+                    foreach (ruleElement ruleDefinition in buildGroup.rules)
                     {
-                        BaseRule rule = CreateRule(ruleDefinition, configuration.SharedRules);
+                        BaseRule rule = CreateRule(ruleDefinition, configuration.sharedRules);
                         rules.Add(rule);
                     }
 
@@ -130,17 +130,17 @@ namespace BuildCop
                         fileReports.Add(fileReport);
                     }
 
-                    groupReports.Add(new BuildGroupReport(buildGroup.Name, fileReports));
+                    groupReports.Add(new BuildGroupReport(buildGroup.name, fileReports));
                 }
             }
 
             BuildCopReport report = new BuildCopReport(groupReports);
 
             // Write reports to formatters.
-            foreach (FormatterElement formatterDefinition in configuration.Formatters)
+            foreach (formatterElement formatterDefinition in configuration.formatters)
             {
                 BaseFormatter formatter = CreateFormatter(formatterDefinition);
-                formatter.WriteReport(report, formatterDefinition.MinimumLogLevel);
+                formatter.WriteReport(report, formatterDefinition.minimumLogLevel);
             }
 
             return report;
@@ -155,20 +155,20 @@ namespace BuildCop
         /// </summary>
         /// <param name="buildFilesConfiguration">The build files configuration.</param>
         /// <returns>A list of all build files to be included in the analysis.</returns>
-        private static IList<BuildFile> GetBuildFiles(BuildFilesElement buildFilesConfiguration)
+        private static IList<BuildFile> GetBuildFiles(buildFilesElement buildFilesConfiguration)
         {
             List<BuildFile> buildFiles = new List<BuildFile>();
 
-            foreach (BuildFilePathElement pathConfiguration in buildFilesConfiguration.Paths)
+            foreach (buildFilePathElement pathConfiguration in buildFilesConfiguration.paths)
             {
                 // Search the root path for build files.
-                string rootPath = pathConfiguration.RootPath;
-                string searchPattern = pathConfiguration.SearchPattern;
-                string excludedFiles = pathConfiguration.ExcludedFiles;
-                if (!string.IsNullOrEmpty(buildFilesConfiguration.ExcludedFiles))
+                string rootPath = pathConfiguration.rootPath;
+                string searchPattern = pathConfiguration.searchPattern;
+                string excludedFiles = pathConfiguration.excludedFiles;
+                if (!string.IsNullOrEmpty(buildFilesConfiguration.excludedFiles))
                 {
                     // Append the globally excluded files.
-                    excludedFiles += ExclusionSeparator + buildFilesConfiguration.ExcludedFiles;
+                    excludedFiles += ExclusionSeparator + buildFilesConfiguration.excludedFiles;
                 }
 
                 if (string.IsNullOrEmpty(rootPath))
@@ -221,41 +221,41 @@ namespace BuildCop
         /// <param name="ruleDefinition">The rule definition.</param>
         /// <param name="sharedRules">The rules that are shared between build groups.</param>
         /// <returns>The rule for the given definition.</returns>
-        private static BaseRule CreateRule(RuleElement ruleDefinition, List<RuleElement> sharedRules)
+        private static BaseRule CreateRule(ruleElement ruleDefinition, List<ruleElement> sharedRules)
         {
-            string ruleTypeName = ruleDefinition.Type;
+            string ruleTypeName = ruleDefinition.type;
             RuleConfigurationElement ruleConfig = ruleDefinition.RuleConfiguration;
-            string ruleName = ruleDefinition.Name;
-            string excludedFiles = ruleDefinition.ExcludedFiles;
-            string excludedOutputTypes = ruleDefinition.ExcludedOutputTypes;
+            string ruleName = ruleDefinition.name;
+            string excludedFiles = ruleDefinition.excludedFiles;
+            string excludedOutputTypes = ruleDefinition.excludedOutputTypes;
 
             // Look for matching shared rules.
-            foreach (RuleElement sharedRuleDefinition in sharedRules)
+            foreach (ruleElement sharedRuleDefinition in sharedRules)
             {
-                if (string.Equals(ruleDefinition.Name, sharedRuleDefinition.Name, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(ruleDefinition.name, sharedRuleDefinition.name, StringComparison.OrdinalIgnoreCase))
                 {
                     // A shared rule with the same name was found, use that rule's definition.
-                    if (!string.IsNullOrEmpty(ruleDefinition.Type) || ruleDefinition.RuleConfiguration != null)
+                    if (!string.IsNullOrEmpty(ruleDefinition.type) || ruleDefinition.RuleConfiguration != null)
                     {
-                        throw new ConfigurationErrorsException(string.Format(CultureInfo.CurrentCulture, "The rule \"{0}\" has a Type and/or configuration element defined but is also defined as a shared rule. A reference to a shared rule can only include the rule's Name and optionally ExcludedFiles and ExcludedOutputTypes.", ruleDefinition.Name));
+                        throw new ConfigurationErrorsException(string.Format(CultureInfo.CurrentCulture, "The rule \"{0}\" has a Type and/or configuration element defined but is also defined as a shared rule. A reference to a shared rule can only include the rule's Name and optionally ExcludedFiles and ExcludedOutputTypes.", ruleDefinition.name));
                     }
 
-                    ruleTypeName = sharedRuleDefinition.Type;
+                    ruleTypeName = sharedRuleDefinition.type;
                     ruleConfig = sharedRuleDefinition.RuleConfiguration;
-                    ruleName = sharedRuleDefinition.Name;
+                    ruleName = sharedRuleDefinition.name;
 
                     // Merge the excluded files and output types.
                     if (!string.IsNullOrEmpty(excludedFiles))
                     {
                         excludedFiles += ExclusionSeparator;
                     }
-                    excludedFiles += sharedRuleDefinition.ExcludedFiles;
+                    excludedFiles += sharedRuleDefinition.excludedFiles;
 
                     if (!string.IsNullOrEmpty(excludedOutputTypes))
                     {
                         excludedOutputTypes += ExclusionSeparator;
                     }
-                    excludedOutputTypes += sharedRuleDefinition.ExcludedOutputTypes;
+                    excludedOutputTypes += sharedRuleDefinition.excludedOutputTypes;
                     break;
                 }
             }
@@ -282,12 +282,12 @@ namespace BuildCop
         /// </summary>
         /// <param name="formatterDefinition">The formatter definition.</param>
         /// <returns>The formatter for the given definition.</returns>
-        private static BaseFormatter CreateFormatter(FormatterElement formatterDefinition)
+        private static BaseFormatter CreateFormatter(formatterElement formatterDefinition)
         {
-            Type formatterType = Type.GetType(formatterDefinition.Type, true, true);
+            Type formatterType = Type.GetType(formatterDefinition.type, true, true);
             if (!typeof(BaseFormatter).IsAssignableFrom(formatterType))
             {
-                throw new ConfigurationErrorsException("The formatter type must derive from the BaseFormatter class. Type name: " + formatterDefinition.Type);
+                throw new ConfigurationErrorsException("The formatter type must derive from the BaseFormatter class. Type name: " + formatterDefinition.type);
             }
 
             ConstructorInfo ctor = formatterType.GetConstructor(new Type[] { typeof(FormatterConfigurationElement) });
@@ -354,11 +354,11 @@ namespace BuildCop
             outputTypeMappings.Add("Web", "{349c5851-65df-11da-9384-00065b846f21}");
 
             // Add the mappings from the configuration (overwriting existing entries if needed).
-            if (configuration.OutputTypeMappings != null)
+            if (configuration.outputTypeMappings != null)
             {
-                foreach (OutputTypeElement outputType in configuration.OutputTypeMappings)
+                foreach (outputTypeElement outputType in configuration.outputTypeMappings)
                 {
-                    outputTypeMappings[outputType.Alias] = outputType.ProjectTypeGuid;
+                    outputTypeMappings[outputType.alias] = outputType.projectTypeGuid;
                 }
             }
             return outputTypeMappings;

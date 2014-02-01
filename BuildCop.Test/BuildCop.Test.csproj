@@ -70,6 +70,7 @@
     <Compile Include="Mocks\MockRule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BuildCop.config" />
     <None Include="BuildFiles\DefaultConsoleApplication.csproj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

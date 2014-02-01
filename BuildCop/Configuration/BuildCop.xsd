@@ -8,188 +8,188 @@
 </auto-generated>
 -->
 <xs:schema xmlns:tns="http://schemas.jelle.druyts.net/BuildCop" elementFormDefault="qualified" targetNamespace="http://schemas.jelle.druyts.net/BuildCop" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-        <xs:element name="buildCopConfiguration" type="tns:BuildCopConfiguration" />
+  <xs:element name="buildCopConfiguration" type="tns:BuildCopConfiguration" />
   <xs:complexType name="BuildCopConfiguration">
     <xs:sequence>
-      <xs:element minOccurs="1" name="BuildGroups" type="tns:BuildGroupCollection">
+      <xs:element minOccurs="1" name="buildGroups" type="tns:buildGroupCollection">
         <xs:annotation>
           <xs:documentation>The build groups.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" name="SharedRules" type="tns:RuleCollection">
+      <xs:element minOccurs="0" name="sharedRules" type="tns:ruleCollection">
         <xs:annotation>
           <xs:documentation>The shared rules.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="1" name="Formatters" type="tns:FormatterCollection">
+      <xs:element minOccurs="1" name="formatters" type="tns:formatterCollection">
         <xs:annotation>
           <xs:documentation>The formatters.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" name="OutputTypeMappings" type="tns:OutputTypeCollection">
+      <xs:element minOccurs="0" name="outputTypeMappings" type="tns:outputTypeCollection">
         <xs:annotation>
           <xs:documentation>The output type mappings.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="BuildGroupElement">
+  <xs:complexType name="buildGroupElement">
     <xs:sequence>
-      <xs:element minOccurs="1" name="BuildFiles" type="tns:BuildFilesElement">
+      <xs:element minOccurs="1" name="buildFiles" type="tns:buildFilesElement">
         <xs:annotation>
           <xs:documentation>The build files in this build group.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="1" name="Rules" type="tns:RuleCollection">
+      <xs:element minOccurs="1" name="rules" type="tns:ruleCollection">
         <xs:annotation>
           <xs:documentation>The rules in this build group.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="Name" use="required" type="xs:string">
+    <xs:attribute name="name" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The name of this build group.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Enabled" use="optional" type="xs:boolean">
+    <xs:attribute name="enabled" use="optional" type="xs:boolean">
       <xs:annotation>
         <xs:documentation>A value that determines if this build group is enabled.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="BuildGroupCollection">
+  <xs:complexType name="buildGroupCollection">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="buildGroup" type="tns:BuildGroupElement">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="buildGroup" type="tns:buildGroupElement">
         <xs:annotation>
           <xs:documentation>Defines a build group.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="FormatterCollection">
+  <xs:complexType name="formatterCollection">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="formatter" type="tns:FormatterElement">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="formatter" type="tns:formatterElement">
         <xs:annotation>
           <xs:documentation>Defines a formatter for a BuildCop report.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="FormatterElement">
+  <xs:complexType name="formatterElement">
     <xs:sequence>
       <xs:any minOccurs="0" processContents="lax" />
     </xs:sequence>
-    <xs:attribute name="Name" use="required" type="xs:string">
+    <xs:attribute name="name" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The name of this formatter.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Type" use="required" type="xs:string">
+    <xs:attribute name="type" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The type of this formatter.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="MinimumLogLevel" use="optional" type="tns:LogLevel">
+    <xs:attribute name="minimumLogLevel" use="optional" type="tns:LogLevel">
       <xs:annotation>
         <xs:documentation>The minimum log level this formatter should display.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="RuleCollection">
+  <xs:complexType name="ruleCollection">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="rule" type="tns:RuleElement">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="rule" type="tns:ruleElement">
         <xs:annotation>
           <xs:documentation>Defines a rule.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="OutputTypeCollection">
+  <xs:complexType name="outputTypeCollection">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="outputType" type="tns:OutputTypeElement">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="outputType" type="tns:outputTypeElement">
         <xs:annotation>
           <xs:documentation>Defines an output type alias for a project type GUID.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="OutputTypeElement">
-    <xs:attribute name="Alias" use="required" type="xs:string">
+  <xs:complexType name="outputTypeElement">
+    <xs:attribute name="alias" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The alias of this output type.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="ProjectTypeGuid" use="required" type="xs:string">
+    <xs:attribute name="projectTypeGuid" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The project type GUID of this output type alias.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="RuleElement">
+  <xs:complexType name="ruleElement">
     <xs:sequence>
       <xs:any minOccurs="0" processContents="lax" />
     </xs:sequence>
-    <xs:attribute name="Name" use="required" type="xs:string">
+    <xs:attribute name="name" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The name of this rule.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Type" use="optional" type="xs:string">
+    <xs:attribute name="type" use="optional" type="xs:string">
       <xs:annotation>
         <xs:documentation>The type of this rule.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="ExcludedFiles" use="optional" type="xs:string">
+    <xs:attribute name="excludedFiles" use="optional" type="xs:string">
       <xs:annotation>
         <xs:documentation>The string to find in the names of files to exclude for this rule.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="ExcludedOutputTypes" use="optional" type="xs:string">
+    <xs:attribute name="excludedOutputTypes" use="optional" type="xs:string">
       <xs:annotation>
         <xs:documentation>The string to find in the output type of files to exclude for this rule.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="Enabled" use="optional" type="xs:boolean">
+    <xs:attribute name="enabled" use="optional" type="xs:boolean">
       <xs:annotation>
         <xs:documentation>A value that determines if this rule is enabled.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="BuildFilesElement">
+  <xs:complexType name="buildFilesElement">
     <xs:sequence>
-      <xs:element minOccurs="1" name="Paths" type="tns:BuildFilePathCollection">
+      <xs:element minOccurs="1" name="paths" type="tns:buildFilePathCollection">
         <xs:annotation>
           <xs:documentation>The paths to the build files to be processed.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-    <xs:attribute name="ExcludedFiles" use="optional" type="xs:string">
+    <xs:attribute name="excludedFiles" use="optional" type="xs:string">
       <xs:annotation>
         <xs:documentation>The string to find in the names of files to exclude in the given root path.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
-  <xs:complexType name="BuildFilePathCollection">
+  <xs:complexType name="buildFilePathCollection">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="path" type="tns:BuildFilePathElement">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="path" type="tns:buildFilePathElement">
         <xs:annotation>
           <xs:documentation>Defines a build file path.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="BuildFilePathElement">
-    <xs:attribute name="RootPath" use="required" type="xs:string">
+  <xs:complexType name="buildFilePathElement">
+    <xs:attribute name="rootPath" use="required" type="xs:string">
       <xs:annotation>
         <xs:documentation>The root path to look for build files.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="SearchPattern" use="optional" type="xs:string">
+    <xs:attribute name="searchPattern" use="optional" type="xs:string">
       <xs:annotation>
         <xs:documentation>The search string to match against the names of files to include in the given root path.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="ExcludedFiles" use="optional" type="xs:string">
+    <xs:attribute name="excludedFiles" use="optional" type="xs:string">
       <xs:annotation>
         <xs:documentation>The string to find in the names of files to exclude in the given root path.</xs:documentation>
       </xs:annotation>

@@ -24,17 +24,17 @@ namespace BuildCop.Test
         public void FormattersShouldNotThrowOnFormatting()
         {
             BuildCopConfiguration config = new BuildCopConfiguration();
-            BuildGroupElement buildGroup = new BuildGroupElement();
-            buildGroup.Name = "TestBuildGroup";
-            BuildFilePathElement path = new BuildFilePathElement();
-            path.RootPath = @"BuildFiles";
-            path.SearchPattern = "DefaultConsoleApplication.csproj";
-            buildGroup.BuildFiles.Paths.Add(path);
-            RuleElement mockRule = new RuleElement();
-            mockRule.Name = "Mock";
-            mockRule.Type = typeof(MockRule).AssemblyQualifiedName;
-            buildGroup.Rules.Add(mockRule);
-            config.BuildGroups.Add(buildGroup);
+            buildGroupElement buildGroup = new buildGroupElement();
+            buildGroup.name = "TestBuildGroup";
+            buildFilePathElement path = new buildFilePathElement();
+            path.rootPath = @"BuildFiles";
+            path.searchPattern = "DefaultConsoleApplication.csproj";
+            buildGroup.buildFiles.paths.Add(path);
+            ruleElement mockRule = new ruleElement();
+            mockRule.name = "Mock";
+            mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            buildGroup.rules.Add(mockRule);
+            config.buildGroups.Add(buildGroup);
             BuildCopReport report = BuildCopEngine.Execute(config);
             Assert.IsNotNull(report);
 
