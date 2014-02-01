@@ -1,59 +1,59 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Text;
-using System.Xml;
+////using System;
+////using System.Collections.Generic;
+////using System.Configuration;
+////using System.Text;
+////using System.Xml;
 
-using BuildCop.Configuration;
+////using BuildCop.Configuration;
 
-namespace BuildCop.Formatters.Configuration
-{
-    /// <summary>
-    /// Defines the configuration for file-based formatters.
-    /// </summary>
-    public class FilebasedFormatterElement : FormatterConfigurationElement
-    {
-        #region Constants
+////namespace BuildCop.Formatters.Configuration
+////{
+////    /// <summary>
+////    /// Defines the configuration for file-based formatters.
+////    /// </summary>
+////    public class FilebasedFormatterElement : FormatterConfigurationElement
+////    {
+////        #region Constants
 
-        private const string OutputPropertyName = "output";
+////        private const string OutputPropertyName = "output";
 
-        #endregion
+////        #endregion
 
-        #region Properties
+////        #region Properties
 
-        /// <summary>
-        /// Gets the output settings.
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [ConfigurationProperty(OutputPropertyName, IsRequired = false)]
-        public OutputElement Output
-        {
-            get
-            {
-                return (OutputElement)base[OutputPropertyName];
-            }
-        }
+////        /// <summary>
+////        /// Gets the output settings.
+////        /// </summary>
+////        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+////        [ConfigurationProperty(OutputPropertyName, IsRequired = false)]
+////        public OutputElement Output
+////        {
+////            get
+////            {
+////                return (OutputElement)base[OutputPropertyName];
+////            }
+////        }
 
-        #endregion
+////        #endregion
 
-        #region Constructors
+////        #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilebasedFormatterElement"/> class.
-        /// </summary>
-        public FilebasedFormatterElement()
-        {
-        }
+////        /// <summary>
+////        /// Initializes a new instance of the <see cref="FilebasedFormatterElement"/> class.
+////        /// </summary>
+////        public FilebasedFormatterElement()
+////        {
+////        }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilebasedFormatterElement"/> class.
-        /// </summary>
-        /// <param name="reader">The XML reader from which to read the configuration.</param>
-        public FilebasedFormatterElement(XmlReader reader)
-            : base(reader)
-        {
-        }
+////        /// <summary>
+////        /// Initializes a new instance of the <see cref="FilebasedFormatterElement"/> class.
+////        /// </summary>
+////        /// <param name="reader">The XML reader from which to read the configuration.</param>
+////        public FilebasedFormatterElement(XmlReader reader)
+////            : base(reader)
+////        {
+////        }
 
-        #endregion
-    }
-}
+////        #endregion
+////    }
+////}

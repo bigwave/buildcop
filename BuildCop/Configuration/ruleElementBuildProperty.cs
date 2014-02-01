@@ -18,12 +18,6 @@ namespace BuildCop.Configuration
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ruleElementBuildProperty"/> class.
-        /// </summary>
-        public ruleElementBuildProperty()
-        {
-        }
 
         #endregion
    }

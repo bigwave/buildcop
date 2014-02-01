@@ -5,7 +5,6 @@ using System.Xml;
 using System.Xml.Xsl;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters.Configuration;
 using BuildCop.Formatters.Xml;
 using BuildCop.Reporting;
 
@@ -14,21 +13,9 @@ namespace BuildCop.Formatters.Html
     /// <summary>
     /// A verification report formatter that writes HTML output.
     /// </summary>
-    [BuildCopFormatter(ConfigurationType = typeof(XsltFilebasedFormatterElement))]
+    [BuildCopFormatter(ConfigurationType = typeof(formatterElement))]
     public class HtmlFormatter : XsltFilebasedFormatter
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HtmlFormatter"/> class.
-        /// </summary>
-        /// <param name="configuration">The configuration for this formatter.</param>
-        public HtmlFormatter(FormatterConfigurationElement configuration)
-            : base(configuration)
-        {
-        }
-
-        #endregion
 
         #region WriteReport
 
@@ -40,12 +27,11 @@ namespace BuildCop.Formatters.Html
         /// <remarks>
         /// Override this method to write the report. The <see cref="FilebasedFormatter"/> base
         /// class will ensure that the file is launched after this method is called, depending on
-        /// the <see cref="OutputElement.Launch"/> configuration setting.
+        /// the output.launch configuration setting.
         /// </remarks>
         protected override void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel)
         {
-            XsltFilebasedFormatterElement configuration = this.GetTypedConfiguration<XsltFilebasedFormatterElement>();
-            string fileName = configuration.Output.FileName;
+            string fileName = this.output.fileName;
             if (string.IsNullOrEmpty(fileName))
             {
                 throw new InvalidOperationException("The HTML formatter did not have an output file name specified in its configuration.");
@@ -60,7 +46,7 @@ namespace BuildCop.Formatters.Html
 
                 // Use the XSLT to transform the XML into HTML.
                 XslCompiledTransform transform = new XslCompiledTransform();
-                string stylesheet = configuration.Output.Stylesheet;
+                string stylesheet = this.output.stylesheet;
                 if (string.IsNullOrEmpty(stylesheet))
                 {
                     stylesheet = XmlFormatter.DefaultStylesheet;

@@ -1279,7 +1279,7 @@ namespace BuildCop.Configuration
     public partial class formatterElement
     {
 
-        private System.Xml.XmlElement anyField;
+        private formatterElementOutput outputField;
 
         private string nameField;
 
@@ -1291,16 +1291,24 @@ namespace BuildCop.Configuration
 
         private static System.Xml.Serialization.XmlSerializer serializer;
 
-        [System.Xml.Serialization.XmlAnyElementAttribute(Order = 0)]
-        public System.Xml.XmlElement Any
+        /// <summary>
+        /// formatterElement class constructor
+        /// </summary>
+        public formatterElement()
+        {
+            this.outputField = new formatterElementOutput();
+        }
+
+        [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
+        public formatterElementOutput output
         {
             get
             {
-                return this.anyField;
+                return this.outputField;
             }
             set
             {
-                this.anyField = value;
+                this.outputField = value;
             }
         }
 
@@ -1544,6 +1552,282 @@ namespace BuildCop.Configuration
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.33440")]
     [System.SerializableAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.jelle.druyts.net/BuildCop")]
+    public partial class formatterElementOutput
+    {
+
+        private string fileNameField;
+
+        private bool launchField;
+
+        private bool launchFieldSpecified;
+
+        private string stylesheetField;
+
+        private string valueField;
+
+        private static System.Xml.Serialization.XmlSerializer serializer;
+
+        public formatterElementOutput()
+        {
+            this.stylesheetField = "";
+        }
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string fileName
+        {
+            get
+            {
+                return this.fileNameField;
+            }
+            set
+            {
+                this.fileNameField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public bool launch
+        {
+            get
+            {
+                return this.launchField;
+            }
+            set
+            {
+                this.launchField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool launchSpecified
+        {
+            get
+            {
+                return this.launchFieldSpecified;
+            }
+            set
+            {
+                this.launchFieldSpecified = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
+        public string stylesheet
+        {
+            get
+            {
+                return this.stylesheetField;
+            }
+            set
+            {
+                this.stylesheetField = value;
+            }
+        }
+
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
+        {
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
+        }
+
+        private static System.Xml.Serialization.XmlSerializer Serializer
+        {
+            get
+            {
+                if ((serializer == null))
+                {
+                    serializer = new System.Xml.Serialization.XmlSerializer(typeof(formatterElementOutput));
+                }
+                return serializer;
+            }
+        }
+
+        #region Serialize/Deserialize
+        /// <summary>
+        /// Serializes current formatterElementOutput object into an XML document
+        /// </summary>
+        /// <returns>string XML value</returns>
+        public virtual string Serialize()
+        {
+            System.IO.StreamReader streamReader = null;
+            System.IO.MemoryStream memoryStream = null;
+            try
+            {
+                memoryStream = new System.IO.MemoryStream();
+                Serializer.Serialize(memoryStream, this);
+                memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
+                streamReader = new System.IO.StreamReader(memoryStream);
+                return streamReader.ReadToEnd();
+            }
+            finally
+            {
+                if ((streamReader != null))
+                {
+                    streamReader.Dispose();
+                }
+                if ((memoryStream != null))
+                {
+                    memoryStream.Dispose();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Deserializes workflow markup into an formatterElementOutput object
+        /// </summary>
+        /// <param name="xml">string workflow markup to deserialize</param>
+        /// <param name="obj">Output formatterElementOutput object</param>
+        /// <param name="exception">output Exception value if deserialize failed</param>
+        /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
+        public static bool Deserialize(string xml, out formatterElementOutput obj, out System.Exception exception)
+        {
+            exception = null;
+            obj = default(formatterElementOutput);
+            try
+            {
+                obj = Deserialize(xml);
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                exception = ex;
+                return false;
+            }
+        }
+
+        public static bool Deserialize(string xml, out formatterElementOutput obj)
+        {
+            System.Exception exception = null;
+            return Deserialize(xml, out obj, out exception);
+        }
+
+        public static formatterElementOutput Deserialize(string xml)
+        {
+            System.IO.StringReader stringReader = null;
+            try
+            {
+                stringReader = new System.IO.StringReader(xml);
+                return ((formatterElementOutput)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
+            }
+            finally
+            {
+                if ((stringReader != null))
+                {
+                    stringReader.Dispose();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Serializes current formatterElementOutput object into file
+        /// </summary>
+        /// <param name="fileName">full path of outupt xml file</param>
+        /// <param name="exception">output Exception value if failed</param>
+        /// <returns>true if can serialize and save into file; otherwise, false</returns>
+        public virtual bool SaveToFile(string fileName, out System.Exception exception)
+        {
+            exception = null;
+            try
+            {
+                SaveToFile(fileName);
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                exception = e;
+                return false;
+            }
+        }
+
+        public virtual void SaveToFile(string fileName)
+        {
+            System.IO.StreamWriter streamWriter = null;
+            try
+            {
+                string xmlString = Serialize();
+                System.IO.FileInfo xmlFile = new System.IO.FileInfo(fileName);
+                streamWriter = xmlFile.CreateText();
+                streamWriter.WriteLine(xmlString);
+                streamWriter.Close();
+            }
+            finally
+            {
+                if ((streamWriter != null))
+                {
+                    streamWriter.Dispose();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Deserializes xml markup from file into an formatterElementOutput object
+        /// </summary>
+        /// <param name="fileName">string xml file to load and deserialize</param>
+        /// <param name="obj">Output formatterElementOutput object</param>
+        /// <param name="exception">output Exception value if deserialize failed</param>
+        /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
+        public static bool LoadFromFile(string fileName, out formatterElementOutput obj, out System.Exception exception)
+        {
+            exception = null;
+            obj = default(formatterElementOutput);
+            try
+            {
+                obj = LoadFromFile(fileName);
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                exception = ex;
+                return false;
+            }
+        }
+
+        public static bool LoadFromFile(string fileName, out formatterElementOutput obj)
+        {
+            System.Exception exception = null;
+            return LoadFromFile(fileName, out obj, out exception);
+        }
+
+        public static formatterElementOutput LoadFromFile(string fileName)
+        {
+            System.IO.FileStream file = null;
+            System.IO.StreamReader sr = null;
+            try
+            {
+                file = new System.IO.FileStream(fileName, FileMode.Open, FileAccess.Read);
+                sr = new System.IO.StreamReader(file);
+                string xmlString = sr.ReadToEnd();
+                sr.Close();
+                file.Close();
+                return Deserialize(xmlString);
+            }
+            finally
+            {
+                if ((file != null))
+                {
+                    file.Dispose();
+                }
+                if ((sr != null))
+                {
+                    sr.Dispose();
+                }
+            }
+        }
+        #endregion
+    }
+
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://schemas.jelle.druyts.net/BuildCop")]
     public enum LogLevel
     {
@@ -1579,6 +1863,8 @@ namespace BuildCop.Configuration
 
         private ruleElementSolutions solutionsField;
 
+        private object sharedField;
+
         private List<string> textField;
 
         private string nameField;
@@ -1601,6 +1887,7 @@ namespace BuildCop.Configuration
             this.prefixesField = new ruleElementPrefixes();
             this.strongNamingField = new ruleElementStrongNaming();
             this.assemblyLocationsField = new List<ruleElementAssemblyLocation>();
+            this.typeField = "";
             this.excludedFilesField = "";
             this.excludedOutputTypesField = "";
             this.enabledField = true;
@@ -1673,6 +1960,19 @@ namespace BuildCop.Configuration
             }
         }
 
+        [System.Xml.Serialization.XmlElementAttribute(Order = 5)]
+        public object shared
+        {
+            get
+            {
+                return this.sharedField;
+            }
+            set
+            {
+                this.sharedField = value;
+            }
+        }
+
         [System.Xml.Serialization.XmlTextAttribute()]
         public List<string> Text
         {
@@ -1700,6 +2000,7 @@ namespace BuildCop.Configuration
         }
 
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
         public string type
         {
             get
@@ -2754,6 +3055,13 @@ namespace BuildCop.Configuration
 
         private static System.Xml.Serialization.XmlSerializer serializer;
 
+        public ruleElementBuildProperty()
+        {
+            this.conditionField = "";
+            this.compareOptionField = "EqualTo";
+            this.stringCompareOptionField = "Ordinal";
+        }
+
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string name
         {
@@ -2781,6 +3089,7 @@ namespace BuildCop.Configuration
         }
 
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("")]
         public string condition
         {
             get
@@ -2794,6 +3103,7 @@ namespace BuildCop.Configuration
         }
 
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("EqualTo")]
         public string compareOption
         {
             get
@@ -2807,6 +3117,7 @@ namespace BuildCop.Configuration
         }
 
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute("Ordinal")]
         public string stringCompareOption
         {
             get
@@ -3233,9 +3544,9 @@ namespace BuildCop.Configuration
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.33440")]
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://schemas.jelle.druyts.net/BuildCop")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://schemas.jelle.druyts.net/BuildCop", IsNullable = true)]
-    public partial class buildGroupCollection
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "buildGroupCollection", Namespace = "http://schemas.jelle.druyts.net/BuildCop")]
+    [System.Xml.Serialization.XmlRootAttribute("buildGroupCollection", Namespace = "http://schemas.jelle.druyts.net/BuildCop", IsNullable = true)]
+    public partial class buildGroupCollection1
     {
 
         private List<buildGroupElement> buildGroupField;
@@ -3243,9 +3554,9 @@ namespace BuildCop.Configuration
         private static System.Xml.Serialization.XmlSerializer serializer;
 
         /// <summary>
-        /// buildGroupCollection class constructor
+        /// buildGroupCollection1 class constructor
         /// </summary>
-        public buildGroupCollection()
+        public buildGroupCollection1()
         {
             this.buildGroupField = new List<buildGroupElement>();
         }
@@ -3269,7 +3580,7 @@ namespace BuildCop.Configuration
             {
                 if ((serializer == null))
                 {
-                    serializer = new System.Xml.Serialization.XmlSerializer(typeof(buildGroupCollection));
+                    serializer = new System.Xml.Serialization.XmlSerializer(typeof(buildGroupCollection1));
                 }
                 return serializer;
             }
@@ -3277,7 +3588,7 @@ namespace BuildCop.Configuration
 
         #region Serialize/Deserialize
         /// <summary>
-        /// Serializes current buildGroupCollection object into an XML document
+        /// Serializes current buildGroupCollection1 object into an XML document
         /// </summary>
         /// <returns>string XML value</returns>
         public virtual string Serialize()
@@ -3306,16 +3617,16 @@ namespace BuildCop.Configuration
         }
 
         /// <summary>
-        /// Deserializes workflow markup into an buildGroupCollection object
+        /// Deserializes workflow markup into an buildGroupCollection1 object
         /// </summary>
         /// <param name="xml">string workflow markup to deserialize</param>
-        /// <param name="obj">Output buildGroupCollection object</param>
+        /// <param name="obj">Output buildGroupCollection1 object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool Deserialize(string xml, out buildGroupCollection obj, out System.Exception exception)
+        public static bool Deserialize(string xml, out buildGroupCollection1 obj, out System.Exception exception)
         {
             exception = null;
-            obj = default(buildGroupCollection);
+            obj = default(buildGroupCollection1);
             try
             {
                 obj = Deserialize(xml);
@@ -3328,19 +3639,19 @@ namespace BuildCop.Configuration
             }
         }
 
-        public static bool Deserialize(string xml, out buildGroupCollection obj)
+        public static bool Deserialize(string xml, out buildGroupCollection1 obj)
         {
             System.Exception exception = null;
             return Deserialize(xml, out obj, out exception);
         }
 
-        public static buildGroupCollection Deserialize(string xml)
+        public static buildGroupCollection1 Deserialize(string xml)
         {
             System.IO.StringReader stringReader = null;
             try
             {
                 stringReader = new System.IO.StringReader(xml);
-                return ((buildGroupCollection)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
+                return ((buildGroupCollection1)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
             }
             finally
             {
@@ -3352,7 +3663,7 @@ namespace BuildCop.Configuration
         }
 
         /// <summary>
-        /// Serializes current buildGroupCollection object into file
+        /// Serializes current buildGroupCollection1 object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
         /// <param name="exception">output Exception value if failed</param>
@@ -3393,16 +3704,16 @@ namespace BuildCop.Configuration
         }
 
         /// <summary>
-        /// Deserializes xml markup from file into an buildGroupCollection object
+        /// Deserializes xml markup from file into an buildGroupCollection1 object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
-        /// <param name="obj">Output buildGroupCollection object</param>
+        /// <param name="obj">Output buildGroupCollection1 object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool LoadFromFile(string fileName, out buildGroupCollection obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, out buildGroupCollection1 obj, out System.Exception exception)
         {
             exception = null;
-            obj = default(buildGroupCollection);
+            obj = default(buildGroupCollection1);
             try
             {
                 obj = LoadFromFile(fileName);
@@ -3415,13 +3726,13 @@ namespace BuildCop.Configuration
             }
         }
 
-        public static bool LoadFromFile(string fileName, out buildGroupCollection obj)
+        public static bool LoadFromFile(string fileName, out buildGroupCollection1 obj)
         {
             System.Exception exception = null;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
-        public static buildGroupCollection LoadFromFile(string fileName)
+        public static buildGroupCollection1 LoadFromFile(string fileName)
         {
             System.IO.FileStream file = null;
             System.IO.StreamReader sr = null;
@@ -3671,9 +3982,9 @@ namespace BuildCop.Configuration
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.33440")]
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://schemas.jelle.druyts.net/BuildCop")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://schemas.jelle.druyts.net/BuildCop", IsNullable = true)]
-    public partial class ruleCollection
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "ruleCollection", Namespace = "http://schemas.jelle.druyts.net/BuildCop")]
+    [System.Xml.Serialization.XmlRootAttribute("ruleCollection", Namespace = "http://schemas.jelle.druyts.net/BuildCop", IsNullable = true)]
+    public partial class ruleCollection1
     {
 
         private List<ruleElement> ruleField;
@@ -3681,9 +3992,9 @@ namespace BuildCop.Configuration
         private static System.Xml.Serialization.XmlSerializer serializer;
 
         /// <summary>
-        /// ruleCollection class constructor
+        /// ruleCollection1 class constructor
         /// </summary>
-        public ruleCollection()
+        public ruleCollection1()
         {
             this.ruleField = new List<ruleElement>();
         }
@@ -3707,7 +4018,7 @@ namespace BuildCop.Configuration
             {
                 if ((serializer == null))
                 {
-                    serializer = new System.Xml.Serialization.XmlSerializer(typeof(ruleCollection));
+                    serializer = new System.Xml.Serialization.XmlSerializer(typeof(ruleCollection1));
                 }
                 return serializer;
             }
@@ -3715,7 +4026,7 @@ namespace BuildCop.Configuration
 
         #region Serialize/Deserialize
         /// <summary>
-        /// Serializes current ruleCollection object into an XML document
+        /// Serializes current ruleCollection1 object into an XML document
         /// </summary>
         /// <returns>string XML value</returns>
         public virtual string Serialize()
@@ -3744,16 +4055,16 @@ namespace BuildCop.Configuration
         }
 
         /// <summary>
-        /// Deserializes workflow markup into an ruleCollection object
+        /// Deserializes workflow markup into an ruleCollection1 object
         /// </summary>
         /// <param name="xml">string workflow markup to deserialize</param>
-        /// <param name="obj">Output ruleCollection object</param>
+        /// <param name="obj">Output ruleCollection1 object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool Deserialize(string xml, out ruleCollection obj, out System.Exception exception)
+        public static bool Deserialize(string xml, out ruleCollection1 obj, out System.Exception exception)
         {
             exception = null;
-            obj = default(ruleCollection);
+            obj = default(ruleCollection1);
             try
             {
                 obj = Deserialize(xml);
@@ -3766,19 +4077,19 @@ namespace BuildCop.Configuration
             }
         }
 
-        public static bool Deserialize(string xml, out ruleCollection obj)
+        public static bool Deserialize(string xml, out ruleCollection1 obj)
         {
             System.Exception exception = null;
             return Deserialize(xml, out obj, out exception);
         }
 
-        public static ruleCollection Deserialize(string xml)
+        public static ruleCollection1 Deserialize(string xml)
         {
             System.IO.StringReader stringReader = null;
             try
             {
                 stringReader = new System.IO.StringReader(xml);
-                return ((ruleCollection)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
+                return ((ruleCollection1)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
             }
             finally
             {
@@ -3790,7 +4101,7 @@ namespace BuildCop.Configuration
         }
 
         /// <summary>
-        /// Serializes current ruleCollection object into file
+        /// Serializes current ruleCollection1 object into file
         /// </summary>
         /// <param name="fileName">full path of outupt xml file</param>
         /// <param name="exception">output Exception value if failed</param>
@@ -3831,16 +4142,16 @@ namespace BuildCop.Configuration
         }
 
         /// <summary>
-        /// Deserializes xml markup from file into an ruleCollection object
+        /// Deserializes xml markup from file into an ruleCollection1 object
         /// </summary>
         /// <param name="fileName">string xml file to load and deserialize</param>
-        /// <param name="obj">Output ruleCollection object</param>
+        /// <param name="obj">Output ruleCollection1 object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool LoadFromFile(string fileName, out ruleCollection obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, out ruleCollection1 obj, out System.Exception exception)
         {
             exception = null;
-            obj = default(ruleCollection);
+            obj = default(ruleCollection1);
             try
             {
                 obj = LoadFromFile(fileName);
@@ -3853,13 +4164,13 @@ namespace BuildCop.Configuration
             }
         }
 
-        public static bool LoadFromFile(string fileName, out ruleCollection obj)
+        public static bool LoadFromFile(string fileName, out ruleCollection1 obj)
         {
             System.Exception exception = null;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
-        public static ruleCollection LoadFromFile(string fileName)
+        public static ruleCollection1 LoadFromFile(string fileName)
         {
             System.IO.FileStream file = null;
             System.IO.StreamReader sr = null;

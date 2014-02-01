@@ -8,7 +8,6 @@ using System.Text;
 using System.Xml;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters.Configuration;
 using BuildCop.Reporting;
 
 namespace BuildCop.Formatters.Csv
@@ -16,21 +15,9 @@ namespace BuildCop.Formatters.Csv
     /// <summary>
     /// A verification report formatter that writes XML output.
     /// </summary>
-    [BuildCopFormatter(ConfigurationType = typeof(FilebasedFormatterElement))]
+    [BuildCopFormatter(ConfigurationType = typeof(formatterElement))]
     public class CsvFormatter : FilebasedFormatter
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CsvFormatter"/> class.
-        /// </summary>
-        /// <param name="configuration">The configuration for this formatter.</param>
-        public CsvFormatter(FormatterConfigurationElement configuration)
-            : base(configuration)
-        {
-        }
-
-        #endregion
 
         #region WriteReport
 
@@ -42,12 +29,11 @@ namespace BuildCop.Formatters.Csv
         /// <remarks>
         /// Override this method to write the report. The <see cref="FilebasedFormatter"/> base
         /// class will ensure that the file is launched after this method is called, depending on
-        /// the <see cref="OutputElement.Launch"/> configuration setting.
+        /// the output.launch configuration setting.
         /// </remarks>
         protected override void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel)
         {
-            FilebasedFormatterElement configuration = this.GetTypedConfiguration<FilebasedFormatterElement>();
-            string fileName = configuration.Output.FileName;
+            string fileName = this.output.fileName;
             if (string.IsNullOrEmpty(fileName))
             {
                 throw new InvalidOperationException("The CSV formatter did not have an output file name specified in its configuration.");

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters.Configuration;
 using BuildCop.Reporting;
 
 namespace BuildCop.Formatters
@@ -12,20 +11,8 @@ namespace BuildCop.Formatters
     /// <summary>
     /// A base class for an XSLT file-based formatter.
     /// </summary>
-    public abstract class XsltFilebasedFormatter : BaseFormatter
+    public abstract class XsltFilebasedFormatter : formatterElement
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="XsltFilebasedFormatter"/> class.
-        /// </summary>
-        /// <param name="configuration">The configuration for this formatter.</param>
-        protected XsltFilebasedFormatter(FormatterConfigurationElement configuration)
-            : base(configuration)
-        {
-        }
-
-        #endregion
 
         #region WriteReport
 
@@ -38,11 +25,9 @@ namespace BuildCop.Formatters
         public sealed override void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
         {
             WriteReportCore(report, minimumLogLevel);
-
-            XsltFilebasedFormatterElement configuration = this.GetTypedConfiguration<XsltFilebasedFormatterElement>();
-            if (configuration.Output.Launch)
+            if (this.output.launch)
             {
-                string fileName = configuration.Output.FileName;
+                string fileName = this.output.fileName;
                 Process.Start(fileName);
             }
         }
@@ -59,7 +44,7 @@ namespace BuildCop.Formatters
         /// <remarks>
         /// Override this method to write the report. The <see cref="FilebasedFormatter"/> base
         /// class will ensure that the file is launched after this method is called, depending on
-        /// the <see cref="OutputElement.Launch"/> configuration setting.
+        /// the output.launch configuration setting.
         /// </remarks>
         protected abstract void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel);
 

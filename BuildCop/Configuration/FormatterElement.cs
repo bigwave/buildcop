@@ -16,53 +16,20 @@ namespace BuildCop.Configuration
     /// </summary>
     public partial class formatterElement : BuildCopBaseElement
     {
-        #region Formatter-Specific Configuration Handling
+        #region Abstract Methods
 
         /// <summary>
-        /// Gets a value indicating whether an unknown element is encountered during deserialization.
+        /// Writes the specified BuildCop report.
         /// </summary>
-        /// <param name="elementName">The name of the unknown subelement.</param>
-        /// <param name="reader">The <see cref="T:System.Xml.XmlReader"></see> object being used for deserialization.</param>
-        /// <returns>true when an unknown element is encountered while deserializing.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "elementName")]
-        private bool HandleUnrecognizedElement(string elementName, XmlReader reader)
+        /// <param name="report">The report to write.</param>
+        /// <param name="minimumLogLevel">The minimum log level to write.</param>
+        public virtual void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
         {
-            // Determine the formatter type.
-            System.Type formatterType = System.Type.GetType(this.type, true, true);
-            if (!typeof(BaseFormatter).IsAssignableFrom(formatterType))
-            {
-                throw new ConfigurationErrorsException("The formatter type must derive from the BaseFormatter class. Type name: " + this.type);
-            }
-
-            // Find the BuildCopFormatter attribute to determine the formatter's configuration type.
-            object[] attributes = formatterType.GetCustomAttributes(typeof(BuildCopFormatterAttribute), true);
-            if (attributes.Length != 1)
-            {
-                throw new ConfigurationErrorsException("The formatter type must have the BuildCopFormatterAttribute applied. Type name: " + this.type);
-            }
-            BuildCopFormatterAttribute formatterAttribute = (BuildCopFormatterAttribute)attributes[0];
-            System.Type configType = formatterAttribute.ConfigurationType;
-            if (configType != null)
-            {
-                this.formatterConfiguration = ConfigurationHelper.ReadSpecificConfigurationElement<FormatterConfigurationElement>(reader, configType);
-            }
-
-            return true;
-        }
-
-        private FormatterConfigurationElement formatterConfiguration;
-
-        /// <summary>
-        /// Gets the formatter-specific configuration element for this element.
-        /// </summary>
-        public FormatterConfigurationElement FormatterConfiguration
-        {
-            get
-            {
-                return this.formatterConfiguration;
-            }
+            throw new InvalidOperationException("Oops, how did we get here?");
         }
 
         #endregion
+
+ 
     }
 }

@@ -14,24 +14,11 @@ namespace BuildCop.Formatters.Console
     /// A verification report formatter that writes to the console.
     /// </summary>
     [BuildCopFormatter]
-    public class ConsoleFormatter : BaseFormatter
+    public class ConsoleFormatter : formatterElement
     {
         #region Constants
 
         private static readonly string Separator = new string('-', 79);
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleFormatter"/> class.
-        /// </summary>
-        /// <param name="configuration">The configuration for this formatter.</param>
-        public ConsoleFormatter(FormatterConfigurationElement configuration)
-            : base(configuration)
-        {
-        }
 
         #endregion
 

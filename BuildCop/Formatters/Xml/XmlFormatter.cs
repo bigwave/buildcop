@@ -8,7 +8,6 @@ using System.Text;
 using System.Xml;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters.Configuration;
 using BuildCop.Reporting;
 
 namespace BuildCop.Formatters.Xml
@@ -16,7 +15,7 @@ namespace BuildCop.Formatters.Xml
     /// <summary>
     /// A verification report formatter that writes XML output.
     /// </summary>
-    [BuildCopFormatter(ConfigurationType = typeof(XsltFilebasedFormatterElement))]
+    [BuildCopFormatter(ConfigurationType = typeof(formatterElement))]
     public class XmlFormatter : XsltFilebasedFormatter
     {
         #region Properties
@@ -36,19 +35,6 @@ namespace BuildCop.Formatters.Xml
 
         #endregion
 
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="XmlFormatter"/> class.
-        /// </summary>
-        /// <param name="configuration">The configuration for this formatter.</param>
-        public XmlFormatter(FormatterConfigurationElement configuration)
-            : base(configuration)
-        {
-        }
-
-        #endregion
-
         #region WriteReport
 
         /// <summary>
@@ -59,12 +45,11 @@ namespace BuildCop.Formatters.Xml
         /// <remarks>
         /// Override this method to write the report. The <see cref="FilebasedFormatter"/> base
         /// class will ensure that the file is launched after this method is called, depending on
-        /// the <see cref="OutputElement.Launch"/> configuration setting.
+        /// the output.launch configuration setting.
         /// </remarks>
         protected override void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel)
         {
-            XsltFilebasedFormatterElement configuration = this.GetTypedConfiguration<XsltFilebasedFormatterElement>();
-            string fileName = configuration.Output.FileName;
+            string fileName = this.output.fileName;
             if (string.IsNullOrEmpty(fileName))
             {
                 throw new InvalidOperationException("The XML formatter did not have an output file name specified in its configuration.");
@@ -72,7 +57,7 @@ namespace BuildCop.Formatters.Xml
 
             using (FileStream outputStream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                string stylesheet = configuration.Output.Stylesheet;
+                string stylesheet = this.output.stylesheet;
                 if (string.IsNullOrEmpty(stylesheet))
                 {
                     // Use the default stylesheet if no stylesheet was provided.

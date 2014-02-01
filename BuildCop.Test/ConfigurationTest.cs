@@ -9,13 +9,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using BuildCop.Configuration;
 using BuildCop.Formatters;
-using BuildCop.Formatters.Configuration;
 using BuildCop.Reporting;
-using BuildCop.Rules.AssemblyReferences.Configuration;
-using BuildCop.Rules.NamingConventions.Configuration;
-using BuildCop.Rules.StrongNaming.Configuration;
 using BuildCop.Test.Mocks;
-using BuildCop.Rules.OrphanedProjects.Configuration;
 
 namespace BuildCop.Test
 {
@@ -72,7 +67,6 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, strongNamingRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, strongNamingRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, strongNamingRule.enabled);
-            Assert.IsInstanceOfType(strongNamingRule, typeof(StrongNamingRuleElement));
             Assert.AreEqual<bool>(true, strongNamingRule.strongNaming.strongNameRequired);
             Assert.AreEqual<string>("TestKeyPath", strongNamingRule.strongNaming.keyPath);
             Assert.AreEqual<bool>(false, strongNamingRule.strongNaming.ignoreUnsignedProjects);
@@ -84,7 +78,6 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, namingConventionsRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, namingConventionsRule.excludedOutputTypes);
             Assert.AreEqual<bool>(false, namingConventionsRule.enabled);
-            Assert.IsInstanceOfType(namingConventionsRule, typeof(NamingConventionsRuleElement));
             Assert.IsNotNull(namingConventionsRule.prefixes);
             Assert.AreEqual<string>("TestAssemblyNamePrefix", namingConventionsRule.prefixes.assemblyNamePrefix);
             Assert.AreEqual<string>("TestNamespacePrefix", namingConventionsRule.prefixes.namespacePrefix);
@@ -130,10 +123,8 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, orphanedProjectsRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, orphanedProjectsRule.enabled);
-            Assert.IsInstanceOfType(orphanedProjectsRule, typeof(OrphanedProjectsRuleElement));
-            OrphanedProjectsRuleElement orphanedProjectsRuleConfig = (OrphanedProjectsRuleElement)orphanedProjectsRule.RuleConfiguration;
-            Assert.IsNotNull(orphanedProjectsRuleConfig.Solutions);
-            Assert.AreEqual<string>("TestSearchPath", orphanedProjectsRuleConfig.Solutions.SearchPath);
+            Assert.IsNotNull(orphanedProjectsRule.solutions);
+            Assert.AreEqual<string>("TestSearchPath", orphanedProjectsRule.solutions.searchPath);
 
             ruleElement sharedDocumentationFileRuleRef = group.rules[6];
             Assert.IsNotNull(sharedDocumentationFileRuleRef);
@@ -152,7 +143,6 @@ namespace BuildCop.Test
             Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRule.excludedFiles);
             Assert.AreEqual<string>(string.Empty, sharedDocumentationFileRule.excludedOutputTypes);
             Assert.AreEqual<bool>(true, sharedDocumentationFileRule.enabled);
-            Assert.IsNull(sharedDocumentationFileRule.RuleConfiguration);
 
             Assert.IsNotNull(config.formatters);
             Assert.AreEqual<int>(4, config.formatters.Count);
@@ -162,45 +152,32 @@ namespace BuildCop.Test
             Assert.AreEqual<string>("Console", consoleFormatter.name);
             Assert.AreEqual<string>("BuildCop.Formatters.Console.ConsoleFormatter", consoleFormatter.type);
             Assert.AreEqual<LogLevel>(LogLevel.Warning, consoleFormatter.minimumLogLevel);
-            Assert.IsNull(consoleFormatter.FormatterConfiguration);
 
             formatterElement htmlFormatter = config.formatters[1];
             Assert.IsNotNull(htmlFormatter);
             Assert.AreEqual<string>("Html", htmlFormatter.name);
             Assert.AreEqual<string>("BuildCop.Formatters.Html.HtmlFormatter", htmlFormatter.type);
             Assert.AreEqual<LogLevel>(LogLevel.Information, htmlFormatter.minimumLogLevel);
-            Assert.IsNotNull(htmlFormatter.FormatterConfiguration);
-            Assert.IsInstanceOfType(htmlFormatter.FormatterConfiguration, typeof(XsltFilebasedFormatterElement));
-            XsltFilebasedFormatterElement htmlFormatterConfig = (XsltFilebasedFormatterElement)htmlFormatter.FormatterConfiguration;
-            Assert.IsNotNull(htmlFormatterConfig.Output);
-            Assert.AreEqual<string>("out.html", htmlFormatterConfig.Output.FileName);
-            Assert.AreEqual<string>(string.Empty, htmlFormatterConfig.Output.Stylesheet);
-            Assert.AreEqual<bool>(false, htmlFormatterConfig.Output.Launch);
+            Assert.AreEqual<string>("out.html", htmlFormatter.output.fileName);
+            Assert.AreEqual<string>(string.Empty, htmlFormatter.output.stylesheet);
+            Assert.AreEqual<bool>(false, htmlFormatter.output.launch);
 
             formatterElement xmlFormatter = config.formatters[2];
             Assert.IsNotNull(xmlFormatter);
             Assert.AreEqual<string>("Xml", xmlFormatter.name);
             Assert.AreEqual<string>("BuildCop.Formatters.Xml.XmlFormatter", xmlFormatter.type);
             Assert.AreEqual<LogLevel>(LogLevel.Error, xmlFormatter.minimumLogLevel);
-            Assert.IsNotNull(xmlFormatter.FormatterConfiguration);
-            Assert.IsInstanceOfType(xmlFormatter.FormatterConfiguration, typeof(XsltFilebasedFormatterElement));
-            XsltFilebasedFormatterElement xmlFormatterConfig = (XsltFilebasedFormatterElement)xmlFormatter.FormatterConfiguration;
-            Assert.IsNotNull(xmlFormatterConfig.Output);
-            Assert.AreEqual<string>("out.xml", xmlFormatterConfig.Output.FileName);
-            Assert.AreEqual<string>("TestStylesheet.xslt", xmlFormatterConfig.Output.Stylesheet);
-            Assert.AreEqual<bool>(false, xmlFormatterConfig.Output.Launch);
+            Assert.AreEqual<string>("out.xml", xmlFormatter.output.fileName);
+            Assert.AreEqual<string>("TestStylesheet.xslt", xmlFormatter.output.stylesheet);
+            Assert.AreEqual<bool>(false, xmlFormatter.output.launch);
 
             formatterElement csvFormatter = config.formatters[3];
             Assert.IsNotNull(csvFormatter);
             Assert.AreEqual<string>("Csv", csvFormatter.name);
             Assert.AreEqual<string>("BuildCop.Formatters.Csv.CsvFormatter", csvFormatter.type);
             Assert.AreEqual<LogLevel>(LogLevel.Exception, csvFormatter.minimumLogLevel);
-            Assert.IsNotNull(csvFormatter.FormatterConfiguration);
-            Assert.IsInstanceOfType(csvFormatter.FormatterConfiguration, typeof(FilebasedFormatterElement));
-            FilebasedFormatterElement csvFormatterConfig = (FilebasedFormatterElement)csvFormatter.FormatterConfiguration;
-            Assert.IsNotNull(csvFormatterConfig.Output);
-            Assert.AreEqual<string>("out.csv", csvFormatterConfig.Output.FileName);
-            Assert.AreEqual<bool>(false, csvFormatterConfig.Output.Launch);
+            Assert.AreEqual<string>("out.csv", csvFormatter.output.fileName);
+            Assert.AreEqual<bool>(false, csvFormatter.output.launch);
 
             List<outputTypeElement> outputTypeMappings = config.outputTypeMappings;
             Assert.IsNotNull(outputTypeMappings);

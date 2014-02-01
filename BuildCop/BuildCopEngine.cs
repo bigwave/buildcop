@@ -139,8 +139,7 @@ namespace BuildCop
             // Write reports to formatters.
             foreach (formatterElement formatterDefinition in configuration.formatters)
             {
-                BaseFormatter formatter = CreateFormatter(formatterDefinition);
-                formatter.WriteReport(report, formatterDefinition.minimumLogLevel);
+                formatterDefinition.WriteReport(report, formatterDefinition.minimumLogLevel);
             }
 
             return report;
@@ -277,28 +276,6 @@ namespace BuildCop
             rule.excludedFiles = excludedFiles;
             rule.excludedOutputTypes = excludedOutputTypes;
             return rule;
-        }
-
-        /// <summary>
-        /// Creates a formatter.
-        /// </summary>
-        /// <param name="formatterDefinition">The formatter definition.</param>
-        /// <returns>The formatter for the given definition.</returns>
-        private static BaseFormatter CreateFormatter(formatterElement formatterDefinition)
-        {
-            Type formatterType = Type.GetType(formatterDefinition.type, true, true);
-            if (!typeof(BaseFormatter).IsAssignableFrom(formatterType))
-            {
-                throw new ConfigurationErrorsException("The formatter type must derive from the BaseFormatter class. Type name: " + formatterDefinition.type);
-            }
-
-            ConstructorInfo ctor = formatterType.GetConstructor(new Type[] { typeof(FormatterConfigurationElement) });
-            if (ctor == null)
-            {
-                throw new ConfigurationErrorsException("The formatter type must have a constructor that takes a FormatterConfigurationElement. Type name: " + formatterType.FullName);
-            }
-            BaseFormatter formatter = (BaseFormatter)ctor.Invoke(new object[] { formatterDefinition.FormatterConfiguration });
-            return formatter;
         }
 
         /// <summary>

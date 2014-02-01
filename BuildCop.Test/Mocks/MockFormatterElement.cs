@@ -7,14 +7,9 @@ using BuildCop.Configuration;
 
 namespace BuildCop.Test.Mocks
 {
-    public class MockFormatterElement : FormatterConfigurationElement
+    public class MockFormatterElement : formatterElement
     {
         public MockFormatterElement()
-        {
-        }
-
-        public MockFormatterElement(XmlReader reader)
-            : base(reader)
         {
         }
     }

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters.Configuration;
 using BuildCop.Reporting;
 
 namespace BuildCop.Formatters
@@ -12,21 +11,8 @@ namespace BuildCop.Formatters
     /// <summary>
     /// A base class for a file-based formatter.
     /// </summary>
-    public abstract class FilebasedFormatter : BaseFormatter
+    public abstract class FilebasedFormatter : formatterElement
     {
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilebasedFormatter"/> class.
-        /// </summary>
-        /// <param name="configuration">The configuration for this formatter.</param>
-        protected FilebasedFormatter(FormatterConfigurationElement configuration)
-            : base(configuration)
-        {
-        }
-
-        #endregion
-
         #region WriteReport
 
         /// <summary>
@@ -39,10 +25,9 @@ namespace BuildCop.Formatters
         {
             WriteReportCore(report, minimumLogLevel);
 
-            FilebasedFormatterElement configuration = this.GetTypedConfiguration<FilebasedFormatterElement>();
-            if (configuration.Output.Launch)
+            if (this.output.launch)
             {
-                string fileName = configuration.Output.FileName;
+                string fileName = this.output.fileName;
                 Process.Start(fileName);
             }
         }
@@ -59,7 +44,7 @@ namespace BuildCop.Formatters
         /// <remarks>
         /// Override this method to write the report. The <see cref="FilebasedFormatter"/> base
         /// class will ensure that the file is launched after this method is called, depending on
-        /// the <see cref="OutputElement.Launch"/> configuration setting.
+        /// the output.launch configuration setting.
         /// </remarks>
         protected abstract void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel);
 
