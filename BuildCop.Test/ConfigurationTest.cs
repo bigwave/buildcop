@@ -20,9 +20,7 @@ namespace BuildCop.Test
         [TestMethod]
         public void ConfigurationFileShouldBeReadCorrectly()
         {
-            BuildCopConfiguration config;
-            Exception theException;
-            BuildCopConfiguration.LoadFromFile(@"BuildCop.config", out config, out theException);
+            BuildCopConfiguration config = BuildCopConfiguration.LoadFromFile(@"BuildCop.config");
 
             Assert.IsNotNull(config);
             Assert.IsNotNull(config.buildGroups);

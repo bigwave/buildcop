@@ -35,9 +35,7 @@ namespace BuildCop
         /// <returns>The report containing the outcome of a verification for a list of build groups.</returns>
         public static BuildCopReport Execute()
         {
-            BuildCopConfiguration theConfig;
-            Exception theException;
-            BuildCopConfiguration.LoadFromFile(@"C:\Users\ian.BIGWAVE\Documents\GitHub\buildcop\BuildCop.Console\App.config", out theConfig, out theException);
+            BuildCopConfiguration theConfig = BuildCopConfiguration.LoadFromFile(@"BuildCop.config");
             return Execute(theConfig, null);
         }
 
@@ -48,9 +46,7 @@ namespace BuildCop
         /// <returns>The report containing the outcome of a verification for a list of build groups.</returns>
         public static BuildCopReport Execute(IList<string> buildGroups)
         {
-            BuildCopConfiguration theConfig;
-            Exception theException;
-            BuildCopConfiguration.LoadFromFile(@"C:\Users\ian.BIGWAVE\Documents\GitHub\buildcop\BuildCop.Console\App.config", out theConfig, out theException);
+            BuildCopConfiguration theConfig = BuildCopConfiguration.LoadFromFile(@"BuildCop.config");
             return Execute(theConfig, buildGroups);
         }
 
@@ -139,7 +135,23 @@ namespace BuildCop
             // Write reports to formatters.
             foreach (formatterElement formatterDefinition in configuration.formatters)
             {
-                formatterDefinition.WriteReport(report, formatterDefinition.minimumLogLevel);
+                switch (formatterDefinition.name.ToUpperInvariant())
+                {
+                    case "CONSOLE":
+                        formatterDefinition.WriteConsoleReport(report, formatterDefinition.minimumLogLevel);
+                        break;
+                    case "HTML":
+                        formatterDefinition.WriteHtmlReport(report, formatterDefinition.minimumLogLevel);
+                        break;
+                    case "CSV":
+                        formatterDefinition.WriteCsvReport(report, formatterDefinition.minimumLogLevel);
+                        break;
+                    case "XML":
+                        formatterDefinition.WriteXmlReport(report, formatterDefinition.minimumLogLevel);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             return report;

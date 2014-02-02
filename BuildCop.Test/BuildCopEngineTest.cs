@@ -280,6 +280,7 @@ namespace BuildCop.Test
 
         [TestMethod]
         [DeploymentItem("BuildCopReport.xslt")]
+        [DeploymentItem("BuildCop.config")]
         public void BuildCopShouldExcludeBuildGroupsFromAppConfig()
         {
             BuildCopReport report = BuildCopEngine.Execute(new string[] { });

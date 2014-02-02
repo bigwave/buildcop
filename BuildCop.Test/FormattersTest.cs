@@ -6,10 +6,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using BuildCop.Configuration;
 using BuildCop.Formatters;
-using BuildCop.Formatters.Console;
-using BuildCop.Formatters.Csv;
-using BuildCop.Formatters.Html;
-using BuildCop.Formatters.Xml;
 using BuildCop.Reporting;
 using BuildCop.Test.Mocks;
 
@@ -38,48 +34,47 @@ namespace BuildCop.Test
             Assert.IsNotNull(report);
 
             // Execute the known formatters.
-            HtmlFormatter htmlFormatter = new HtmlFormatter();
+            formatterElement htmlFormatter = new formatterElement();
             htmlFormatter.output.fileName = "TestFormatterOutput.html";
             htmlFormatter.output.launch = false;
             htmlFormatter.output.stylesheet = string.Empty;
-            htmlFormatter.WriteReport(report, LogLevel.Information);
-            XmlFormatter xmlFormatter = new XmlFormatter();
+            htmlFormatter.WriteHtmlReport(report, LogLevel.Information);
+            formatterElement xmlFormatter = new formatterElement();
             xmlFormatter.output.fileName = "TestFormatterOutput.xml";
             xmlFormatter.output.launch = false;
             xmlFormatter.output.stylesheet = string.Empty;
-            xmlFormatter = new XmlFormatter();
-            xmlFormatter.WriteReport(report, LogLevel.Information);
-            CsvFormatter csvformatter = new CsvFormatter();
+            xmlFormatter.WriteXmlReport(report, LogLevel.Information);
+            formatterElement csvformatter = new formatterElement();
             csvformatter.output.fileName = "TestFormatterOutput.csv";
             csvformatter.output.launch = false;
-            csvformatter.WriteReport(report, LogLevel.Information);
+            csvformatter.WriteCsvReport(report, LogLevel.Information);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void HtmlFormatterShouldThrowOnMissingFileName()
         {
-            HtmlFormatter formatter = new HtmlFormatter();
+            formatterElement formatter = new formatterElement();
             formatter.output.fileName = null;
-            formatter.WriteReport(null, LogLevel.Information);
+            formatter.WriteHtmlReport(null, LogLevel.Information);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void XmlFormatterShouldThrowOnMissingFileName()
         {
-            XmlFormatter formatter = new XmlFormatter();
+            formatterElement formatter = new formatterElement();
             formatter.output.fileName = null;
-            formatter.WriteReport(null, LogLevel.Information);
+            formatter.WriteXmlReport(null, LogLevel.Information);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void CsvFormatterShouldThrowOnMissingFileName()
         {
-            CsvFormatter formatter = new CsvFormatter();
+            formatterElement formatter = new formatterElement();
             formatter.output.fileName = null;
-            formatter.WriteReport(null, LogLevel.Information);
+            formatter.WriteCsvReport(null, LogLevel.Information);
         }
     }
 }

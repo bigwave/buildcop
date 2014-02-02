@@ -403,6 +403,5 @@ namespace BuildCop.Configuration
         }
 
         #endregion NamingConventionsRule
-
-    }
+   }
 }

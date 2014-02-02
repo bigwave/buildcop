@@ -12,7 +12,7 @@ namespace BuildCop.Test.Mocks
     {
         public static BuildCopReport LastReport;
 
-        public override void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
+        public void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
         {
             LastReport = report;
         }

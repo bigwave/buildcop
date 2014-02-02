@@ -11,7 +11,7 @@ namespace BuildCop.Test.Mocks
     internal class MockFormatterInvalid : formatterElement
     {
 
-        public override void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
+        public void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
         {
         }
     }
