@@ -34,22 +34,22 @@ namespace BuildCop.Configuration
 
                 switch (this.type)
                 {
-                    case "JelleDruyts.BuildCop.Rules.BuildProperties.BuildPropertiesRule":
+                    case "BuildCop.Rules.BuildProperties.BuildPropertiesRule":
                         myRule = new BuildPropertiesRule(this);
                         break;
-                    case "JelleDruyts.BuildCop.Rules.DocumentationFile.DocumentationFileRule":
+                    case "BuildCop.Rules.DocumentationFile.DocumentationFileRule":
                         myRule = new DocumentationFileRule(this);
                         break;
-                    case "JelleDruyts.BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule":
+                    case "BuildCop.Rules.AssemblyReferences.AssemblyReferenceRule":
                         myRule = new AssemblyReferenceRule(this);
                         break;
-                    case "JelleDruyts.BuildCop.Rules.NamingConventions.NamingConventionsRule":
+                    case "BuildCop.Rules.NamingConventions.NamingConventionsRule":
                         myRule = new NamingConventionsRule(this);
                         break;
-                    case "JelleDruyts.BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule":
+                    case "BuildCop.Rules.OrphanedProjects.OrphanedProjectsRule":
                         myRule = new OrphanedProjectsRule(this);
                         break;
-                    case "JelleDruyts.BuildCop.Rules.StrongNaming.StrongNamingRule":
+                    case "BuildCop.Rules.StrongNaming.StrongNamingRule":
                         myRule = new StrongNamingRule(this);
                         break;
                     default:

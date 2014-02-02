@@ -111,8 +111,23 @@ namespace BuildCop
                                 {
                                     if (!ShouldExcludeOutputType(buildFile.OutputType, buildFile.ProjectTypeGuids, outputTypeMappings, rule.excludedOutputTypes))
                                     {
-                                        IList<LogEntry> ruleEntries = rule.RuleChecker.Check(buildFile);
-                                        allEntries.AddRange(ruleEntries);
+                                        if (string.IsNullOrEmpty(rule.type.Trim()))
+                                        {
+                                            // Shared rules entry
+                                            foreach (var sharedRule in configuration.sharedRules)
+                                            {
+                                                if (sharedRule.name == rule.name)
+                                                {
+                                                    IList<LogEntry> ruleEntries = sharedRule.RuleChecker.Check(buildFile);
+                                                    allEntries.AddRange(ruleEntries);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            IList<LogEntry> ruleEntries = rule.RuleChecker.Check(buildFile);
+                                            allEntries.AddRange(ruleEntries);
+                                        }
                                     }
                                 }
                             }
