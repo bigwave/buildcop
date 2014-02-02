@@ -304,17 +304,13 @@ namespace BuildCop.Configuration
 
         private bool enabledField;
 
-        private bool enabledFieldSpecified;
-
         private static System.Xml.Serialization.XmlSerializer serializer;
 
-        /// <summary>
-        /// buildGroupElement class constructor
-        /// </summary>
         public buildGroupElement()
         {
             this.rulesField = new List<ruleElement>();
             this.buildFilesField = new buildFilesElement();
+            this.enabledField = true;
         }
 
         [System.Xml.Serialization.XmlElementAttribute(Order = 0)]
@@ -358,6 +354,7 @@ namespace BuildCop.Configuration
         }
 
         [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.ComponentModel.DefaultValueAttribute(true)]
         public bool enabled
         {
             get
@@ -367,19 +364,6 @@ namespace BuildCop.Configuration
             set
             {
                 this.enabledField = value;
-            }
-        }
-
-        [System.Xml.Serialization.XmlIgnoreAttribute()]
-        public bool enabledSpecified
-        {
-            get
-            {
-                return this.enabledFieldSpecified;
-            }
-            set
-            {
-                this.enabledFieldSpecified = value;
             }
         }
 

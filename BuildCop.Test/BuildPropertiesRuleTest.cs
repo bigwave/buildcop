@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BuildCop.Reporting;
 using BuildCop.Configuration;
 using System.Globalization;
+using BuildCop.Rules;
 
 namespace BuildCop.Test
 {
@@ -60,6 +61,8 @@ namespace BuildCop.Test
             buildProperty.value = "prompt";
             buildProperty.condition = ""; // No condition means it should be true for all configurations (two in this case).
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -92,6 +95,8 @@ namespace BuildCop.Test
             buildProperty.value = "dummy";
             buildProperty.condition = "debug";
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -125,6 +130,8 @@ namespace BuildCop.Test
             buildProperty.value = "dummy";
             buildProperty.condition = null; // Also try with null.
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -151,6 +158,8 @@ namespace BuildCop.Test
             buildProperty.name = "dummy";
             buildProperty.value = "dummy";
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -178,6 +187,8 @@ namespace BuildCop.Test
             buildProperty.value = "dummy";
             buildProperty.condition = "Debug";
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -203,6 +214,7 @@ namespace BuildCop.Test
             buildProperty.value = "Debug";
             buildProperty.compareOption = CompareOption.EqualTo.ToString();
             config.buildProperties.Add(buildProperty);
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -224,6 +236,7 @@ namespace BuildCop.Test
             buildProperty.compareOption = CompareOption.EqualTo.ToString();
             buildProperty.stringCompareOption = StringComparison.OrdinalIgnoreCase.ToString();
             config.buildProperties.Add(buildProperty);
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -244,6 +257,8 @@ namespace BuildCop.Test
             buildProperty.value = "Dummy";
             buildProperty.compareOption = CompareOption.EqualTo.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -267,6 +282,8 @@ namespace BuildCop.Test
             buildProperty.compareOption = CompareOption.EqualTo.ToString();
             buildProperty.stringCompareOption = StringComparison.Ordinal.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -289,6 +306,8 @@ namespace BuildCop.Test
             buildProperty.value = "Dummy";
             buildProperty.compareOption = CompareOption.EqualTo.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -311,6 +330,8 @@ namespace BuildCop.Test
             buildProperty.value = "Release";
             buildProperty.compareOption = CompareOption.NotEqualTo.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -331,6 +352,8 @@ namespace BuildCop.Test
             buildProperty.value = "Debug";
             buildProperty.compareOption = CompareOption.NotEqualTo.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -352,6 +375,7 @@ namespace BuildCop.Test
             buildProperty.name = "Configuration";
             buildProperty.compareOption = CompareOption.Exists.ToString();
             config.buildProperties.Add(buildProperty);
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -371,6 +395,8 @@ namespace BuildCop.Test
             buildProperty.name = "Dummy";
             buildProperty.compareOption = CompareOption.Exists.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -392,9 +418,8 @@ namespace BuildCop.Test
             buildProperty.name = "Dummy";
             buildProperty.compareOption = CompareOption.DoesNotExist.ToString();
             config.buildProperties.Add(buildProperty);
+            config.RuleChecker = new BuildPropertiesRule(config);
 
-            ruleElementBuildProperty rule = new ruleElementBuildProperty();
-            rule.name = "BuildProperty";
             IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
@@ -411,6 +436,8 @@ namespace BuildCop.Test
             buildProperty.name = "Configuration";
             buildProperty.compareOption = CompareOption.DoesNotExist.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -432,6 +459,7 @@ namespace BuildCop.Test
             buildProperty.value = "Something Debug Release Custom Whatever";
             buildProperty.compareOption = CompareOption.In.ToString();
             config.buildProperties.Add(buildProperty);
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -452,6 +480,8 @@ namespace BuildCop.Test
             buildProperty.value = "Something Release Custom Whatever";
             buildProperty.compareOption = CompareOption.In.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -474,6 +504,8 @@ namespace BuildCop.Test
             buildProperty.value = "Dummy";
             buildProperty.compareOption = CompareOption.In.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -496,6 +528,7 @@ namespace BuildCop.Test
             buildProperty.value = "Something Release Custom Whatever";
             buildProperty.compareOption = CompareOption.NotIn.ToString();
             config.buildProperties.Add(buildProperty);
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
@@ -516,6 +549,8 @@ namespace BuildCop.Test
             buildProperty.value = "Something Debug Release Custom Whatever";
             buildProperty.compareOption = CompareOption.NotIn.ToString();
             config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";

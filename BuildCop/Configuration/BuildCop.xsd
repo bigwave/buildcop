@@ -51,7 +51,7 @@
         <xs:documentation>The name of this build group.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="enabled" use="optional" type="xs:boolean">
+    <xs:attribute name="enabled" use="optional" type="xs:boolean" default="true">
       <xs:annotation>
         <xs:documentation>A value that determines if this build group is enabled.</xs:documentation>
       </xs:annotation>

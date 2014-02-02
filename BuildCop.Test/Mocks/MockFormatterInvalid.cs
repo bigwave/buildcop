@@ -8,10 +8,14 @@ using BuildCop.Configuration;
 
 namespace BuildCop.Test.Mocks
 {
-    internal class MockFormatterInvalid : formatterElement
+    internal class MockFormatterInvalid : BaseFormatter
     {
+        public MockFormatterInvalid(formatterElement config)
+            : base(null)
+        {
 
-        public void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
+        }
+        public override void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
         {
         }
     }

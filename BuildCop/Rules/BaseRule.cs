@@ -24,37 +24,31 @@ namespace BuildCop.Rules
             get { return this.configuration; }
         }
 
-        private string name;
-
         /// <summary>
         /// Gets or sets the name of the rule.
         /// </summary>
         public string Name
         {
-            get { return this.name; }
-            set { this.name = value; }
+            get { return config.name; }
+            set { config.name = value; }
         }
-
-        private string excludedFiles;
 
         /// <summary>
         /// Gets or sets the string to find in the names of files to exclude for this rule.
         /// </summary>
         public string ExcludedFiles
         {
-            get { return this.excludedFiles; }
-            set { this.excludedFiles = value; }
+            get { return config.excludedFiles; }
+            set { config.excludedFiles = value; }
         }
-
-        private string excludedOutputTypes;
 
         /// <summary>
         /// Gets or sets the string to find in the output type of files to exclude for this rule.
         /// </summary>
         public string ExcludedOutputTypes
         {
-            get { return this.excludedOutputTypes; }
-            set { this.excludedOutputTypes = value; }
+            get { return config.excludedOutputTypes; }
+            set { config.excludedOutputTypes = value; }
         }
 
         #endregion

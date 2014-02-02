@@ -211,34 +211,28 @@ namespace BuildCop.Test
         }
 
         [TestMethod]
-        public void ConfigurationWithValidRuleElementShouldNotThrow()
-        {
-            DerivedRuleElement.Deserialize("<rule name=\"MockRule\" type=\"BuildCop.Test.Mocks.MockRule, BuildCop.Test\"><dummy/></rule>");
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ConfigurationWithInvalidRuleElementShouldThrowOnWrongBaseType()
         {
             DerivedRuleElement.Deserialize("<rule name=\"MockRule\" type=\"System.String\"><dummy/></rule>");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ConfigurationWithInvalidRuleElementShouldThrowOnMissingAttribute()
         {
             DerivedRuleElement.Deserialize("<rule name=\"MockRule\" type=\"BuildCop.Test.Mocks.MockRuleInvalid, BuildCop.Test\"><dummy/></rule>");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ConfigurationWithInvalidRuleElementShouldThrowOnWrongConfigurationType()
         {
             DerivedRuleElement.Deserialize("<rule name=\"MockRule\" type=\"BuildCop.Test.Mocks.MockRuleInvalidConfigurationType, BuildCop.Test\"><dummy/></rule>");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void ConfigurationWithInvalidRuleElementShouldThrowOnWrongConfigurationDefinition()
         {
             DerivedRuleElement.Deserialize("<rule name=\"MockRule\" type=\"BuildCop.Test.Mocks.MockRuleInvalidConfigurationDefinition, BuildCop.Test\"><dummy/></rule>");

@@ -33,6 +33,7 @@ namespace BuildCop.Test
             ruleElement mockRule = new ruleElement();
             mockRule.name = "Mock";
             mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.RuleChecker = new MockRule(mockRule);
             buildGroup.rules.Add(mockRule);
             config.buildGroups.Add(buildGroup);
 
@@ -64,10 +65,12 @@ namespace BuildCop.Test
             buildGroup.buildFiles.paths.Add(path);
             ruleElement mockRule = new ruleElement();
             mockRule.name = "Mock";
+            mockRule.RuleChecker = new MockRule(mockRule);
             buildGroup.rules.Add(mockRule);
             ruleElement sharedMockRule = new ruleElement();
             sharedMockRule.name = "Mock";
             sharedMockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            sharedMockRule.RuleChecker = new MockRule(sharedMockRule);
             config.sharedRules.Add(sharedMockRule);
             config.buildGroups.Add(buildGroup);
 
@@ -100,6 +103,7 @@ namespace BuildCop.Test
             ruleElement mockRule = new ruleElement();
             mockRule.name = "Mock";
             mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.RuleChecker = new MockRule(mockRule);
             buildGroup.rules.Add(mockRule);
             config.buildGroups.Add(buildGroup);
             formatterElement formatter = new formatterElement();
@@ -140,6 +144,7 @@ namespace BuildCop.Test
             ruleElement mockRule = new ruleElement();
             mockRule.name = "Mock";
             mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.RuleChecker = new MockRule(mockRule);
             buildGroup.rules.Add(mockRule);
             config.buildGroups.Add(buildGroup);
 
@@ -173,6 +178,7 @@ namespace BuildCop.Test
             ruleElement mockRule = new ruleElement();
             mockRule.name = "Mock";
             mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.RuleChecker = new MockRule(mockRule);
             buildGroup.rules.Add(mockRule);
             config.buildGroups.Add(buildGroup);
 
@@ -205,6 +211,7 @@ namespace BuildCop.Test
             ruleElement mockRule = new ruleElement();
             mockRule.name = "Mock";
             mockRule.type = typeof(MockRule).AssemblyQualifiedName;
+            mockRule.RuleChecker = new MockRule(mockRule);
             buildGroup.rules.Add(mockRule);
             config.buildGroups.Add(buildGroup);
 
@@ -328,6 +335,7 @@ namespace BuildCop.Test
             ruleElement mockRule = new ruleElement();
             mockRule.name = "Mock";
             mockRule.type = typeof(ExceptionMockRule).AssemblyQualifiedName;
+            mockRule.RuleChecker = new ExceptionMockRule(mockRule);
             buildGroup.rules.Add(mockRule);
             config.buildGroups.Add(buildGroup);
 
@@ -456,82 +464,6 @@ namespace BuildCop.Test
         #endregion
 
         #region Negative Tests
-
-        [TestMethod]
-        [ExpectedException(typeof(TypeLoadException))]
-        public void RuleTypeShouldBeValidType()
-        {
-            BuildCopConfiguration config = new BuildCopConfiguration();
-            buildGroupElement buildGroup = new buildGroupElement();
-            buildGroup.name = "TestBuildGroup";
-            buildGroup.enabled = true;
-            ruleElement invalidRule = new ruleElement();
-            buildGroup.rules.Add(invalidRule);
-            config.buildGroups.Add(buildGroup);
-            BuildCopEngine.Execute(config);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException), "The rule type must derive from the BaseRule class. Type name: System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
-        public void RuleTypeShouldBeBaseRuleType()
-        {
-            BuildCopConfiguration config = new BuildCopConfiguration();
-            buildGroupElement buildGroup = new buildGroupElement();
-            buildGroup.name = "TestBuildGroup";
-            buildGroup.enabled = true;
-            ruleElement invalidRule = new ruleElement();
-            invalidRule.type = typeof(string).AssemblyQualifiedName;
-            buildGroup.rules.Add(invalidRule);
-            config.buildGroups.Add(buildGroup);
-            BuildCopEngine.Execute(config);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException), "The rule type must have a constructor that takes a RuleConfigurationElement. Type name: BuildCop.Test.Mocks.MockRuleInvalid")]
-        public void RuleTypeShouldHaveExpectedConstructor()
-        {
-            BuildCopConfiguration config = new BuildCopConfiguration();
-            buildGroupElement buildGroup = new buildGroupElement();
-            buildGroup.name = "TestBuildGroup";
-            buildGroup.enabled = true;
-            ruleElement invalidRule = new ruleElement();
-            invalidRule.type = typeof(MockRuleInvalid).AssemblyQualifiedName;
-            buildGroup.rules.Add(invalidRule);
-            config.buildGroups.Add(buildGroup);
-            BuildCopEngine.Execute(config);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(TypeLoadException))]
-        public void FormatterTypeShouldBeValidType()
-        {
-            BuildCopConfiguration config = new BuildCopConfiguration();
-            formatterElement invalidFormatter = new formatterElement();
-            config.formatters.Add(invalidFormatter);
-            BuildCopEngine.Execute(config);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException), "The formatter type must derive from the BaseFormatter class. Type name: System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
-        public void FormatterTypeShouldBeBaseRuleType()
-        {
-            BuildCopConfiguration config = new BuildCopConfiguration();
-            formatterElement invalidFormatter = new formatterElement();
-            invalidFormatter.type = typeof(string).AssemblyQualifiedName;
-            config.formatters.Add(invalidFormatter);
-            BuildCopEngine.Execute(config);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ConfigurationErrorsException), "The formatter type must have a default constructor. Type name: BuildCop.Test.Mocks.MockFormatterInvalid")]
-        public void FormatterTypeShouldHaveExpectedConstructor()
-        {
-            BuildCopConfiguration config = new BuildCopConfiguration();
-            formatterElement invalidFormatter = new formatterElement();
-            invalidFormatter.type = typeof(MockFormatterInvalid).AssemblyQualifiedName;
-            config.formatters.Add(invalidFormatter);
-            BuildCopEngine.Execute(config);
-        }
 
         [TestMethod]
         [DeploymentItem("BuildCopReport.xslt")]

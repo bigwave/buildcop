@@ -64,6 +64,7 @@
     <DocumentationFile>bin\Release\BuildCop.xml</DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
