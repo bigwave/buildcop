@@ -77,26 +77,40 @@
     <Compile Include="AssemblyReference.cs" />
     <Compile Include="Configuration\BuildCop.designer.cs" />
     <Compile Include="BuildProperty.cs" />
-    <Compile Include="Configuration\BuildCopBaseElement_2.cs" />
     <Compile Include="Configuration\CompareOption.cs" />
     <Compile Include="Configuration\ConfigurationHelper.cs" />
     <Compile Include="Configuration\FormatterConfigurationElement.cs" />
     <Compile Include="Configuration\FormatterElement.cs" />
-    <Compile Include="Configuration\RuleConfigurationElement.cs" />
     <Compile Include="Configuration\RuleElement.cs" />
+    <Compile Include="Formatters\BaseFormatter.cs" />
     <Compile Include="Formatters\BuildCopFormatterAttribute.cs" />
+    <Compile Include="Formatters\ConsoleFormatter.cs" />
+    <Compile Include="Formatters\CsvFormatter.cs" />
+    <Compile Include="Formatters\FilebasedFormatter.cs" />
+    <Compile Include="Formatters\HtmlFormatter.cs" />
+    <Compile Include="Formatters\XmlFormatter.cs" />
+    <Compile Include="Formatters\XsltFilebasedFormatter.cs" />
     <Compile Include="Reporting\BuildCopReport.cs" />
     <Compile Include="Reporting\BuildGroupReport.cs" />
-    <Compile Include="Formatters\BaseFormatter.cs" />
-    <Compile Include="Rules\BuildCopRuleAttribute.cs" />
     <Compile Include="Configuration\ruleElementBuildProperty.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="BuildCopEngine.cs" />
-    <Compile Include="Rules\BaseRule.cs" />
     <Compile Include="BuildFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\LogEntry.cs" />
     <Compile Include="Reporting\BuildFileReport.cs" />
+    <Compile Include="Rules\AssemblyReferenceRule.cs" />
+    <Compile Include="Rules\BaseRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\BuildCopRuleAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Rules\BuildPropertiesRule.cs" />
+    <Compile Include="Rules\DocumentationFileRule.cs" />
+    <Compile Include="Rules\NamingConventionsRule.cs" />
+    <Compile Include="Rules\OrphanedProjectsRule.cs" />
+    <Compile Include="Rules\StrongNamingRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="BuildCopReport.xslt">

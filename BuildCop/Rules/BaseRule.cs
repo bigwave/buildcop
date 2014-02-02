@@ -14,12 +14,12 @@ namespace BuildCop.Rules
     {
         #region Properties
 
-        private readonly RuleConfigurationElement configuration;
+        private readonly ruleElement configuration;
 
         /// <summary>
         /// Gets or sets the configuration for this rule.
         /// </summary>
-        public RuleConfigurationElement Configuration
+        public ruleElement config
         {
             get { return this.configuration; }
         }
@@ -65,7 +65,7 @@ namespace BuildCop.Rules
         /// Initializes a new instance of the <see cref="BaseRule"/> class.
         /// </summary>
         /// <param name="configuration">The configuration for this rule.</param>
-        protected BaseRule(RuleConfigurationElement configuration)
+        protected BaseRule(ruleElement configuration)
         {
             this.configuration = configuration;
         }
@@ -83,30 +83,5 @@ namespace BuildCop.Rules
 
         #endregion
 
-        #region GetTypedConfiguration
-
-        /// <summary>
-        /// Gets the configuration as its original strongly typed instance.
-        /// </summary>
-        /// <typeparam name="TConfigurationType">The type of the configuration to return.</typeparam>
-        /// <returns>The <see cref="Configuration"/> property typed as the requested configuration type.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
-        protected TConfigurationType GetTypedConfiguration<TConfigurationType>() where TConfigurationType : RuleConfigurationElement
-        {
-            if (this.configuration == null)
-            {
-                throw new InvalidOperationException("The configuration instance was null and could not be converted to the requested type: " + typeof(TConfigurationType).FullName);
-            }
-
-            TConfigurationType typedconfiguration = this.configuration as TConfigurationType;
-            if (typedconfiguration == null)
-            {
-                throw new InvalidOperationException("The configuration instance could not be converted to the requested type: " + typeof(TConfigurationType).FullName);
-            }
-
-            return typedconfiguration;
-        }
-
-        #endregion
     }
 }

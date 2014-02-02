@@ -6,15 +6,11 @@ using System.Xml;
 
 namespace BuildCop.Test.Mocks
 {
-    public class MockRuleElement : RuleConfigurationElement
+    public class MockRuleElement : ruleElement
     {
         public MockRuleElement()
         {
         }
 
-        public MockRuleElement(XmlReader reader)
-            : base(reader)
-        {
-        }
     }
 }

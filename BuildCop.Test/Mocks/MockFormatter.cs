@@ -8,11 +8,16 @@ using BuildCop.Configuration;
 
 namespace BuildCop.Test.Mocks
 {
-    internal class MockFormatter : formatterElement
+    internal class MockFormatter : BaseFormatter
     {
+        public MockFormatter(formatterElement configuration)
+            : base(configuration)
+        {
+        }
+
         public static BuildCopReport LastReport;
 
-        public void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
+        public override void WriteReport(BuildCopReport report, LogLevel minimumLogLevel)
         {
             LastReport = report;
         }

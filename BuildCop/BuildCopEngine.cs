@@ -111,7 +111,7 @@ namespace BuildCop
                                 {
                                     if (!ShouldExcludeOutputType(buildFile.OutputType, buildFile.ProjectTypeGuids, outputTypeMappings, rule.excludedOutputTypes))
                                     {
-                                        IList<LogEntry> ruleEntries = rule.Check(buildFile);
+                                        IList<LogEntry> ruleEntries = rule.RuleChecker.Check(buildFile);
                                         allEntries.AddRange(ruleEntries);
                                     }
                                 }
@@ -135,23 +135,7 @@ namespace BuildCop
             // Write reports to formatters.
             foreach (formatterElement formatterDefinition in configuration.formatters)
             {
-                switch (formatterDefinition.name.ToUpperInvariant())
-                {
-                    case "CONSOLE":
-                        formatterDefinition.WriteConsoleReport(report, formatterDefinition.minimumLogLevel);
-                        break;
-                    case "HTML":
-                        formatterDefinition.WriteHtmlReport(report, formatterDefinition.minimumLogLevel);
-                        break;
-                    case "CSV":
-                        formatterDefinition.WriteCsvReport(report, formatterDefinition.minimumLogLevel);
-                        break;
-                    case "XML":
-                        formatterDefinition.WriteXmlReport(report, formatterDefinition.minimumLogLevel);
-                        break;
-                    default:
-                        break;
-                }
+                formatterDefinition.Formatter.WriteReport(report, formatterDefinition.minimumLogLevel);
             }
 
             return report;
@@ -224,70 +208,6 @@ namespace BuildCop
             }
 
             return buildFiles;
-        }
-
-        /// <summary>
-        /// Creates a rule.
-        /// </summary>
-        /// <param name="ruleDefinition">The rule definition.</param>
-        /// <param name="sharedRules">The rules that are shared between build groups.</param>
-        /// <returns>The rule for the given definition.</returns>
-        private static ruleElement CreateRule(ruleElement ruleDefinition, List<ruleElement> sharedRules)
-        {
-            string ruleTypeName = ruleDefinition.type;
-            ////RuleConfigurationElement ruleConfig = ruleDefinition.RuleConfiguration;
-            string ruleName = ruleDefinition.name;
-            string excludedFiles = ruleDefinition.excludedFiles;
-            string excludedOutputTypes = ruleDefinition.excludedOutputTypes;
-
-            // Look for matching shared rules.
-            foreach (ruleElement sharedRuleDefinition in sharedRules)
-            {
-                if (string.Equals(ruleDefinition.name, sharedRuleDefinition.name, StringComparison.OrdinalIgnoreCase))
-                {
-                    // A shared rule with the same name was found, use that rule's definition.
-                    ////if (!string.IsNullOrEmpty(ruleDefinition.type) || ruleDefinition.RuleConfiguration != null)
-                    if (!string.IsNullOrEmpty(ruleDefinition.type) )
-                        {
-                        throw new ConfigurationErrorsException(string.Format(CultureInfo.CurrentCulture, "The rule \"{0}\" has a Type and/or configuration element defined but is also defined as a shared rule. A reference to a shared rule can only include the rule's Name and optionally ExcludedFiles and ExcludedOutputTypes.", ruleDefinition.name));
-                    }
-
-                    ruleTypeName = sharedRuleDefinition.type;
-                    ////ruleConfig = sharedRuleDefinition.RuleConfiguration;
-                    ruleName = sharedRuleDefinition.name;
-
-                    // Merge the excluded files and output types.
-                    if (!string.IsNullOrEmpty(excludedFiles))
-                    {
-                        excludedFiles += ExclusionSeparator;
-                    }
-                    excludedFiles += sharedRuleDefinition.excludedFiles;
-
-                    if (!string.IsNullOrEmpty(excludedOutputTypes))
-                    {
-                        excludedOutputTypes += ExclusionSeparator;
-                    }
-                    excludedOutputTypes += sharedRuleDefinition.excludedOutputTypes;
-                    break;
-                }
-            }
-
-            Type ruleType = Type.GetType(ruleTypeName, true, true);
-            if (!typeof(BaseRule).IsAssignableFrom(ruleType))
-            {
-                throw new ConfigurationErrorsException("The rule type must derive from the BaseRule class. Type name: " + ruleTypeName);
-            }
-            ConstructorInfo ctor = ruleType.GetConstructor(new Type[] { typeof(RuleConfigurationElement) });
-            if (ctor == null)
-            {
-                throw new ConfigurationErrorsException("The rule type must have a constructor that takes a RuleConfigurationElement. Type name: " + ruleType.FullName);
-            }
-            ////BaseRule rule = (BaseRule)ctor.Invoke(new object[] { ruleConfig });
-            ruleElement rule = new ruleElement();
-            rule.name = ruleName;
-            rule.excludedFiles = excludedFiles;
-            rule.excludedOutputTypes = excludedOutputTypes;
-            return rule;
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace BuildCop.Test.Mocks
         {
         }
 
-        public MockRule(RuleConfigurationElement configuration)
+        public MockRule(ruleElement configuration)
             : base(configuration)
         {
         }
@@ -26,10 +26,5 @@ namespace BuildCop.Test.Mocks
             return new LogEntry[] { new LogEntry(this.Name, "Mock", LogLevel.Information, "Checked by mock", "This is the detailed message that contains semicolons (;), commas (,) and new lines." + Environment.NewLine + "Which is nice; isn't it, really?") };
         }
 
-        // Make it public on this mock type.
-        public new TConfigurationType GetTypedConfiguration<TConfigurationType>() where TConfigurationType : RuleConfigurationElement
-        {
-            return base.GetTypedConfiguration<TConfigurationType>();
-        }
     }
 }

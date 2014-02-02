@@ -16,7 +16,7 @@ namespace BuildCop.Test.Mocks
         {
         }
 
-        public ExceptionMockRule(RuleConfigurationElement configuration)
+        public ExceptionMockRule(ruleElement configuration)
             : base(configuration)
         {
         }

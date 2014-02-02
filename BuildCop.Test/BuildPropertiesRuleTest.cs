@@ -63,7 +63,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -95,7 +95,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(config.buildProperties.Count, entries.Count);
             foreach (LogEntry entry in entries)
@@ -128,7 +128,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(config.buildProperties.Count * 2, entries.Count);
             foreach (LogEntry entry in entries)
@@ -154,7 +154,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(config.buildProperties.Count, entries.Count);
             foreach (LogEntry entry in entries)
@@ -181,7 +181,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(config.buildProperties.Count, entries.Count);
             foreach (LogEntry entry in entries)
@@ -206,7 +206,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -227,7 +227,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -247,7 +247,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -270,7 +270,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -292,7 +292,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -314,7 +314,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -334,7 +334,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -355,7 +355,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -374,7 +374,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -395,7 +395,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -414,7 +414,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -435,7 +435,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -455,7 +455,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -477,7 +477,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);
@@ -499,7 +499,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
@@ -519,7 +519,7 @@ namespace BuildCop.Test
 
             ruleElementBuildProperty rule = new ruleElementBuildProperty();
             rule.name = "BuildProperty";
-            IList<LogEntry> entries = config.Check(file);
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(1, entries.Count);
             Assert.AreEqual<string>("BuildProperty", entries[0].Rule);

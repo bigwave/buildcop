@@ -8,7 +8,7 @@ using BuildCop.Rules;
 
 namespace BuildCop.Test.Mocks
 {
-    internal class MockRuleElementInvalid : RuleConfigurationElement
+    internal class MockRuleElementInvalid : ruleElement
     {
     }
 }

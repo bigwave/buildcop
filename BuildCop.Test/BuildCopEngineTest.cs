@@ -105,6 +105,7 @@ namespace BuildCop.Test
             formatterElement formatter = new formatterElement();
             formatter.type = typeof(MockFormatter).AssemblyQualifiedName;
             formatter.minimumLogLevel = LogLevel.Information;
+            formatter.Formatter = new MockFormatter(formatter);
             config.formatters.Add(formatter);
 
             MockFormatter.LastReport = null;

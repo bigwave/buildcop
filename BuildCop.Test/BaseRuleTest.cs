@@ -16,23 +16,12 @@ namespace BuildCop.Test
             MockRule rule;
             
             rule = new MockRule(null);
-            Assert.IsNull(rule.Configuration);
+            Assert.IsNull(rule.config);
 
             MockRuleElement configuration = new MockRuleElement();
             rule = new MockRule(configuration);
-            Assert.IsNotNull(rule.Configuration);
-            Assert.AreSame(configuration, rule.Configuration);
-
-            MockRuleElement typedConfiguration = rule.GetTypedConfiguration<MockRuleElement>();
-            Assert.AreSame(configuration, typedConfiguration);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void GetTypedConfigurationShouldThrowOnNull()
-        {
-            MockRule rule = new MockRule(null);
-            rule.GetTypedConfiguration<MockRuleElement>();
+            Assert.IsNotNull(rule.config);
+            Assert.AreSame(configuration, rule.config);
         }
 
         // TODO Fix these

@@ -22,16 +22,9 @@ namespace BuildCop.Test.Mocks
                 {
                     DerivedRuleElement element = new DerivedRuleElement();
                     reader.Read();
-                    element.DeserializeElement(reader);
                     return element;
                 }
             }
-        }
-
-        // Make the base class method public through this derived class.
-        public void DeserializeElement(XmlReader reader)
-        {
-            base.DeserializeElement(reader, false);
         }
     }
 }

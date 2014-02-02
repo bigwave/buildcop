@@ -34,47 +34,56 @@ namespace BuildCop.Test
             Assert.IsNotNull(report);
 
             // Execute the known formatters.
-            formatterElement htmlFormatter = new formatterElement();
-            htmlFormatter.output.fileName = "TestFormatterOutput.html";
-            htmlFormatter.output.launch = false;
-            htmlFormatter.output.stylesheet = string.Empty;
-            htmlFormatter.WriteHtmlReport(report, LogLevel.Information);
-            formatterElement xmlFormatter = new formatterElement();
-            xmlFormatter.output.fileName = "TestFormatterOutput.xml";
-            xmlFormatter.output.launch = false;
-            xmlFormatter.output.stylesheet = string.Empty;
-            xmlFormatter.WriteXmlReport(report, LogLevel.Information);
-            formatterElement csvformatter = new formatterElement();
-            csvformatter.output.fileName = "TestFormatterOutput.csv";
-            csvformatter.output.launch = false;
-            csvformatter.WriteCsvReport(report, LogLevel.Information);
+            BaseFormatter formatter;
+            formatter = new ConsoleFormatter(null);
+            formatter.WriteReport(report, LogLevel.Information);
+            formatterElement htmlFileConfiguration = new formatterElement();
+            htmlFileConfiguration.output.fileName = "TestFormatterOutput.html";
+            htmlFileConfiguration.output.launch = false;
+            htmlFileConfiguration.output.stylesheet = string.Empty;
+            formatter = new HtmlFormatter(htmlFileConfiguration);
+            formatter.WriteReport(report, LogLevel.Information);
+            formatterElement xmlFileConfiguration = new formatterElement();
+            xmlFileConfiguration.output.fileName = "TestFormatterOutput.xml";
+            xmlFileConfiguration.output.launch = false;
+            xmlFileConfiguration.output.stylesheet = string.Empty;
+            formatter = new XmlFormatter(xmlFileConfiguration);
+            formatter.WriteReport(report, LogLevel.Information);
+            formatterElement csvFileConfiguration = new formatterElement();
+            csvFileConfiguration.output.fileName = "TestFormatterOutput.csv";
+            csvFileConfiguration.output.launch = false;
+            formatter = new CsvFormatter(csvFileConfiguration);
+            formatter.WriteReport(report, LogLevel.Information);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void HtmlFormatterShouldThrowOnMissingFileName()
         {
-            formatterElement formatter = new formatterElement();
-            formatter.output.fileName = null;
-            formatter.WriteHtmlReport(null, LogLevel.Information);
+            formatterElement fileConfiguration = new formatterElement();
+            fileConfiguration.output.fileName = null;
+            HtmlFormatter formatter = new HtmlFormatter(fileConfiguration);
+            formatter.WriteReport(null, LogLevel.Information);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void XmlFormatterShouldThrowOnMissingFileName()
         {
-            formatterElement formatter = new formatterElement();
-            formatter.output.fileName = null;
-            formatter.WriteXmlReport(null, LogLevel.Information);
+            formatterElement fileConfiguration = new formatterElement();
+            fileConfiguration.output.fileName = null;
+            XmlFormatter formatter = new XmlFormatter(fileConfiguration);
+            formatter.WriteReport(null, LogLevel.Information);
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void CsvFormatterShouldThrowOnMissingFileName()
         {
-            formatterElement formatter = new formatterElement();
-            formatter.output.fileName = null;
-            formatter.WriteCsvReport(null, LogLevel.Information);
+            formatterElement csvFileConfiguration = new formatterElement();
+            csvFileConfiguration.output.fileName = null;
+            CsvFormatter formatter = new CsvFormatter(csvFileConfiguration);
+            formatter.WriteReport(null, LogLevel.Information);
         }
     }
 }

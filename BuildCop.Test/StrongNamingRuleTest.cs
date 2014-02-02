@@ -21,7 +21,8 @@ namespace BuildCop.Test
             ruleElement rule = new  ruleElement();
             rule.strongNaming.strongNameRequired = false;
             rule.name = "StrongNaming";
-            IList<LogEntry> entries = rule.CheckStrongNamingRule(file);
+            rule.RuleChecker = new StrongNamingRule(rule);
+            IList<LogEntry> entries = rule.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
         }
