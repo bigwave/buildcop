@@ -13,38 +13,18 @@ namespace BuildCop.Test
     [TestClass]
     public class BaseFormaterTest
     {
-        // TODO Fix these
-        ////[TestMethod]
-        ////public void BaseFormatterConstructorShouldSetProperties()
-        ////{
-        ////    MockFormatter formatter;
+		[TestMethod]
+		public void BaseFormatterConstructorShouldSetProperties()
+		{
+			MockFormatter formatter;
 
-        ////    formatter = new MockFormatter(null);
-        ////    Assert.IsNull(formatter.Configuration);
+			formatter = new MockFormatter(null);
+			Assert.IsNull(formatter.Configuration);
 
-        ////    MockFormatterElement configuration = new MockFormatterElement();
-        ////    formatter = new MockFormatter(configuration);
-        ////    Assert.IsNotNull(formatter.Configuration);
-        ////    Assert.AreSame(configuration, formatter.Configuration);
-
-        ////    MockFormatterElement typedConfiguration = formatter.GetTypedConfiguration<MockFormatterElement>();
-        ////    Assert.AreSame(configuration, typedConfiguration);
-        ////}
-
-        ////[TestMethod]
-        ////[ExpectedException(typeof(InvalidOperationException))]
-        ////public void GetTypedConfigurationShouldThrowOnNull()
-        ////{
-        ////    MockFormatter formatter = new MockFormatter(null);
-        ////    formatter.GetTypedConfiguration<MockFormatterElement>();
-        ////}
-
-        ////[TestMethod]
-        ////[ExpectedException(typeof(InvalidOperationException))]
-        ////public void GetTypedConfigurationShouldThrowOnIncorrectType()
-        ////{
-        ////    MockFormatter formatter = new MockFormatter(new MockFormatterElementOtherType());
-        ////    formatter.GetTypedConfiguration<MockFormatterElement>();
-        ////}
+			MockFormatterElement configuration = new MockFormatterElement();
+			formatter = new MockFormatter(configuration);
+			Assert.IsNotNull(formatter.Configuration);
+			Assert.AreSame(configuration, formatter.Configuration);
+		}
     }
 }
