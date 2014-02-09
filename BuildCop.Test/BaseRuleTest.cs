@@ -23,14 +23,5 @@ namespace BuildCop.Test
             Assert.IsNotNull(rule.config);
             Assert.AreSame(configuration, rule.config);
         }
-
-        // TODO Fix these
-        ////[TestMethod]
-        ////[ExpectedException(typeof(InvalidOperationException))]
-        ////public void GetTypedConfigurationShouldThrowOnIncorrectType()
-        ////{
-        ////    MockRule rule = new MockRule(new AssemblyReferenceRuleElement());
-        ////    rule.GetTypedConfiguration<MockRuleElement>();
-        ////}
     }
 }
