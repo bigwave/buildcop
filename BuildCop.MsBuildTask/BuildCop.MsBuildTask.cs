@@ -48,16 +48,20 @@ namespace BuildCop.MsBuildTask
                             {
                                 case LogLevel.Exception:
                                     exceptionList.Add(new TaskItem(message));
-                                    break;
+									this.Log.LogError(message);
+									break;
                                 case LogLevel.Error:
                                     errorList.Add(new TaskItem(message));
+									this.Log.LogError(message);
                                     break;
                                 case LogLevel.Warning:
                                     warningList.Add(new TaskItem(message));
+									this.Log.LogWarning(message);
                                     break;
                                 default:
                                     informationList.Add(new TaskItem(message));
-                                    break;
+									this.Log.LogMessage(message);
+                                   break;
                             }
 
                         }
@@ -70,6 +74,8 @@ namespace BuildCop.MsBuildTask
             Errors = errorList.ToArray();
             Warnings = warningList.ToArray();
             Information = informationList.ToArray();
+
+
 
             if (errorCount > 0)
             {

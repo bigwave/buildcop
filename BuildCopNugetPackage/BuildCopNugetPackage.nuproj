@@ -34,6 +34,9 @@
     <Folder Include="content" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BuildCopNugetPackage.build.number">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="build\BuildCopNugetPackage.targets">
       <SubType>Content</SubType>
     </Content>
