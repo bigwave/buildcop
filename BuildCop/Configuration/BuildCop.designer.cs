@@ -15,6 +15,7 @@ namespace BuildCop.Configuration
     using System.IO;
     using System.Text;
     using System.Collections.Generic;
+	using System.Xml;
 
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.33440")]
@@ -179,7 +180,10 @@ namespace BuildCop.Configuration
             try
             {
                 stringReader = new System.IO.StringReader(xml);
-                return ((BuildCopConfiguration)(Serializer.Deserialize(System.Xml.XmlReader.Create(stringReader))));
+				var theXmlReaderSettings = new XmlReaderSettings();
+				theXmlReaderSettings.ProhibitDtd = false;
+				var theXmlReader = System.Xml.XmlReader.Create(stringReader, theXmlReaderSettings);
+                return ((BuildCopConfiguration)(Serializer.Deserialize(theXmlReader)));
             }
             finally
             {
