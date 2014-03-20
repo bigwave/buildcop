@@ -33,9 +33,10 @@
     <Folder Include="build" />
     <Folder Include="content" />
     <Folder Include="license" />
+    <Folder Include="Bin\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BuildCopNugetPackage.build.number">
+    <Content Include="Bin\BuildCopNugetPackage.build.number">
       <SubType>Content</SubType>
     </Content>
     <Content Include="build\BuildCopNugetPackage.targets">
