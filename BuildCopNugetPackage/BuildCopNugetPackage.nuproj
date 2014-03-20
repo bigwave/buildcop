@@ -47,6 +47,9 @@
     <Content Include="license\license.txt">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="ReadMe.txt">
+      <SubType>Content</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\NuBuild\v1\NuBuild.targets" />
 </Project>
