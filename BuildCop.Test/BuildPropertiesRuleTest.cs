@@ -21,7 +21,7 @@ namespace BuildCop.Test
             BuildFile file = new BuildFile(@"BuildFiles\DefaultConsoleApplication.csproj");
             ruleElement config = new ruleElement();
             ruleElementBuildProperty buildProperty;
-            
+
             // Add correct build properties.
             buildProperty = new ruleElementBuildProperty();
             buildProperty.name = "Configuration";
@@ -69,6 +69,30 @@ namespace BuildCop.Test
             IList<LogEntry> entries = config.RuleChecker.Check(file);
             Assert.IsNotNull(entries);
             Assert.AreEqual<int>(0, entries.Count);
+        }
+
+        [TestMethod]
+        [DeploymentItem("BuildFiles", "BuildFiles")]
+        public void VerifyExistsChecksAllConfigurations()
+        {
+            BuildFile file = new BuildFile(@"BuildFiles\DefaultConsoleApplicationNoReleaseErrorReport.csproj");
+            ruleElement config = new ruleElement();
+            ruleElementBuildProperty buildProperty;
+
+            // Add correct build properties.
+            buildProperty = new ruleElementBuildProperty();
+            buildProperty.name = "ErrorReport";
+            buildProperty.value = "prompt";
+            buildProperty.condition = ""; // No condition means it should be true for all configurations (two in this case).
+            config.buildProperties.Add(buildProperty);
+            config.name = "BuildProperty";
+            config.RuleChecker = new BuildPropertiesRule(config);
+
+            ruleElementBuildProperty rule = new ruleElementBuildProperty();
+            rule.name = "BuildProperty";
+            IList<LogEntry> entries = config.RuleChecker.Check(file);
+            Assert.IsNotNull(entries);
+            Assert.AreEqual<int>(1, entries.Count);
         }
 
         [TestMethod]

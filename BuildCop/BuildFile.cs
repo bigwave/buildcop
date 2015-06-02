@@ -53,6 +53,16 @@ namespace BuildCop
             get { return this.properties; }
         }
 
+        private IList<string> conditions;
+
+        /// <summary>
+        /// Gets the build conditions.
+        /// </summary>
+        public IList<string> Conditions
+        {
+            get { return this.conditions; }
+        }
+
         #endregion
 
         #region Derived Properties
@@ -178,8 +188,9 @@ namespace BuildCop
             }
 
             // Find all properties.
-            this.properties = new List<BuildProperty>();
-            foreach (XmlNode propertyGroupNode in projectDocument.SelectNodes("/msb:Project/msb:PropertyGroup", nsmgr))
+			this.properties = new List<BuildProperty>();
+			this.conditions = new List<string>();
+			foreach (XmlNode propertyGroupNode in projectDocument.SelectNodes("/msb:Project/msb:PropertyGroup", nsmgr))
             {
                 if (propertyGroupNode.HasChildNodes)
                 {
@@ -188,6 +199,11 @@ namespace BuildCop
                     if (conditionAttribute != null && !string.IsNullOrEmpty(conditionAttribute.Value))
                     {
                         condition = conditionAttribute.Value;
+
+						if (!this.conditions.Contains(condition))
+						{
+							this.conditions.Add(condition);
+						}
                     }
                     foreach (XmlNode propertyNode in propertyGroupNode.ChildNodes)
                     {

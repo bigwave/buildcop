@@ -72,6 +72,15 @@ namespace BuildCop.Rules
                         string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} does not exist in the build file.", expectedProperty.name, condition);
                         entries.Add(new LogEntry(this.Name, "PropertyShouldExist", LogLevel.Error, message, detail));
                     }
+                    else if (string.IsNullOrEmpty(expectedProperty.condition) && // No condition: either global property, or should exist for all conditions
+                             !(properties.Count == 1 && string.IsNullOrEmpty(properties[0].Condition)) && // If only one entry in project and it's condition is empty means it is a global property
+                             properties.Count != project.Conditions.Count) // If not a global property, then check that it is present for all conditions
+                    {
+                        string condition = GetConditionSubstring(expectedProperty);
+                        string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" was not found in all configurations.", expectedProperty.name);
+                        string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} does not exist in the build file for all configurations.", expectedProperty.name, condition);
+                        entries.Add(new LogEntry(this.Name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                    }
                     else
                     {
                         foreach (BuildProperty property in properties)

@@ -158,9 +158,10 @@ namespace BuildCop.Test
             Assert.IsNotNull(groupReport);
             Assert.AreEqual<string>("TestBuildGroup", groupReport.BuildGroupName);
             Assert.IsNotNull(groupReport.BuildFileReports);
-            Assert.AreEqual<int>(2, groupReport.BuildFileReports.Count);
+            Assert.AreEqual<int>(3, groupReport.BuildFileReports.Count);
             CheckMockFileReport(groupReport.BuildFileReports[0], @"BuildFiles\DefaultConsoleApplication.csproj");
-            CheckMockFileReport(groupReport.BuildFileReports[1], @"BuildFiles\SignedConsoleApplication.csproj");
+            CheckMockFileReport(groupReport.BuildFileReports[1], @"BuildFiles\DefaultConsoleApplicationNoReleaseErrorReport.csproj");
+            CheckMockFileReport(groupReport.BuildFileReports[2], @"BuildFiles\SignedConsoleApplication.csproj");
         }
 
         [TestMethod]
@@ -192,8 +193,9 @@ namespace BuildCop.Test
             Assert.IsNotNull(groupReport);
             Assert.AreEqual<string>("TestBuildGroup", groupReport.BuildGroupName);
             Assert.IsNotNull(groupReport.BuildFileReports);
-            Assert.AreEqual<int>(1, groupReport.BuildFileReports.Count);
+            Assert.AreEqual<int>(2, groupReport.BuildFileReports.Count);
             CheckMockFileReport(groupReport.BuildFileReports[0], @"BuildFiles\DefaultConsoleApplication.csproj");
+            CheckMockFileReport(groupReport.BuildFileReports[1], @"BuildFiles\DefaultConsoleApplicationNoReleaseErrorReport.csproj");
         }
 
         [TestMethod]

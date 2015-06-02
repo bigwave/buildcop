@@ -114,5 +114,10 @@
       <Name>BuildCop</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="BuildFiles\DefaultConsoleApplicationNoReleaseErrorReport.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
 </Project>
