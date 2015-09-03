@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BuildCop.Reporting
 {
@@ -18,7 +16,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public string BuildGroupName
         {
-            get { return this.buildGroupName; }
+            get { return buildGroupName; }
         }
 
         private readonly IList<BuildFileReport> buildFileReports;
@@ -28,7 +26,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public IList<BuildFileReport> BuildFileReports
         {
-            get { return this.buildFileReports; }
+            get { return buildFileReports; }
         }
 
         #endregion

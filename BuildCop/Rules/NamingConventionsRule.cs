@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -44,7 +43,7 @@ namespace BuildCop.Rules
                 {
                     string message = string.Format(CultureInfo.CurrentCulture, "The project has a wrong root namespace.");
                     string detail = string.Format(CultureInfo.CurrentCulture, "The project is configured with the root namespace \"{0}\", but the root namespace should start with \"{1}\".", project.RootNamespace, config.prefixes.namespacePrefix);
-                    entries.Add(new LogEntry(this.Name, "IncorrectRootNamespace", LogLevel.Error, message, detail));
+                    entries.Add(new LogEntry(Name, "IncorrectRootNamespace", LogLevel.Error, message, detail));
                 }
             }
 
@@ -54,7 +53,7 @@ namespace BuildCop.Rules
                 {
                     string message = string.Format(CultureInfo.CurrentCulture, "The project has a wrong assembly name.");
                     string detail = string.Format(CultureInfo.CurrentCulture, "The project is configured with the assembly name \"{0}\", but the assembly name should start with \"{1}\".", project.AssemblyName, config.prefixes.assemblyNamePrefix);
-                    entries.Add(new LogEntry(this.Name, "IncorrectAssemblyName", LogLevel.Error, message, detail));
+                    entries.Add(new LogEntry(Name, "IncorrectAssemblyName", LogLevel.Error, message, detail));
                 }
             }
 
@@ -64,7 +63,7 @@ namespace BuildCop.Rules
                 {
                     string message = string.Format(CultureInfo.CurrentCulture, "The assembly name does not match the root namespace.");
                     string detail = string.Format(CultureInfo.CurrentCulture, "The project is configured with the assembly name \"{0}\", but it should be the same as the root namespace \"{1}\".", project.AssemblyName, project.RootNamespace);
-                    entries.Add(new LogEntry(this.Name, "AssemblyNameRootNamespaceMismatch", LogLevel.Error, message, detail));
+                    entries.Add(new LogEntry(Name, "AssemblyNameRootNamespaceMismatch", LogLevel.Error, message, detail));
                 }
             }
 

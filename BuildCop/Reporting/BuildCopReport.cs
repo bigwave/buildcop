@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BuildCop.Reporting
 {
@@ -18,7 +17,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public IList<BuildGroupReport> BuildGroupReports
         {
-            get { return this.buildGroupReports; }
+            get { return buildGroupReports; }
         }
 
         private readonly DateTime generatedTime;
@@ -28,7 +27,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public DateTime GeneratedTime
         {
-            get { return this.generatedTime; }
+            get { return generatedTime; }
         }
 
         private readonly string engineVersion;
@@ -38,7 +37,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public string EngineVersion
         {
-            get { return this.engineVersion; }
+            get { return engineVersion; }
         }
 
         #endregion
@@ -52,8 +51,8 @@ namespace BuildCop.Reporting
         internal BuildCopReport(IList<BuildGroupReport> buildGroupReports)
         {
             this.buildGroupReports = buildGroupReports;
-            this.generatedTime = DateTime.Now;
-            this.engineVersion = typeof(BuildCopEngine).Assembly.GetName().Version.ToString();
+            generatedTime = DateTime.Now;
+            engineVersion = typeof(BuildCopEngine).Assembly.GetName().Version.ToString();
         }
 
         #endregion

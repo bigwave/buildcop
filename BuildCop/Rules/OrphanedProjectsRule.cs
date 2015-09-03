@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -71,7 +70,7 @@ namespace BuildCop.Rules
             {
                 string message = string.Format(CultureInfo.CurrentCulture, "The project is not found in any solution.");
                 string detail = string.Format(CultureInfo.CurrentCulture, "The project is not part of any solution file in the search path {0}.", config.solutions.searchPath);
-                entries.Add(new LogEntry(this.Name, "OrphanedProject", LogLevel.Error, message, detail));
+                entries.Add(new LogEntry(Name, "OrphanedProject", LogLevel.Error, message, detail));
             }
 
             return entries;

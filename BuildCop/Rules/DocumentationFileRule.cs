@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -63,7 +62,7 @@ namespace BuildCop.Rules
                             {
                                 string message = string.Format(CultureInfo.CurrentCulture, "The documentation file has an incorrect file name.");
                                 string detail = string.Format(CultureInfo.CurrentCulture, "The XML documentation file is named \"{0}\" but it should be \"{1}\"", property.Value, expectedValue);
-                                entries.Add(new LogEntry(this.Name, "IncorrectFileName", LogLevel.Error, message, detail));
+                                entries.Add(new LogEntry(Name, "IncorrectFileName", LogLevel.Error, message, detail));
                             }
                         }
                     }
@@ -82,7 +81,7 @@ namespace BuildCop.Rules
         {
             string message = string.Format(CultureInfo.CurrentCulture, "The documentation file is disabled for the project but it should be enabled.");
             string detail = string.Format(CultureInfo.CurrentCulture, "The project is not configured to create an XML documentation file for the {0} configuration.", condition);
-            LogEntry entry = new LogEntry(this.Name, "MissingDocumentationFile", LogLevel.Error, message, detail);
+            LogEntry entry = new LogEntry(Name, "MissingDocumentationFile", LogLevel.Error, message, detail);
             return entry;
         }
 

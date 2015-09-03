@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,7 +8,7 @@ using BuildCop.Rules;
 
 namespace BuildCop.Test
 {
-	[TestClass]
+    [TestClass]
 	public class OrphanedProjectsRuleTest
 	{
 		[TestMethod]

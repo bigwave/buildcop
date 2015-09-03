@@ -1,16 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using System.Xml;
 
 using BuildCop.Rules;
-using BuildCop.Reporting;
-using System.Globalization;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 
 namespace BuildCop.Configuration
 {
@@ -32,7 +22,7 @@ namespace BuildCop.Configuration
 
                 }
 
-                switch (this.type)
+                switch (type)
                 {
                     case "BuildCop.Rules.BuildProperties.BuildPropertiesRule":
                         myRule = new BuildPropertiesRule(this);

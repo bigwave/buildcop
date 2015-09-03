@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using BuildCop.Rules;
 using BuildCop.Test.Mocks;
 
 namespace BuildCop.Test

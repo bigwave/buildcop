@@ -1,7 +1,4 @@
 using BuildCop.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BuildCop.Reporting
 {
@@ -19,7 +16,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public string Rule
         {
-            get { return this.rule; }
+            get { return rule; }
         }
 
         private readonly string code;
@@ -29,7 +26,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public string Code
         {
-            get { return this.code; }
+            get { return code; }
         }
 
         private readonly LogLevel level;
@@ -39,7 +36,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public LogLevel Level
         {
-            get { return this.level; }
+            get { return level; }
         }
 
         private readonly string message;
@@ -49,7 +46,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public string Message
         {
-            get { return this.message; }
+            get { return message; }
         }
 
         private readonly string detail;
@@ -59,7 +56,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public string Detail
         {
-            get { return this.detail; }
+            get { return detail; }
         }
 
         #endregion

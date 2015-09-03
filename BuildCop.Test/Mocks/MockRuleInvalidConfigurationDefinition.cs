@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -18,7 +16,7 @@ namespace BuildCop.Test.Mocks
 
         public override IList<LogEntry> Check(BuildFile project)
         {
-            return new LogEntry[] { new LogEntry(this.Name, "Mock", LogLevel.Information, "Checked by mock", "Detailed message") };
+            return new LogEntry[] { new LogEntry(Name, "Mock", LogLevel.Information, "Checked by mock", "Detailed message") };
         }
     }
 }

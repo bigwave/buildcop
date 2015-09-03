@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -23,7 +22,7 @@ namespace BuildCop.Test.Mocks
 
         public override IList<LogEntry> Check(BuildFile project)
         {
-            return new LogEntry[] { new LogEntry(this.Name, "Mock", LogLevel.Information, "Checked by mock", "This is the detailed message that contains semicolons (;), commas (,) and new lines." + Environment.NewLine + "Which is nice; isn't it, really?") };
+            return new LogEntry[] { new LogEntry(Name, "Mock", LogLevel.Information, "Checked by mock", "This is the detailed message that contains semicolons (;), commas (,) and new lines." + Environment.NewLine + "Which is nice; isn't it, really?") };
         }
 
     }

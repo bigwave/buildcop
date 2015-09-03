@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.Reflection;
-using System.Text;
-using System.Xml;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -45,7 +39,7 @@ namespace BuildCop.Formatters
         /// </remarks>
         protected override void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel)
         {
-            string fileName = this.Configuration.output.fileName;
+            string fileName = Configuration.output.fileName;
             if (string.IsNullOrEmpty(fileName))
             {
                 throw new InvalidOperationException("The CSV formatter did not have an output file name specified in its configuration.");

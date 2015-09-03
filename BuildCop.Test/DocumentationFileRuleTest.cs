@@ -1,11 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using BuildCop.Reporting;
-using BuildCop.Configuration;
 
 namespace BuildCop.Test
 {

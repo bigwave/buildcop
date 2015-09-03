@@ -1,7 +1,5 @@
 using BuildCop.Configuration;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BuildCop.Reporting
 {
@@ -19,7 +17,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public string FileName
         {
-            get { return this.fileName; }
+            get { return fileName; }
         }
 
         private readonly IList<LogEntry> logEntries;
@@ -29,7 +27,7 @@ namespace BuildCop.Reporting
         /// </summary>
         public IList<LogEntry> LogEntries
         {
-            get { return this.logEntries; }
+            get { return logEntries; }
         }
 
         #endregion
@@ -59,7 +57,7 @@ namespace BuildCop.Reporting
         public IList<LogEntry> FindLogEntries(LogLevel minimumLogLevel)
         {
             IList<LogEntry> foundLogEntries = new List<LogEntry>();
-            foreach (LogEntry entry in this.LogEntries)
+            foreach (LogEntry entry in LogEntries)
             {
                 if ((int)entry.Level >= (int)minimumLogLevel)
                 {

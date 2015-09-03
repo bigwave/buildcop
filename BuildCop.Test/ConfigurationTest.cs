@@ -1,15 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Text;
-using System.Xml;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters;
-using BuildCop.Reporting;
 using BuildCop.Test.Mocks;
 
 namespace BuildCop.Test

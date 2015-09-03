@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace BuildCop
 {
     /// <summary>
@@ -18,7 +14,7 @@ namespace BuildCop
         /// </summary>
         public string Name
         {
-            get { return this.name; }
+            get { return name; }
         }
 
         private readonly string value;
@@ -28,7 +24,7 @@ namespace BuildCop
         /// </summary>
         public string Value
         {
-            get { return this.value; }
+            get { return value; }
         }
 
         private readonly string condition;
@@ -38,7 +34,7 @@ namespace BuildCop
         /// </summary>
         public string Condition
         {
-            get { return this.condition; }
+            get { return condition; }
         }
 
         #endregion

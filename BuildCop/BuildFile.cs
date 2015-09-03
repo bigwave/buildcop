@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 using System.Xml;
 
 namespace BuildCop
@@ -20,7 +18,7 @@ namespace BuildCop
         /// </summary>
         public string FileName
         {
-            get { return this.fileName; }
+            get { return fileName; }
         }
 
         private string path;
@@ -30,7 +28,7 @@ namespace BuildCop
         /// </summary>
         public string Path
         {
-            get { return this.path; }
+            get { return path; }
         }
 
         private IList<AssemblyReference> assemblyReferences;
@@ -40,7 +38,7 @@ namespace BuildCop
         /// </summary>
         public IList<AssemblyReference> AssemblyReferences
         {
-            get { return this.assemblyReferences; }
+            get { return assemblyReferences; }
         }
 
         private IList<BuildProperty> properties;
@@ -50,7 +48,7 @@ namespace BuildCop
         /// </summary>
         public IList<BuildProperty> Properties
         {
-            get { return this.properties; }
+            get { return properties; }
         }
 
         private IList<string> conditions;
@@ -60,7 +58,7 @@ namespace BuildCop
         /// </summary>
         public IList<string> Conditions
         {
-            get { return this.conditions; }
+            get { return conditions; }
         }
 
         #endregion
@@ -74,7 +72,7 @@ namespace BuildCop
         /// </summary>
         public bool SignAssembly
         {
-            get { return this.signAssembly; }
+            get { return signAssembly; }
         }
 
         private string assemblyOriginatorKeyFile;
@@ -84,7 +82,7 @@ namespace BuildCop
         /// </summary>
         public string AssemblyOriginatorKeyFile
         {
-            get { return this.assemblyOriginatorKeyFile; }
+            get { return assemblyOriginatorKeyFile; }
         }
 
         private string rootNamespace;
@@ -94,7 +92,7 @@ namespace BuildCop
         /// </summary>
         public string RootNamespace
         {
-            get { return this.rootNamespace; }
+            get { return rootNamespace; }
         }
 
         private string assemblyName;
@@ -104,7 +102,7 @@ namespace BuildCop
         /// </summary>
         public string AssemblyName
         {
-            get { return this.assemblyName; }
+            get { return assemblyName; }
         }
 
         private string outputType;
@@ -114,7 +112,7 @@ namespace BuildCop
         /// </summary>
         public string OutputType
         {
-            get { return this.outputType; }
+            get { return outputType; }
         }
 
         private string projectTypeGuids;
@@ -124,7 +122,7 @@ namespace BuildCop
         /// </summary>
         public string ProjectTypeGuids
         {
-            get { return this.projectTypeGuids; }
+            get { return projectTypeGuids; }
         }
 
         #endregion
@@ -148,7 +146,7 @@ namespace BuildCop
         public BuildFile(string fileName, bool delayParse)
         {
             this.fileName = fileName;
-            this.path = System.IO.Path.GetFullPath(fileName);
+            path = System.IO.Path.GetFullPath(fileName);
             if (!delayParse)
             {
                 Parse();
@@ -171,7 +169,7 @@ namespace BuildCop
             nsmgr.AddNamespace("msb", "http://schemas.microsoft.com/developer/msbuild/2003");
 
             // Find assembly references.
-            this.assemblyReferences = new List<AssemblyReference>();
+            assemblyReferences = new List<AssemblyReference>();
             foreach (XmlNode referenceNode in projectDocument.SelectNodes("/msb:Project/msb:ItemGroup/msb:Reference", nsmgr))
             {
                 XmlAttribute includeAttribute = referenceNode.Attributes["Include"];
@@ -182,14 +180,14 @@ namespace BuildCop
                     if (hintPathNode != null && hintPathNode.InnerText != null)
                     {
                         string referenceHintPath = hintPathNode.InnerText;
-                        this.assemblyReferences.Add(new AssemblyReference(referenceName, referenceHintPath));
+                        assemblyReferences.Add(new AssemblyReference(referenceName, referenceHintPath));
                     }
                 }
             }
 
             // Find all properties.
-			this.properties = new List<BuildProperty>();
-			this.conditions = new List<string>();
+            properties = new List<BuildProperty>();
+            conditions = new List<string>();
 			foreach (XmlNode propertyGroupNode in projectDocument.SelectNodes("/msb:Project/msb:PropertyGroup", nsmgr))
             {
                 if (propertyGroupNode.HasChildNodes)
@@ -200,26 +198,26 @@ namespace BuildCop
                     {
                         condition = conditionAttribute.Value;
 
-						if (!this.conditions.Contains(condition))
+						if (!conditions.Contains(condition))
 						{
-							this.conditions.Add(condition);
+                            conditions.Add(condition);
 						}
                     }
                     foreach (XmlNode propertyNode in propertyGroupNode.ChildNodes)
                     {
                         BuildProperty property = new BuildProperty(propertyNode.Name, propertyNode.InnerXml, condition);
-                        this.properties.Add(property);
+                        properties.Add(property);
                     }
                 }
             }
 
             // Derive certain basic properties.
-            this.signAssembly = GetPropertyValueAsBoolean("SignAssembly", false);
-            this.assemblyOriginatorKeyFile = GetPropertyValue("AssemblyOriginatorKeyFile");
-            this.rootNamespace = GetPropertyValue("RootNamespace");
-            this.assemblyName = GetPropertyValue("AssemblyName");
-            this.outputType = GetPropertyValue("OutputType");
-            this.projectTypeGuids = GetPropertyValue("ProjectTypeGuids");
+            signAssembly = GetPropertyValueAsBoolean("SignAssembly", false);
+            assemblyOriginatorKeyFile = GetPropertyValue("AssemblyOriginatorKeyFile");
+            rootNamespace = GetPropertyValue("RootNamespace");
+            assemblyName = GetPropertyValue("AssemblyName");
+            outputType = GetPropertyValue("OutputType");
+            projectTypeGuids = GetPropertyValue("ProjectTypeGuids");
         }
 
         #endregion
@@ -314,7 +312,7 @@ namespace BuildCop
             IList<BuildProperty> foundProperties = new List<BuildProperty>();
 
             // Search through all properties.
-            foreach (BuildProperty property in this.properties)
+            foreach (BuildProperty property in properties)
             {
                 if (string.Equals(name, property.Name, StringComparison.Ordinal))
                 {

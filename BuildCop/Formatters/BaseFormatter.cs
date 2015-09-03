@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 using BuildCop.Reporting;
 using BuildCop.Configuration;
@@ -21,7 +18,7 @@ namespace BuildCop.Formatters
         /// </summary>
         public formatterElement Configuration
         {
-            get { return this.configuration; }
+            get { return configuration; }
         }
 
         #endregion

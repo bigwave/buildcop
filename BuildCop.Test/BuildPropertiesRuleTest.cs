@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using BuildCop.Reporting;
 using BuildCop.Configuration;
-using System.Globalization;
 using BuildCop.Rules;
 
 namespace BuildCop.Test

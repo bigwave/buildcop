@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace BuildCop
 {
     /// <summary>
@@ -18,7 +14,7 @@ namespace BuildCop
         /// </summary>
         public string AssemblyName
         {
-            get { return this.assemblyName; }
+            get { return assemblyName; }
         }
 
         private readonly string hintPath;
@@ -28,7 +24,7 @@ namespace BuildCop
         /// </summary>
         public string HintPath
         {
-            get { return this.hintPath; }
+            get { return hintPath; }
         }
 
         #endregion

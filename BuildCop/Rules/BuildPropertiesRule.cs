@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -50,7 +49,7 @@ namespace BuildCop.Rules
                         string condition = GetConditionSubstring(expectedProperty);
                         string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" should exist.", expectedProperty.name);
                         string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} was not found but should exist in the build file.", expectedProperty.name, condition);
-                        entries.Add(new LogEntry(this.Name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                        entries.Add(new LogEntry(Name, "PropertyShouldExist", LogLevel.Error, message, detail));
                     }
                 }
                 else if (StringMatchesEnum(expectedProperty.compareOption, CompareOption.DoesNotExist))
@@ -60,7 +59,7 @@ namespace BuildCop.Rules
                         string condition = GetConditionSubstring(expectedProperty);
                         string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" should not exist.", expectedProperty.name);
                         string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} was found but should not exist in the build file.", expectedProperty.name, condition);
-                        entries.Add(new LogEntry(this.Name, "PropertyShouldNotExist", LogLevel.Error, message, detail));
+                        entries.Add(new LogEntry(Name, "PropertyShouldNotExist", LogLevel.Error, message, detail));
                     }
                 }
                 else if (StringMatchesEnum(expectedProperty.compareOption, CompareOption.EqualTo))
@@ -70,7 +69,7 @@ namespace BuildCop.Rules
                         string condition = GetConditionSubstring(expectedProperty);
                         string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" was not found.", expectedProperty.name);
                         string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} does not exist in the build file.", expectedProperty.name, condition);
-                        entries.Add(new LogEntry(this.Name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                        entries.Add(new LogEntry(Name, "PropertyShouldExist", LogLevel.Error, message, detail));
                     }
                     else if (string.IsNullOrEmpty(expectedProperty.condition) && // No condition: either global property, or should exist for all conditions
                              !(properties.Count == 1 && string.IsNullOrEmpty(properties[0].Condition)) && // If only one entry in project and it's condition is empty means it is a global property
@@ -79,7 +78,7 @@ namespace BuildCop.Rules
                         string condition = GetConditionSubstring(expectedProperty);
                         string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" was not found in all configurations.", expectedProperty.name);
                         string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} does not exist in the build file for all configurations.", expectedProperty.name, condition);
-                        entries.Add(new LogEntry(this.Name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                        entries.Add(new LogEntry(Name, "PropertyShouldExist", LogLevel.Error, message, detail));
                     }
                     else
                     {
@@ -90,7 +89,7 @@ namespace BuildCop.Rules
                                 string condition = GetConditionSubstring(expectedProperty);
                                 string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should have the expected value \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
                                 string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but it should be \"{3}\".", expectedProperty.name, condition, property.Value, expectedProperty.value);
-                                entries.Add(new LogEntry(this.Name, "IncorrectValue", LogLevel.Error, message, detail));
+                                entries.Add(new LogEntry(Name, "IncorrectValue", LogLevel.Error, message, detail));
                             }
                         }
                     }
@@ -104,7 +103,7 @@ namespace BuildCop.Rules
                             string condition = GetConditionSubstring(expectedProperty);
                             string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should not have the value \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
                             string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but this value is not allowed.", expectedProperty.name, condition, property.Value);
-                            entries.Add(new LogEntry(this.Name, "IncorrectValue", LogLevel.Error, message, detail));
+                            entries.Add(new LogEntry(Name, "IncorrectValue", LogLevel.Error, message, detail));
                         }
                     }
                 }
@@ -115,7 +114,7 @@ namespace BuildCop.Rules
                         string condition = GetConditionSubstring(expectedProperty);
                         string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\" was not found.", expectedProperty.name);
                         string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} does not exist in the build file.", expectedProperty.name, condition);
-                        entries.Add(new LogEntry(this.Name, "PropertyShouldExist", LogLevel.Error, message, detail));
+                        entries.Add(new LogEntry(Name, "PropertyShouldExist", LogLevel.Error, message, detail));
                     }
                     foreach (BuildProperty property in properties)
                     {
@@ -124,7 +123,7 @@ namespace BuildCop.Rules
                             string condition = GetConditionSubstring(expectedProperty);
                             string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should be in the list \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
                             string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but it should be in the list \"{3}\".", expectedProperty.name, condition, property.Value, expectedProperty.value);
-                            entries.Add(new LogEntry(this.Name, "IncorrectValue", LogLevel.Error, message, detail));
+                            entries.Add(new LogEntry(Name, "IncorrectValue", LogLevel.Error, message, detail));
                         }
                     }
                 }
@@ -137,7 +136,7 @@ namespace BuildCop.Rules
                             string condition = GetConditionSubstring(expectedProperty);
                             string message = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} should not be in the list \"{2}\".", expectedProperty.name, condition, expectedProperty.value);
                             string detail = string.Format(CultureInfo.CurrentCulture, "The build property \"{0}\"{1} has the value \"{2}\" but it should not be in the list \"{3}\".", expectedProperty.name, condition, property.Value, expectedProperty.value);
-                            entries.Add(new LogEntry(this.Name, "IncorrectValue", LogLevel.Error, message, detail));
+                            entries.Add(new LogEntry(Name, "IncorrectValue", LogLevel.Error, message, detail));
                         }
                     }
                 }

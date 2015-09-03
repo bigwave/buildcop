@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-
-using BuildCop.Configuration;
-using BuildCop.Reporting;
 using BuildCop.Rules;
 
 namespace BuildCop.Configuration

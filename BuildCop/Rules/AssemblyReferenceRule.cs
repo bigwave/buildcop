@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -51,7 +50,7 @@ namespace BuildCop.Rules
                             {
                                 string message = string.Format(CultureInfo.CurrentCulture, "Invalid assembly reference.");
                                 string detail = string.Format(CultureInfo.CurrentCulture, "The current hint path \"{0}\" for the assembly reference \"{1}\" is incorrect. The hint path should point to \"{2}\".", reference.HintPath, reference.AssemblyName, expectedLocation.assemblyPath);
-                                entries.Add(new LogEntry(this.Name, "IncorrectHintPath", LogLevel.Error, message, detail));
+                                entries.Add(new LogEntry(Name, "IncorrectHintPath", LogLevel.Error, message, detail));
                             }
                             break;
                         }
@@ -63,7 +62,7 @@ namespace BuildCop.Rules
                     // The expected assembly location is missing for this reference, log a warning.
                     string message = string.Format(CultureInfo.CurrentCulture, "An assembly reference was encountered without a matching expected assembly location.");
                     string detail = string.Format(CultureInfo.CurrentCulture, "The assembly reference \"{0}\" with current hint path \"{1}\" was not found in the provided list of expected assembly locations. Add an assembly location for this reference.", reference.AssemblyName, reference.HintPath);
-                    entries.Add(new LogEntry(this.Name, "MissingAssemblyLocation", LogLevel.Warning, message, detail));
+                    entries.Add(new LogEntry(Name, "MissingAssemblyLocation", LogLevel.Warning, message, detail));
                 }
             }
 

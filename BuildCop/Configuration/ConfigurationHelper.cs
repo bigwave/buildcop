@@ -1,12 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Reflection;
-using System.Text;
-using System.Xml;
 using System.Text.RegularExpressions;
-using System.Globalization;
 
 namespace BuildCop.Configuration
 {

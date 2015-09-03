@@ -1,9 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 
@@ -16,7 +11,7 @@ namespace BuildCop.MsBuildTask.Test
         public void Execute_WithMinimalConfig_ReturnsTrue()
         {
             FakeBuildEngine anEngine = new FakeBuildEngine();
-            var buildCop = new BuildCop.MsBuildTask.BuildCopMsBuildTask();
+            var buildCop = new BuildCopMsBuildTask();
             ((ITask)buildCop).BuildEngine = anEngine;
             buildCop.buildGroups = new TaskItem[1] { new TaskItem("MinimalConfig") };
             Assert.IsTrue(buildCop.Execute());
@@ -27,7 +22,7 @@ namespace BuildCop.MsBuildTask.Test
         public void Execute_WithDefaultNewVisualStudioProjectAndSampleBuildCopConfig_FailsOnTreatErrorsAsWarnings()
         {
             FakeBuildEngine anEngine = new FakeBuildEngine();
-            var buildCop = new BuildCop.MsBuildTask.BuildCopMsBuildTask();
+            var buildCop = new BuildCopMsBuildTask();
             ((ITask)buildCop).BuildEngine = anEngine;
             buildCop.buildGroups = new TaskItem[1] { new TaskItem("DefaultNewVisualStudioProjectAndSampleBuildCopConfig") };
             Assert.IsFalse(buildCop.Execute());

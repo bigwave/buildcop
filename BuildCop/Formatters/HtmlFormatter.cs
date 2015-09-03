@@ -1,11 +1,9 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using System.Xml.Xsl;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters;
 using BuildCop.Reporting;
 
 namespace BuildCop.Formatters
@@ -43,7 +41,7 @@ namespace BuildCop.Formatters
         /// </remarks>
         protected override void WriteReportCore(BuildCopReport report, LogLevel minimumLogLevel)
         {
-            string fileName = this.Configuration.output.fileName;
+            string fileName = Configuration.output.fileName;
             if (string.IsNullOrEmpty(fileName))
             {
                 throw new InvalidOperationException("The HTML formatter did not have an output file name specified in its configuration.");
@@ -58,7 +56,7 @@ namespace BuildCop.Formatters
 
                 // Use the XSLT to transform the XML into HTML.
                 XslCompiledTransform transform = new XslCompiledTransform();
-                string stylesheet = this.Configuration.output.stylesheet;
+                string stylesheet = Configuration.output.stylesheet;
                 if (string.IsNullOrEmpty(stylesheet))
                 {
                     stylesheet = XmlFormatter.DefaultStylesheet;

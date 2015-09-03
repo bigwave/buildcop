@@ -21,12 +21,12 @@ namespace BuildCop.Configuration
 
                 }
 
-                if (this.name == null)
+                if (name == null)
                 {
                     myFormatter = new ConsoleFormatter(this);
                 }
 
-                switch (this.name.ToUpperInvariant())
+                switch (name.ToUpperInvariant())
                 {
                     case "HTML":
                         myFormatter = new HtmlFormatter(this);

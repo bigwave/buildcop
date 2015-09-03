@@ -1,15 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
-using System.Text;
 
 using BuildCop.Configuration;
-using BuildCop.Formatters;
 using BuildCop.Reporting;
-using BuildCop.Rules;
 
 namespace BuildCop
 {

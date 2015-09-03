@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -21,7 +19,7 @@ namespace BuildCop.Rules
         /// </summary>
         public ruleElement config
         {
-            get { return this.configuration; }
+            get { return configuration; }
         }
 
         /// <summary>

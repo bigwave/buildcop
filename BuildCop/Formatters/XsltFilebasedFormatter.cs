@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 using BuildCop.Configuration;
 using BuildCop.Reporting;
@@ -38,9 +35,9 @@ namespace BuildCop.Formatters
         {
             WriteReportCore(report, minimumLogLevel);
 
-            if (this.Configuration.output.launch)
+            if (Configuration.output.launch)
             {
-                string fileName = this.Configuration.output.fileName;
+                string fileName = Configuration.output.fileName;
                 Process.Start(fileName);
             }
         }

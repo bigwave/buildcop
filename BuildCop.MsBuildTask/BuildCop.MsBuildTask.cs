@@ -2,11 +2,8 @@
 using BuildCop.Reporting;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 
 namespace BuildCop.MsBuildTask
 {
@@ -48,19 +45,19 @@ namespace BuildCop.MsBuildTask
                             {
                                 case LogLevel.Exception:
                                     exceptionList.Add(new TaskItem(message));
-									this.Log.LogError(message);
-									break;
+                                    Log.LogError(message);
+                                    break;
                                 case LogLevel.Error:
                                     errorList.Add(new TaskItem(message));
-									this.Log.LogError(message);
+                                    Log.LogError(message);
                                     break;
                                 case LogLevel.Warning:
                                     warningList.Add(new TaskItem(message));
-									this.Log.LogWarning(message);
+                                    Log.LogWarning(message);
                                     break;
                                 default:
                                     informationList.Add(new TaskItem(message));
-									this.Log.LogMessage(message);
+                                    Log.LogMessage(message);
                                    break;
                             }
 

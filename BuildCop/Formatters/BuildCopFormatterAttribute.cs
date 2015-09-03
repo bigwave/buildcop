@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BuildCop.Formatters
 {
@@ -17,8 +15,8 @@ namespace BuildCop.Formatters
         /// </summary>
         public Type ConfigurationType
         {
-            get { return this.configurationType; }
-            set { this.configurationType = value; }
+            get { return configurationType; }
+            set { configurationType = value; }
         }
 
         /// <summary>

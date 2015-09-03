@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BuildCop.Configuration
+﻿namespace BuildCop.Configuration
 {
     /// <summary>
     /// Specifies comparison options for build properties.
